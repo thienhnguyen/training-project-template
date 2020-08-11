@@ -9948,16 +9948,23 @@ h3 {
   }
 }
 header {
-  background-color: #F9F9F9;
+  background-color: #f9f9f9;
 }
 header div {
   padding: 5px;
 }
 
-.icon-plus {
-  background-image: url("/dist/img/icons/plus.svg");
-  position: absolute;
-  left: 0;
+section {
+  position: relative;
+  top: 5%;
+}
+section table {
+  position: relative;
+  margin-top: 30px;
+  margin-left: 50px;
+}
+section table th {
+  border-top: none;
 }
 
 /*# sourceMappingURL=home-page.css.map*/
