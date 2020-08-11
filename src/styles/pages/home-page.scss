@@ -1,2 +1,24 @@
 // Home page styles
-@import "master-page";
+@import 'master-page';
+@import 'bootstrap';
+
+$color-grey : #F9F9F9;
+$color-purple: #D18CB1;
+
+header{
+    background-color: $color-grey;
+    div{
+        padding: 5px;
+    }
+}
+
+@mixin corner-icon($name, $pos) {
+  .icon-#{$name} {
+    background-image: url('/dist/img/icons/#{$name}.svg');
+    position: absolute;
+    #{$pos}: 0;
+  }
+}
+@include corner-icon('plus', left);
+
+
