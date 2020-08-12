@@ -3,12 +3,36 @@
 @import 'bootstrap';
 
 $color-grey: #f9f9f9;
+$color-grey-darker: #d3d3d3;
+@mixin mobile-cell-border-title {
+  border: 1px $color-grey-darker solid;
+  border-right: none;
+  padding: 5px;
+}
+@mixin mobile-cell-border-content {
+  border: 1px $color-grey-darker solid;
+  border-left: none;
+  padding: 5px;
+}
+@mixin mobile-cell-font {
+  font: {
+    weight: bold;
+    style: italic;
+  }
+}
+@mixin lg-screen-cell-border {
+	border-bottom: 1px $color-grey-darker solid;
+    padding: 10px;
+}
 
 // Header
 header {
   background-color: $color-grey;
-  div {
+  div.row {
     padding: 5px;
+    div {
+      margin-right: 10px;
+    }
   }
 }
 
@@ -16,62 +40,47 @@ header {
 section {
   position: relative;
   top: 5%;
-  table {
+  .table {
     position: relative;
+    width: 70%;
     margin: {
       top: 30px;
       left: 50px;
-    }
-    th{
-      border-top: none;
-    }
+	}
+	word-wrap: break-word;
   }
 }
 
-@media (max-width: 1023px) {
-	#no-more-tables {
-		table {
-      display: block;
-      width: 50%;
-		}
-		thead {
-			display: none;
-		}
-		tbody {
-			display: block;
-		}
-		th {
-			display: block;
-		}
-		td {
-			display: block;
-			border: none;
-			position: relative; 
-			padding-left: 30%;
-			white-space: normal;
-      text-align: left;
-			&:before {
-				position: absolute;
-				left: 6px;
-				width: 45%;
-				padding-right: 10px;
-				white-space: nowrap;
-				text-align: left;
-				font-weight: bold;
-				content: attr(data-title);
-      }
-      &:first-child{
-        background-color: $color-grey;
-        text-align: right;
-      }
-      &:last-child{
-        display: none;
-      }
-		}
-		tr {
-			display: block;
-      border: 1px solid #ccc;
-      margin-bottom: 5%;
-		}
-	}
+//Responsive
+@media (min-width: 992px) {
+  .table-header {
+	@include lg-screen-cell-border;
+	border-width: 2px;
+  }
+  .table-content {
+    @include lg-screen-cell-border;
+  }
+}
+
+@media (max-width: 992px) {
+  .table-content {
+    padding: 10px;
+    .table-mobile-header {
+      @include mobile-cell-border-title;
+      @include mobile-cell-font;
+      background-color: $color-grey-darker;
+    }
+    .table-mobile-icon {
+      @include mobile-cell-border-content;
+      background-color: $color-grey-darker;
+      text-align: right;
+    }
+    .table-mobile-title {
+      @include mobile-cell-font;
+      @include mobile-cell-border-title;
+    }
+    .table-mobile-content {
+      @include mobile-cell-border-content;
+    }
+  }
 }
