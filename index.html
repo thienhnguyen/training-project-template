@@ -2,43 +2,55 @@
 
 <head>
 	<link rel="stylesheet" type="text/css" href="dist/css/home-page.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-	<div class="icon-test"></div>
 	<!-- Header -->
 	<header>
-		<div class="container-fluid">
-			<div class="row">
-				<div>
-					<img src="dist/img/icons/plus.svg" alt="">
-					New
-					<img src="dist/img/icons/chevron-down.svg" alt="">
+		<div class="container-fluid header">
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<a class="navbar-brand"></a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="collapsibleNavbar">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<img src="dist/img/icons/plus.svg" alt="">
+							New
+							<img src="dist/img/icons/chevron-down.svg" alt="">
+						</li>
+						<li class="nav-item">
+							<img src="dist/img/icons/upload.svg" alt="">
+							Upload
+							<img src="dist/img/icons/chevron-down.svg" alt="">
+						</li>
+						<li class="nav-item">
+							<img src="dist/img/icons/sync.svg" alt="">
+							Sync
+						</li>
+						<li class="nav-item">
+							<img src="dist/img/icons/microsoft-excel.svg" alt="">
+							Export to Excel
+						</li>
+						<li class="nav-item">
+							<img src="dist/img/icons/workflow.svg" alt="">
+							Flow
+							<img src="dist/img/icons/chevron-down.svg" alt="">
+						</li>
+						<li class="nav-item">
+							<img src="dist/img/icons/kebab-horizontal.svg" alt="">
+						</li>
+					</ul>
 				</div>
-				<div>
-					<img src="dist/img/icons/upload.svg" alt="">
-					Upload
-					<img src="dist/img/icons/chevron-down.svg" alt="">
-				</div>
-				<div>
-					<img src="dist/img/icons/sync.svg" alt="">
-					Sync
-				</div>
-				<div>
-					<img src="dist/img/icons/microsoft-excel.svg" alt="">
-					Export to Excel
-				</div>
-				<div>
-					<img src="dist/img/icons/workflow.svg" alt="">
-					Flow
-				</div>
-				<div>
-					<img src="dist/img/icons/kebab-horizontal.svg" alt="">
-				</div>
-			</div>
+			</nav>
 		</div>
 	</header>
-	<!-- Section -->
+
+	<!-- Table -->
 	<section class="container-fluid">
 		<h3>Documents</h3>
 		<div class="table">
@@ -65,19 +77,19 @@
 			</div>
 			<div class="row table-content">
 				<div class="d-block d-lg-none col-10 table-mobile-header">
-					File Type	
+					File Type
 				</div>
-				<div class="col-lg-1 col-2 table-mobile-icon"> 
+				<div class="col-lg-1 col-2 table-mobile-icon">
 					<img src="dist/img/icons/file-directory.svg" alt="">
 				</div>
 				<div class="d-block d-lg-none col-3 table-mobile-title">
-					Name	
+					Name
 				</div>
 				<div class="col-lg-3 col-9 table-mobile-content">
 					CAS
 				</div>
 				<div class="d-block d-lg-none col-3 table-mobile-title">
-					Modified	
+					Modified
 				</div>
 				<div class="col-lg-3 col-9 table-mobile-content">
 					April 30
@@ -93,19 +105,19 @@
 			</div>
 			<div class="row table-content">
 				<div class="d-block d-lg-none col-10 table-mobile-header">
-					File Type	
+					File Type
 				</div>
-				<div class="col-lg-1 col-2 table-mobile-icon"> 
+				<div class="col-lg-1 col-2 table-mobile-icon">
 					<img src="dist/img/icons/microsoft-excel.svg" alt="">
 				</div>
 				<div class="d-block d-lg-none col-3 table-mobile-title">
-					Name	
+					Name
 				</div>
 				<div class="col-lg-3 col-9 table-mobile-content">
 					CoasterAndBargeLoading.xlsx
 				</div>
 				<div class="d-block d-lg-none col-3 table-mobile-title">
-					Modified	
+					Modified
 				</div>
 				<div class="col-lg-3 col-9 table-mobile-content">
 					A few seconds ago
@@ -121,19 +133,19 @@
 			</div>
 			<div class="row table-content">
 				<div class="d-block d-lg-none col-10 table-mobile-header">
-					File Type	
+					File Type
 				</div>
-				<div class="col-lg-1 col-2 table-mobile-icon"> 
+				<div class="col-lg-1 col-2 table-mobile-icon">
 					<img src="dist/img/icons/microsoft-excel.svg" alt="">
 				</div>
 				<div class="d-block d-lg-none col-3 table-mobile-title">
-					Name	
+					Name
 				</div>
 				<div class="col-lg-3 col-9 table-mobile-content">
 					RevenueByServices.xlsx
 				</div>
 				<div class="d-block d-lg-none col-3 table-mobile-title">
-					Modified	
+					Modified
 				</div>
 				<div class="col-lg-3 col-9 table-mobile-content">
 					A few seconds ago
@@ -149,19 +161,19 @@
 			</div>
 			<div class="row table-content">
 				<div class="d-block d-lg-none col-10 table-mobile-header">
-					File Type	
+					File Type
 				</div>
-				<div class="col-lg-1 col-2 table-mobile-icon"> 
+				<div class="col-lg-1 col-2 table-mobile-icon">
 					<img src="dist/img/icons/microsoft-excel.svg" alt="">
 				</div>
 				<div class="d-block d-lg-none col-3 table-mobile-title">
-					Name	
+					Name
 				</div>
 				<div class="col-lg-3 col-9 table-mobile-content">
 					RevenueByServices2016.xlsx
 				</div>
 				<div class="d-block d-lg-none col-3 table-mobile-title">
-					Modified	
+					Modified
 				</div>
 				<div class="col-lg-3 col-9 table-mobile-content">
 					A few seconds ago
@@ -177,19 +189,19 @@
 			</div>
 			<div class="row table-content">
 				<div class="d-block d-lg-none col-10 table-mobile-header">
-					File Type	
+					File Type
 				</div>
-				<div class="col-lg-1 col-2 table-mobile-icon"> 
+				<div class="col-lg-1 col-2 table-mobile-icon">
 					<img src="dist/img/icons/microsoft-excel.svg" alt="">
 				</div>
 				<div class="d-block d-lg-none col-3 table-mobile-title">
-					Name	
+					Name
 				</div>
 				<div class="col-lg-3 col-9 table-mobile-content">
 					RevenueByServices2017.xlsx
 				</div>
 				<div class="d-block d-lg-none col-3 table-mobile-title">
-					Modified	
+					Modified
 				</div>
 				<div class="col-lg-3 col-9 table-mobile-content">
 					A few seconds ago
