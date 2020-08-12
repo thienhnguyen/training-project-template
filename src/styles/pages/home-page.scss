@@ -2,8 +2,9 @@
 @import 'master-page';
 @import 'bootstrap';
 
-$color-grey: #f9f9f9;
+$color-grey: #f7f7f7;
 $color-grey-darker: #d3d3d3;
+
 @mixin mobile-cell-border-title {
   border: 1px $color-grey-darker solid;
   border-right: none;
@@ -21,24 +22,34 @@ $color-grey-darker: #d3d3d3;
   }
 }
 @mixin lg-screen-cell-border {
-	border-bottom: 1px $color-grey-darker solid;
-    padding: 10px;
+  border-bottom: 1px $color-grey-darker solid;
+  padding: 10px;
+}
+
+//Page
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 // Header
 header {
   background-color: $color-grey;
-  div.row {
-    padding: 5px;
-    div {
-      margin-right: 10px;
+  ul {
+    li {
+      margin: {
+        right: 20px;
+        bottom: 5px;
+      }
     }
   }
 }
 
-//Section
+// Section
 section {
   position: relative;
+  left: 3%;
   top: 5%;
   .table {
     position: relative;
@@ -46,16 +57,28 @@ section {
     margin: {
       top: 30px;
       left: 50px;
-	}
-	word-wrap: break-word;
+    }
+    word-wrap: break-word;
+    // .corner-icon{
+    //   &:before{
+    //     content: "";
+    //     background: url("https://img.icons8.com/wired/64/000000/new.png") no-repeat top left;
+    //     background-size: 100%;
+    //     position: absolute;
+    //     left: 5px;
+    //     // top: -6px;
+    //     height:50%;
+    //     width: 5%;
+    //   }
+    // }
   }
 }
 
 //Responsive
-@media (min-width: 992px) {
+@media (min-width: 993px) {
   .table-header {
-	@include lg-screen-cell-border;
-	border-width: 2px;
+    @include lg-screen-cell-border;
+    border-width: 2px;
   }
   .table-content {
     @include lg-screen-cell-border;
@@ -63,6 +86,12 @@ section {
 }
 
 @media (max-width: 992px) {
+  .navbar-collapse {
+    border-top: 1px solid $color-grey-darker;
+	margin-top: 10px;
+	padding: 10px;
+  }
+
   .table-content {
     padding: 10px;
     .table-mobile-header {
