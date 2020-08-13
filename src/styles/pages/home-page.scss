@@ -44,21 +44,26 @@ section {
       left: -30px;
     }
   }
+
   .table-header {
     @include lg-screen-cell-border;
     border-width: 2px;
   }
+
   .table-content {
     @include lg-screen-cell-border;
   }
+
   @include corner-icon(10, -2);
 }
 
 @include media-breakpoint-down(md) {
-  .navbar-collapse {
-    border-top: 1px solid $color-grey-darker;
-    margin-top: 10px;
-    padding: 10px;
+  header {
+    .navbar-nav {
+      border-top: 1px solid $color-grey-darker;
+      margin-top: 10px;
+      padding: 10px;
+    }
   }
 
   .table-content {
@@ -69,20 +74,24 @@ section {
       @include mobile-cell-font;
       background-color: $color-grey-darker;
     }
+
     .table-mobile-header-icon {
       @include mobile-cell-border;
       background-color: $color-grey-darker;
       text-align: right;
     }
+
     .table-mobile-title {
       @include mobile-cell-font;
       @include mobile-cell-border;
       border-right: none;
     }
+
     .table-mobile-content {
       @include mobile-cell-border;
       border-left: none;
     }
   }
+
   @include corner-icon(0, 2);
 }
