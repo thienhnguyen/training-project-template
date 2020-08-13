@@ -1,30 +1,5 @@
 // Home page styles
 @import 'master-page';
-@import 'bootstrap';
-
-$color-grey: #f7f7f7;
-$color-grey-darker: #d3d3d3;
-
-@mixin mobile-cell-border-title {
-  border: 1px $color-grey-darker solid;
-  border-right: none;
-  padding: 5px;
-}
-@mixin mobile-cell-border-content {
-  border: 1px $color-grey-darker solid;
-  border-left: none;
-  padding: 5px;
-}
-@mixin mobile-cell-font {
-  font: {
-    weight: bold;
-    style: italic;
-  }
-}
-@mixin lg-screen-cell-border {
-  border-bottom: 1px $color-grey-darker solid;
-  padding: 10px;
-}
 
 //Page
 html,
@@ -49,33 +24,26 @@ header {
 // Section
 section {
   position: relative;
-  left: 3%;
   top: 5%;
   .table {
     position: relative;
-    width: 70%;
+    width: 80%;
     margin: {
       top: 30px;
-      left: 50px;
+      left: 30px;
     }
     word-wrap: break-word;
-    // .corner-icon{
-    //   &:before{
-    //     content: "";
-    //     background: url("https://img.icons8.com/wired/64/000000/new.png") no-repeat top left;
-    //     background-size: 100%;
-    //     position: absolute;
-    //     left: 5px;
-    //     // top: -6px;
-    //     height:50%;
-    //     width: 5%;
-    //   }
-    // }
   }
 }
 
 //Responsive
-@media (min-width: 993px) {
+@include media-breakpoint-up(lg) {
+  header {
+    nav {
+      position: relative;
+      left: -30px;
+    }
+  }
   .table-header {
     @include lg-screen-cell-border;
     border-width: 2px;
@@ -83,33 +51,38 @@ section {
   .table-content {
     @include lg-screen-cell-border;
   }
+  @include corner-icon(10, -2);
 }
 
-@media (max-width: 992px) {
+@include media-breakpoint-down(md) {
   .navbar-collapse {
     border-top: 1px solid $color-grey-darker;
-	margin-top: 10px;
-	padding: 10px;
+    margin-top: 10px;
+    padding: 10px;
   }
 
   .table-content {
     padding: 10px;
-    .table-mobile-header {
-      @include mobile-cell-border-title;
+    margin: auto;
+    .table-mobile-header-title {
+      @include mobile-cell-border;
       @include mobile-cell-font;
       background-color: $color-grey-darker;
     }
-    .table-mobile-icon {
-      @include mobile-cell-border-content;
+    .table-mobile-header-icon {
+      @include mobile-cell-border;
       background-color: $color-grey-darker;
       text-align: right;
     }
     .table-mobile-title {
       @include mobile-cell-font;
-      @include mobile-cell-border-title;
+      @include mobile-cell-border;
+      border-right: none;
     }
     .table-mobile-content {
-      @include mobile-cell-border-content;
+      @include mobile-cell-border;
+      border-left: none;
     }
   }
+  @include corner-icon(0, 2);
 }
