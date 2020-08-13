@@ -38,13 +38,6 @@ section {
 
 //Responsive
 @include media-breakpoint-up(lg) {
-  header {
-    nav {
-      position: relative;
-      left: -30px;
-    }
-  }
-
   .table-header {
     @include lg-screen-cell-border;
     border-width: 2px;
@@ -58,14 +51,6 @@ section {
 }
 
 @include media-breakpoint-down(md) {
-  header {
-    .navbar-nav {
-      border-top: 1px solid $color-grey-darker;
-      margin-top: 10px;
-      padding: 10px;
-    }
-  }
-
   .table-content {
     padding: 10px;
     margin: auto;

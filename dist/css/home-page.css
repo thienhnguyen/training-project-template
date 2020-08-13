@@ -9947,6 +9947,19 @@ h3 {
     border-color: #dee2e6;
   }
 }
+@media (min-width: 992px) {
+  header nav {
+    position: relative;
+    left: -30px;
+  }
+}
+@media (max-width: 991.98px) {
+  header .navbar-nav {
+    border-top: 1px solid #d3d3d3;
+    margin-top: 10px;
+    padding: 10px;
+  }
+}
 html,
 body {
   max-width: 100%;
@@ -9974,11 +9987,6 @@ section .table {
 }
 
 @media (min-width: 992px) {
-  header nav {
-    position: relative;
-    left: -30px;
-  }
-
   .table-header {
     border-bottom: 1px #d3d3d3 solid;
     padding: 10px;
@@ -10003,12 +10011,6 @@ section .table {
   }
 }
 @media (max-width: 991.98px) {
-  header .navbar-nav {
-    border-top: 1px solid #d3d3d3;
-    margin-top: 10px;
-    padding: 10px;
-  }
-
   .table-content {
     padding: 10px;
     margin: auto;
