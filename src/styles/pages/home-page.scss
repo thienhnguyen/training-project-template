@@ -76,6 +76,10 @@ section {
       @include mobile-cell-border;
       border-left: none;
     }
+
+    .table-btn{
+      border: none;
+    }
   }
 
   @include corner-icon(0, 2);

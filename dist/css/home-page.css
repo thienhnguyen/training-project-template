@@ -10040,6 +10040,9 @@ section .table {
     padding: 5px;
     border-left: none;
   }
+  .table-content .table-btn {
+    border: none;
+  }
 
   .corner-icon:before {
     content: "";
