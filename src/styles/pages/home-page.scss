@@ -1,86 +1,81 @@
 // Home page styles
 @import 'master-page';
 
-//Page
-html,
-body {
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-// Header
-header {
-  background-color: $color-grey;
-  ul {
-    li {
-      margin: {
-        right: 20px;
-        bottom: 5px;
+.homepage {
+  // Header
+  header {
+    background-color: $color-grey;
+    ul {
+      li {
+        margin: {
+          right: 20px;
+          bottom: 5px;
+        }
       }
     }
   }
-}
 
-// Section
-section {
-  position: relative;
-  top: 5%;
-  .table {
+  // Section
+  section {
     position: relative;
-    width: 80%;
-    margin: {
-      top: 30px;
-      left: 30px;
-    }
-    word-wrap: break-word;
-  }
-}
-
-//Responsive
-@include media-breakpoint-up(lg) {
-  .table-header {
-    @include lg-screen-cell-border;
-    border-width: 2px;
-  }
-
-  .table-content {
-    @include lg-screen-cell-border;
-  }
-
-  @include corner-icon(10, -2);
-}
-
-@include media-breakpoint-down(md) {
-  .table-content {
-    padding: 10px;
-    margin: auto;
-    .table-mobile-header-title {
-      @include mobile-cell-border;
-      @include mobile-cell-font;
-      background-color: $color-grey-darker;
-    }
-
-    .table-mobile-header-icon {
-      @include mobile-cell-border;
-      background-color: $color-grey-darker;
-      text-align: right;
-    }
-
-    .table-mobile-title {
-      @include mobile-cell-font;
-      @include mobile-cell-border;
-      border-right: none;
-    }
-
-    .table-mobile-content {
-      @include mobile-cell-border;
-      border-left: none;
-    }
-
-    .table-btn{
-      border: none;
+    top: 5%;
+    .table {
+      position: relative;
+      width: 80%;
+      margin: {
+        top: 30px;
+        left: 30px;
+      }
+      word-wrap: break-word;
     }
   }
 
-  @include corner-icon(0, 2);
+  //Responsive
+  @include media-breakpoint-up(lg) {
+    .table-header {
+      @include lg-screen-cell-border;
+      border-width: 2px;
+    }
+
+    .table-content {
+      @include lg-screen-cell-border;
+    }
+
+    @include corner-icon(10, -2);
+  }
+
+  @include media-breakpoint-down(md) {
+    .table-content {
+      padding: 10px;
+      margin: auto;
+      .table-mobile-header-title {
+        @include mobile-cell-border;
+        @include mobile-cell-font;
+        background-color: $color-grey-darker;
+      }
+
+      .table-mobile-header-icon {
+        @include mobile-cell-border;
+        background-color: $color-grey-darker;
+        text-align: right;
+      }
+
+      .table-mobile-title {
+        @include mobile-cell-font;
+        @include mobile-cell-border;
+        border-right: none;
+      }
+
+      .table-mobile-content {
+        @include mobile-cell-border;
+        border-left: none;
+      }
+
+      .table-btn {
+        border: none;
+      }
+    }
+
+    @include corner-icon(0, 2);
+  }
 }

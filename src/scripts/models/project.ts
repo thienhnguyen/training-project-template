@@ -8,7 +8,7 @@ export default class Project extends Base {
   Type: string;
 
   constructor(id: string, name: string, type: string) {
-    super(new Date(), 'seed', new Date(), 'seed');
+    super(new Date(), 'seedData', new Date(), 'seedData');
     this.Id = id;
     this.Name = name;
     this.Type = type;
