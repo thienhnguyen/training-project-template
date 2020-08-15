@@ -11101,40 +11101,42 @@ class ProjectModule {
     this.LoadAll = () => {
       _models_data__WEBPACK_IMPORTED_MODULE_1__["default"].forEach(val => {
         const tableRow = `
-			<div class="d-block d-lg-none col-10 table-mobile-header-title">
-			  File Type
-		  	</div>
-		  	<div class="col-lg-1 col-2 table-mobile-header-icon">
-				  <img src="dist/img/icons/microsoft-excel.svg" alt="">
-		  	</div>
-		  	<div class="d-block d-lg-none col-5 table-mobile-title">
-				  Name
-		  	</div>
-		  	<div class="col-lg-3 col-7 table-mobile-content corner-icon">
-				  ${val.Name}.${val.Type}
-		  	</div>
-		  	<div class="d-block d-lg-none col-5 table-mobile-title">
-				  Modified
-		  	</div>
-		  	<div class="col-lg-3 col-7 table-mobile-content">
-				  ${Object(_utilities_format__WEBPACK_IMPORTED_MODULE_2__["default"])(val.ModifiedAt)}
-		  	</div>
-		  	<div class="d-block d-lg-none col-5 table-mobile-title">
-				  Modified By
-		  	</div>
-		  	<div class="col-lg-3 col-7 table-mobile-content">
-				  ${val.ModifiedBy}
-		  	</div>
-			<div class="col-lg-2 col-12">
-				<div class="row">
-					<div class="offset-lg-1">
-						<a name="btnUpdate" class="btn btn-success btn-sm" href="#" role="button">Update</a>
-					</div>
-					<div>
-						<a name="btnDelete" class="btn btn-danger btn-sm" href="#" role="button">Delete</a>
-					</div>
-				</div>  
-		  	</div>
+			<div class="row" data-key="${val.Id}">
+				<div class="d-block d-lg-none col-10 table-mobile-header-title">
+				File Type
+				</div>
+				<div class="col-lg-1 col-2 table-mobile-header-icon">
+					<img src="dist/img/icons/microsoft-excel.svg" alt="">
+				</div>
+				<div class="d-block d-lg-none col-5 table-mobile-title">
+					Name
+				</div>
+				<div class="col-lg-3 col-7 table-mobile-content corner-icon">
+					${val.Name}.${val.Type}
+				</div>
+				<div class="d-block d-lg-none col-5 table-mobile-title">
+					Modified
+				</div>
+				<div class="col-lg-3 col-7 table-mobile-content">
+					${Object(_utilities_format__WEBPACK_IMPORTED_MODULE_2__["default"])(val.ModifiedAt)}
+				</div>
+				<div class="d-block d-lg-none col-5 table-mobile-title">
+					Modified By
+				</div>
+				<div class="col-lg-3 col-7 table-mobile-content">
+					${val.ModifiedBy}
+				</div>
+				<div class="col-lg-2 col-12">
+					<div class="row">
+						<div class="offset-lg-1">
+							<a id="btnUpdate" class="btn btn-success btn-sm" href="#" role="button" onclick="Update(e)">Update</a>
+						</div>
+						<div>
+							<a id="btnDelete" class="btn btn-danger btn-sm" href="#" role="button" onclick="Delete(e)">Delete</a>
+						</div>
+					</div>  
+				</div>
+			</div>
 		`;
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('#projectTable').append(tableRow);
       });
