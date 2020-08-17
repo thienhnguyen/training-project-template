@@ -9966,6 +9966,10 @@ body {
     padding: 10px;
   }
 }
+button {
+  cursor: pointer;
+}
+
 .homepage header {
   background-color: #f7f7f7;
 }

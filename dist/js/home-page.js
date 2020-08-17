@@ -10989,11 +10989,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const renderGrid = () => {
-  console.log('renderGrid');
-  new _services_ProjectModuleService__WEBPACK_IMPORTED_MODULE_2__["default"]().getData().then(data => {
+  // console.log('renderGrid');
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#projectTable').empty();
+  const project = new _services_ProjectModuleService__WEBPACK_IMPORTED_MODULE_2__["default"]();
+  project.getData().then(data => {
     data.forEach(val => {
       const tableRow = `
-				  <div class="row" data-key="${val.Id}">
+				  <div class="row project" data-key="${val.Id}">
 					  <div class="d-block d-lg-none col-10 table-mobile-header-title">
 					  File Type
 					  </div>
@@ -11021,10 +11023,10 @@ const renderGrid = () => {
 					  <div class="col-lg-2 col-12 table-modified-btn">
 						  <div class="row">
 							  <div class="offset-lg-1">
-								  <a id="btnUpdate" class="btn btn-success btn-sm" href="#" role="button">Update</a>
+								  <a class="btn btn-success btn-sm btnUpdate" href="#" role="button">Update</a>
 							  </div>
 							  <div>
-								  <a id="btnDelete" class="btn btn-danger btn-sm" href="#" role="button">Delete</a>
+								  <a class="btn btn-danger btn-sm btnDelete" href="#" role="button">Delete</a>
 							  </div>
 						  </div>  
 					  </div>
@@ -11032,11 +11034,19 @@ const renderGrid = () => {
 			  `;
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('#projectTable').append(tableRow);
     });
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#btnDelete').click(function () {
-      console.log('delete');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnDelete').click(function () {
+      const id = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).closest('.project').data('key'); // console.log(`delete ${id}`);
+
+      project.deleteData(id).then(() => {
+        alert('Delete success');
+        renderGrid();
+      }).catch(e => {
+        alert(e);
+      });
     });
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#btnUpdate').click(function () {
-      console.log('Update');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnUpdate').click(function () {
+      const id = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).closest('.project').data('key');
+      console.log(`update ${id}`);
     });
   });
 };
@@ -11056,7 +11066,7 @@ const renderGrid = () => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _project__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./project */ "./src/scripts/models/project.ts");
 
-const data = [new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('1', 'CoasterAndBargeLoading', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('2', 'RevenueByServices', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('3', 'RevenueByServices2016', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('4', 'RevenueByServices2017', 'xlsx', new Date(), 'seed', new Date(), 'seed')];
+const data = [new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('1', 'CoasterAndBargeLoading', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('2', 'RevenueByServices', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('3', 'RevenueByServices2016', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('4', 'RevenueByServices2017', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('5', 'RevenueByServices2018', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('6', 'RevenueByServices2019', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('7', 'RevenueByServices2020', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('8', 'RevenueByServices2021', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('9', 'RevenueByServices2022', 'xlsx', new Date(), 'seed', new Date(), 'seed')];
 /* harmony default export */ __webpack_exports__["default"] = (data);
 
 /***/ }),
@@ -11098,9 +11108,12 @@ class Project {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utilities_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utilities/_helper */ "./src/scripts/utilities/_helper.ts");
 /* harmony import */ var _components_grid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_grid */ "./src/scripts/components/_grid.ts");
+/* harmony import */ var _models_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models/data */ "./src/scripts/models/data.ts");
+
 
 
 Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(() => {
+  localStorage.setItem('data', JSON.stringify(_models_data__WEBPACK_IMPORTED_MODULE_2__["default"]));
   Object(_components_grid__WEBPACK_IMPORTED_MODULE_1__["default"])();
 });
 
@@ -11115,15 +11128,23 @@ Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(() => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _models_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/data */ "./src/scripts/models/data.ts");
-
-
 class ProjectModule {
   constructor() {
     this.getData = () => {
       return new Promise(resolve => {
-        console.log('getData');
-        resolve(_models_data__WEBPACK_IMPORTED_MODULE_0__["default"]);
+        const projects = JSON.parse(localStorage.getItem('data') || '{}'); //   console.log('getData');
+
+        resolve(projects);
+      });
+    };
+
+    this.deleteData = id => {
+      return new Promise((resolve, reject) => {
+        const projects = JSON.parse(localStorage.getItem('data') || '{}');
+        const deleteItem = projects.filter(i => i.Id !== id.toString());
+        localStorage.setItem('data', JSON.stringify(deleteItem));
+        resolve('OK');
+        setTimeout(() => reject(new Error('Failed')), 1000);
       });
     };
   }
@@ -11167,19 +11188,21 @@ __webpack_require__.r(__webpack_exports__);
 const status = 'A few seconds ago';
 
 function diffMinuteBetweenDates(date2, date1) {
-  let diff = (date2.getTime() - date1.getTime()) / 1000;
+  let diff = (date2.getTime() - new Date(date1).getTime()) / 1000;
   diff /= 60;
   return Math.abs(Math.round(diff));
 }
 
 function formatDate(date) {
-  if (diffMinuteBetweenDates(new Date(), date) < 1) {
+  const modifiedDate = new Date(date);
+
+  if (diffMinuteBetweenDates(new Date(), modifiedDate) < 1) {
     return status;
   }
 
-  let month = `${date.getMonth() + 1}`;
-  let day = `${date.getDate()}`;
-  const year = date.getFullYear();
+  let month = `${modifiedDate.getMonth() + 1}`;
+  let day = `${modifiedDate.getDate()}`;
+  const year = modifiedDate.getFullYear();
   if (month.length < 2) month = `0${month}`;
   if (day.length < 2) day = `0${day}`;
   return [year, month, day].join('-');

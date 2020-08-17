@@ -4,12 +4,14 @@ import formatDate from '../utilities/format';
 import ProjectModule from '../services/ProjectModuleService';
 
 const renderGrid = () => {
-  console.log('renderGrid');
+  // console.log('renderGrid');
+  $('#projectTable').empty();
 
-  new ProjectModule().getData().then(data => {
+  const project = new ProjectModule();
+  project.getData().then(data => {
     data.forEach(val => {
       const tableRow = `
-				  <div class="row" data-key="${val.Id}">
+				  <div class="row project" data-key="${val.Id}">
 					  <div class="d-block d-lg-none col-10 table-mobile-header-title">
 					  File Type
 					  </div>
@@ -37,10 +39,10 @@ const renderGrid = () => {
 					  <div class="col-lg-2 col-12 table-modified-btn">
 						  <div class="row">
 							  <div class="offset-lg-1">
-								  <a id="btnUpdate" class="btn btn-success btn-sm" href="#" role="button">Update</a>
+								  <a class="btn btn-success btn-sm btnUpdate" href="#" role="button">Update</a>
 							  </div>
 							  <div>
-								  <a id="btnDelete" class="btn btn-danger btn-sm" href="#" role="button">Delete</a>
+								  <a class="btn btn-danger btn-sm btnDelete" href="#" role="button">Delete</a>
 							  </div>
 						  </div>  
 					  </div>
@@ -49,12 +51,27 @@ const renderGrid = () => {
       $('#projectTable').append(tableRow);
     });
 
-    $('#btnDelete').click(function() {
-      console.log('delete');
+    $('.btnDelete').click(function() {
+      const id = $(this)
+        .closest('.project')
+        .data('key');
+      // console.log(`delete ${id}`);
+      project
+        .deleteData(id)
+        .then(() => {
+          alert('Delete success');
+          renderGrid();
+        })
+        .catch(e => {
+          alert(e);
+        });
     });
 
-    $('#btnUpdate').click(function() {
-      console.log('Update');
+    $('.btnUpdate').click(function() {
+      const id = $(this)
+        .closest('.project')
+        .data('key');
+      console.log(`update ${id}`);
     });
   });
 };

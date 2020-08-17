@@ -1,18 +1,19 @@
 const status = 'A few seconds ago';
 
 function diffMinuteBetweenDates(date2: Date, date1: Date) {
-  let diff = (date2.getTime() - date1.getTime()) / 1000;
+  let diff = (date2.getTime() - new Date(date1).getTime()) / 1000;
   diff /= 60;
   return Math.abs(Math.round(diff));
 }
 
 function formatDate(date: Date) {
-  if (diffMinuteBetweenDates(new Date(), date) < 1) {
+  const modifiedDate = new Date(date);
+  if (diffMinuteBetweenDates(new Date(), modifiedDate) < 1) {
     return status;
   }
-  let month = `${date.getMonth() + 1}`;
-  let day = `${date.getDate()}`;
-  const year = date.getFullYear();
+  let month = `${modifiedDate.getMonth() + 1}`;
+  let day = `${modifiedDate.getDate()}`;
+  const year = modifiedDate.getFullYear();
 
   if (month.length < 2) month = `0${month}`;
   if (day.length < 2) day = `0${day}`;
