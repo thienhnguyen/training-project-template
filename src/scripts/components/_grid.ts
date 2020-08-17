@@ -55,15 +55,18 @@ const renderGrid = () => {
       $('input[name="fileTypeInput"]').val('');
     });
 
-    $('.btnCreate').click(function(e) {
-      e.preventDefault();
-      // console.log('create');
+    $('.btnCreate').click(function() {
+      console.log('create');
       const fileName = $('input[name="fileNameInput"]').val();
       const fileType = $('input[name="fileTypeInput"]').val();
-      project.createData(fileName, fileType).then(() => {
-        alert('Create success');
-        renderGrid();
-      });
+      project
+        .createData(fileName, fileType)
+        .then(() => {
+          renderGrid();
+        })
+        .catch(e => {
+          alert(e);
+        });
     });
 
     $('.btnDelete').click(function() {

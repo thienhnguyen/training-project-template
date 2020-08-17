@@ -11037,14 +11037,14 @@ const renderGrid = () => {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileNameInput"]').val('');
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileTypeInput"]').val('');
     });
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnCreate').click(function (e) {
-      e.preventDefault(); // console.log('create');
-
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnCreate').click(function () {
+      console.log('create');
       const fileName = jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileNameInput"]').val();
       const fileType = jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileTypeInput"]').val();
       project.createData(fileName, fileType).then(() => {
-        alert('Create success');
         renderGrid();
+      }).catch(e => {
+        alert(e);
       });
     });
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnDelete').click(function () {
@@ -11146,9 +11146,6 @@ Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(() => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _models_project__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/project */ "./src/scripts/models/project.ts");
-
-
 class ProjectModule {
   constructor() {
     this.getData = () => {
@@ -11162,10 +11159,18 @@ class ProjectModule {
     this.createData = (fileName, fileType) => {
       return new Promise((resolve, reject) => {
         const projects = JSON.parse(localStorage.getItem('data') || '{}');
-        const newProject = new _models_project__WEBPACK_IMPORTED_MODULE_0__["default"]((projects.length + 1).toString(), fileName, fileType, new Date(), 'THN', new Date(), 'THN');
+        const newProject = {
+          Id: (projects.length + 1).toString(),
+          FileName: fileName,
+          FileType: fileType,
+          CreatedAt: new Date(),
+          CreatedBy: 'THN',
+          ModifiedAt: new Date(),
+          ModifiedBy: 'THN'
+        };
         projects.push(newProject);
         localStorage.setItem('data', JSON.stringify(projects));
-        resolve('OK');
+        resolve('Success');
         setTimeout(() => reject(new Error('Failed')), 1000);
       });
     };

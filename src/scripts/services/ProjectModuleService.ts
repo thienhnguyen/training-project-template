@@ -16,18 +16,18 @@ class ProjectModule {
       const projects = JSON.parse(
         localStorage.getItem('data') || '{}',
       );
-      const newProject = new Project(
-        (projects.length + 1).toString(),
-        fileName,
-        fileType,
-        new Date(),
-        'THN',
-        new Date(),
-        'THN',
-      );
+      const newProject = {
+        Id: (projects.length + 1).toString(),
+        FileName: fileName,
+        FileType: fileType,
+        CreatedAt: new Date(),
+        CreatedBy: 'THN',
+        ModifiedAt: new Date(),
+        ModifiedBy: 'THN',
+      };
       projects.push(newProject);
       localStorage.setItem('data', JSON.stringify(projects));
-      resolve('OK');
+      resolve('Success');
       setTimeout(() => reject(new Error('Failed')), 1000);
     });
   };
