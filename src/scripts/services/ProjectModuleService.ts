@@ -6,7 +6,6 @@ class ProjectModule {
       const projects = JSON.parse(
         localStorage.getItem('data') || '{}',
       );
-      //   console.log('getData');
       resolve(projects);
     });
   };
@@ -17,7 +16,7 @@ class ProjectModule {
         localStorage.getItem('data') || '{}',
       );
       const newProject = {
-        Id: (projects.length + 1).toString(),
+        Id: (projects.length + 10).toString(),
         FileName: fileName,
         FileType: fileType,
         CreatedAt: new Date(),
@@ -41,7 +40,7 @@ class ProjectModule {
         (i: Project) => i.Id !== id.toString(),
       );
       localStorage.setItem('data', JSON.stringify(filterItem));
-      resolve('OK');
+      resolve('Success');
       setTimeout(() => reject(new Error('Failed')), 1000);
     });
   };

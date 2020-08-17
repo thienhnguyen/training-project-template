@@ -3,11 +3,9 @@ import { formatDate } from '../utilities/_helper';
 import ProjectModule from '../services/ProjectModuleService';
 
 const renderGrid = () => {
-  // console.log('renderGrid');
-  $('#projectTable').empty();
-
   const project = new ProjectModule();
   project.getData().then(data => {
+    $('#projectTable').empty();
     data.forEach(val => {
       const tableRow = `
 				  <div class="row project" data-key="${val.Id}">
@@ -38,15 +36,42 @@ const renderGrid = () => {
 					  <div class="col-lg-2 col-12 table-modified-btn">
 						  <div class="row">
 							  <div class="offset-lg-1">
-								  <a class="btn btn-success btn-sm btnUpdate" href="#" data-toggle="modal" data-target="#projectModal">Update</a>
+								  <a class="btn btn-success btn-sm btnUpdate" href="#" data-toggle="modal" data-target=".projectModal${
+                    val.Id
+                  }">Update</a>
 							  </div>
 							  <div>
 								  <a class="btn btn-danger btn-sm btnDelete" href="#">Delete</a>
 							  </div>
 						  </div>  
-					  </div>
+            </div>
+            
+            <!-- Modal for Update -->
+            <div class="modal fade projectModal${val.Id}">
+              <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <form>
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="File Name" value="${
+                          val.FileName
+                        }">
+                      </div>
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="File Type" value="${
+                          val.FileType
+                        }">
+                      </div>
+                      <button type="submit" class="btn btn-info float-right btnCreate" data-dismiss="modal" href="#">OK</button>
+                      <button type="button" class="btn btn-secondary float-right"
+                        data-dismiss="modal">Cancel</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
 				  </div>
-			  `;
+        `;
       $('#projectTable').append(tableRow);
     });
 
@@ -55,38 +80,31 @@ const renderGrid = () => {
       $('input[name="fileTypeInput"]').val('');
     });
 
-    $('.btnCreate').click(function() {
-      // console.log('create');
-      const fileName = $('input[name="fileNameInput"]').val();
-      const fileType = $('input[name="fileTypeInput"]').val();
-      project.createData(fileName, fileType).then(() => {
-        renderGrid();
-      });
-    });
-
-    $('.btnDelete').click(function() {
+    $('.btnDelete').click(function(e) {
+      e.preventDefault();
       const id = $(this)
         .closest('.project')
         .data('key');
-      // console.log(`delete ${id}`);
-      project
-        .deleteData(id)
-        .then(() => {
-          alert('Delete success');
-          renderGrid();
-        })
-        .catch(e => {
-          alert(e);
-        });
+      project.deleteData(id).then(() => {
+        renderGrid();
+      });
     });
 
     $('.btnUpdate').click(function() {
       const id = $(this)
         .closest('.project')
         .data('key');
-      console.log(`update ${id}`);
+      console.log(id);
     });
   });
 };
+
+$('.btnCreate').click(function() {
+  const fileName = $('input[name="fileNameInput"]').val();
+  const fileType = $('input[name="fileTypeInput"]').val();
+  new ProjectModule().createData(fileName, fileType).then(() => {
+    renderGrid();
+  });
+});
 
 export default renderGrid;

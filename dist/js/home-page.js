@@ -10988,10 +10988,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const renderGrid = () => {
-  // console.log('renderGrid');
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#projectTable').empty();
   const project = new _services_ProjectModuleService__WEBPACK_IMPORTED_MODULE_2__["default"]();
   project.getData().then(data => {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#projectTable').empty();
     data.forEach(val => {
       const tableRow = `
 				  <div class="row project" data-key="${val.Id}">
@@ -11022,46 +11021,63 @@ const renderGrid = () => {
 					  <div class="col-lg-2 col-12 table-modified-btn">
 						  <div class="row">
 							  <div class="offset-lg-1">
-								  <a class="btn btn-success btn-sm btnUpdate" href="#" data-toggle="modal" data-target="#projectModal">Update</a>
+								  <a class="btn btn-success btn-sm btnUpdate" href="#" data-toggle="modal" data-target=".projectModal${val.Id}">Update</a>
 							  </div>
 							  <div>
 								  <a class="btn btn-danger btn-sm btnDelete" href="#">Delete</a>
 							  </div>
 						  </div>  
-					  </div>
+            </div>
+            
+            <!-- Modal for Update -->
+            <div class="modal fade projectModal${val.Id}">
+              <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <form>
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="File Name" value="${val.FileName}">
+                      </div>
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="File Type" value="${val.FileType}">
+                      </div>
+                      <button type="submit" class="btn btn-info float-right btnCreate" data-dismiss="modal" href="#">OK</button>
+                      <button type="button" class="btn btn-secondary float-right"
+                        data-dismiss="modal">Cancel</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
 				  </div>
-			  `;
+        `;
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('#projectTable').append(tableRow);
     });
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnNew').click(function () {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileNameInput"]').val('');
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileTypeInput"]').val('');
     });
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnCreate').click(function () {
-      // console.log('create');
-      const fileName = jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileNameInput"]').val();
-      const fileType = jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileTypeInput"]').val();
-      project.createData(fileName, fileType).then(() => {
-        renderGrid();
-      });
-    });
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnDelete').click(function () {
-      const id = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).closest('.project').data('key'); // console.log(`delete ${id}`);
-
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnDelete').click(function (e) {
+      e.preventDefault();
+      const id = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).closest('.project').data('key');
       project.deleteData(id).then(() => {
-        alert('Delete success');
         renderGrid();
-      }).catch(e => {
-        alert(e);
       });
     });
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnUpdate').click(function () {
       const id = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).closest('.project').data('key');
-      console.log(`update ${id}`);
+      console.log(id);
     });
   });
 };
 
+jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnCreate').click(function () {
+  const fileName = jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileNameInput"]').val();
+  const fileType = jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileTypeInput"]').val();
+  new _services_ProjectModuleService__WEBPACK_IMPORTED_MODULE_2__["default"]().createData(fileName, fileType).then(() => {
+    renderGrid();
+  });
+});
 /* harmony default export */ __webpack_exports__["default"] = (renderGrid);
 
 /***/ }),
@@ -11122,14 +11138,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utilities_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utilities/_helper */ "./src/scripts/utilities/_helper.ts");
 /* harmony import */ var _components_grid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_grid */ "./src/scripts/components/_grid.ts");
 /* harmony import */ var _models_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models/data */ "./src/scripts/models/data.ts");
-/* harmony import */ var _models_project__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../models/project */ "./src/scripts/models/project.ts");
-
 
 
 
 Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(() => {
   localStorage.setItem('data', JSON.stringify(_models_data__WEBPACK_IMPORTED_MODULE_2__["default"]));
-  console.log(_models_project__WEBPACK_IMPORTED_MODULE_3__["default"].count);
   Object(_components_grid__WEBPACK_IMPORTED_MODULE_1__["default"])();
 });
 
@@ -11148,8 +11161,7 @@ class ProjectModule {
   constructor() {
     this.getData = () => {
       return new Promise(resolve => {
-        const projects = JSON.parse(localStorage.getItem('data') || '{}'); //   console.log('getData');
-
+        const projects = JSON.parse(localStorage.getItem('data') || '{}');
         resolve(projects);
       });
     };
@@ -11158,7 +11170,7 @@ class ProjectModule {
       return new Promise((resolve, reject) => {
         const projects = JSON.parse(localStorage.getItem('data') || '{}');
         const newProject = {
-          Id: (projects.length + 1).toString(),
+          Id: (projects.length + 10).toString(),
           FileName: fileName,
           FileType: fileType,
           CreatedAt: new Date(),
@@ -11178,7 +11190,7 @@ class ProjectModule {
         const projects = JSON.parse(localStorage.getItem('data') || '{}');
         const filterItem = projects.filter(i => i.Id !== id.toString());
         localStorage.setItem('data', JSON.stringify(filterItem));
-        resolve('OK');
+        resolve('Success');
         setTimeout(() => reject(new Error('Failed')), 1000);
       });
     };
