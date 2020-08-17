@@ -1,16 +1,37 @@
-import Base from './base';
+import IBase from './ibase';
 
-export default class Project extends Base {
+class Project implements IBase {
   Id: string;
 
   Name: string;
 
   Type: string;
 
-  constructor(id: string, name: string, type: string) {
-    super(new Date(), 'seedData', new Date(), 'seedData');
+  CreatedAt: Date;
+
+  CreatedBy: string;
+
+  ModifiedAt: Date;
+
+  ModifiedBy: string;
+
+  constructor(
+    id: string,
+    name: string,
+    type: string,
+    createdAt: Date,
+    createdBy: string,
+    modifiedAt: Date,
+    modifiedBy: string,
+  ) {
     this.Id = id;
     this.Name = name;
     this.Type = type;
+    this.CreatedAt = createdAt;
+    this.CreatedBy = createdBy;
+    this.ModifiedAt = modifiedAt;
+    this.ModifiedBy = modifiedBy;
   }
 }
+
+export default Project;

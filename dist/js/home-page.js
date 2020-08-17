@@ -10979,36 +10979,69 @@ return jQuery;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-const renderGrid = () => {// TODO: implement code to Render grid
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utilities_format__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utilities/format */ "./src/scripts/utilities/format.ts");
+/* harmony import */ var _services_ProjectModuleService__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/ProjectModuleService */ "./src/scripts/services/ProjectModuleService.ts");
+ // import data from '../models/data';
+
+
+
+
+const renderGrid = () => {
+  console.log('renderGrid');
+  new _services_ProjectModuleService__WEBPACK_IMPORTED_MODULE_2__["default"]().getData().then(data => {
+    data.forEach(val => {
+      const tableRow = `
+				  <div class="row" data-key="${val.Id}">
+					  <div class="d-block d-lg-none col-10 table-mobile-header-title">
+					  File Type
+					  </div>
+					  <div class="col-lg-1 col-2 table-mobile-header-icon">
+						  <img src="dist/img/icons/microsoft-excel.svg" alt="">
+					  </div>
+					  <div class="d-block d-lg-none col-5 table-mobile-title">
+						  Name
+					  </div>
+					  <div class="col-lg-3 col-7 table-mobile-content corner-icon">
+						  ${val.Name}.${val.Type}
+					  </div>
+					  <div class="d-block d-lg-none col-5 table-mobile-title">
+						  Modified
+					  </div>
+					  <div class="col-lg-2 col-7 table-mobile-content">
+						  ${Object(_utilities_format__WEBPACK_IMPORTED_MODULE_1__["default"])(val.ModifiedAt)}
+					  </div>
+					  <div class="d-block d-lg-none col-5 table-mobile-title">
+						  Modified By
+					  </div>
+					  <div class="col-lg-2 col-7 table-mobile-content">
+						  ${val.ModifiedBy}
+					  </div>
+					  <div class="col-lg-2 col-12 table-modified-btn">
+						  <div class="row">
+							  <div class="offset-lg-1">
+								  <a id="btnUpdate" class="btn btn-success btn-sm" href="#" role="button">Update</a>
+							  </div>
+							  <div>
+								  <a id="btnDelete" class="btn btn-danger btn-sm" href="#" role="button">Delete</a>
+							  </div>
+						  </div>  
+					  </div>
+				  </div>
+			  `;
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('#projectTable').append(tableRow);
+    });
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#btnDelete').click(function () {
+      console.log('delete');
+    });
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#btnUpdate').click(function () {
+      console.log('Update');
+    });
+  });
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (renderGrid);
-
-/***/ }),
-
-/***/ "./src/scripts/models/base.ts":
-/*!************************************!*\
-  !*** ./src/scripts/models/base.ts ***!
-  \************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Base; });
-class Base {
-  constructor(createdAt, createdBy, modifiedAt, modifiedBy) {
-    this.CreatedAt = new Date();
-    this.CreatedBy = 'seed';
-    this.ModifiedAt = new Date();
-    this.ModifiedBy = 'seed';
-    this.CreatedAt = createdAt;
-    this.CreatedBy = createdBy;
-    this.ModifiedAt = modifiedAt;
-    this.ModifiedBy = modifiedBy;
-  }
-
-}
 
 /***/ }),
 
@@ -11023,7 +11056,7 @@ class Base {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _project__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./project */ "./src/scripts/models/project.ts");
 
-const data = [new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('1', 'CoasterAndBargeLoading', 'xlsx'), new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('2', 'RevenueByServices', 'xlsx'), new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('3', 'RevenueByServices2016', 'xlsx'), new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('4', 'RevenueByServices2017', 'xlsx')];
+const data = [new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('1', 'CoasterAndBargeLoading', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('2', 'RevenueByServices', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('3', 'RevenueByServices2016', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('4', 'RevenueByServices2017', 'xlsx', new Date(), 'seed', new Date(), 'seed')];
 /* harmony default export */ __webpack_exports__["default"] = (data);
 
 /***/ }),
@@ -11037,18 +11070,20 @@ const data = [new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('1', 'Coaster
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Project; });
-/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./base */ "./src/scripts/models/base.ts");
-
-class Project extends _base__WEBPACK_IMPORTED_MODULE_0__["default"] {
-  constructor(id, name, type) {
-    super(new Date(), 'seedData', new Date(), 'seedData');
+class Project {
+  constructor(id, name, type, createdAt, createdBy, modifiedAt, modifiedBy) {
     this.Id = id;
     this.Name = name;
     this.Type = type;
+    this.CreatedAt = createdAt;
+    this.CreatedBy = createdBy;
+    this.ModifiedAt = modifiedAt;
+    this.ModifiedBy = modifiedBy;
   }
 
 }
+
+/* harmony default export */ __webpack_exports__["default"] = (Project);
 
 /***/ }),
 
@@ -11063,87 +11098,39 @@ class Project extends _base__WEBPACK_IMPORTED_MODULE_0__["default"] {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utilities_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utilities/_helper */ "./src/scripts/utilities/_helper.ts");
 /* harmony import */ var _components_grid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_grid */ "./src/scripts/components/_grid.ts");
-/* harmony import */ var _services_ProjectModule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/ProjectModule */ "./src/scripts/services/ProjectModule.ts");
-
 
 
 Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(() => {
   Object(_components_grid__WEBPACK_IMPORTED_MODULE_1__["default"])();
-  const project = new _services_ProjectModule__WEBPACK_IMPORTED_MODULE_2__["default"]();
-
-  window.onload = () => {
-    console.log('page is fully loaded');
-    project.LoadAll();
-  };
 });
 
 /***/ }),
 
-/***/ "./src/scripts/services/ProjectModule.ts":
-/*!***********************************************!*\
-  !*** ./src/scripts/services/ProjectModule.ts ***!
-  \***********************************************/
+/***/ "./src/scripts/services/ProjectModuleService.ts":
+/*!******************************************************!*\
+  !*** ./src/scripts/services/ProjectModuleService.ts ***!
+  \******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ProjectModule; });
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _models_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../models/data */ "./src/scripts/models/data.ts");
-/* harmony import */ var _utilities_format__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utilities/format */ "./src/scripts/utilities/format.ts");
-
+/* harmony import */ var _models_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/data */ "./src/scripts/models/data.ts");
 
 
 class ProjectModule {
   constructor() {
-    this.LoadAll = () => {
-      _models_data__WEBPACK_IMPORTED_MODULE_1__["default"].forEach(val => {
-        const tableRow = `
-			<div class="row" data-key="${val.Id}">
-				<div class="d-block d-lg-none col-10 table-mobile-header-title">
-				File Type
-				</div>
-				<div class="col-lg-1 col-2 table-mobile-header-icon">
-					<img src="dist/img/icons/microsoft-excel.svg" alt="">
-				</div>
-				<div class="d-block d-lg-none col-5 table-mobile-title">
-					Name
-				</div>
-				<div class="col-lg-3 col-7 table-mobile-content corner-icon">
-					${val.Name}.${val.Type}
-				</div>
-				<div class="d-block d-lg-none col-5 table-mobile-title">
-					Modified
-				</div>
-				<div class="col-lg-3 col-7 table-mobile-content">
-					${Object(_utilities_format__WEBPACK_IMPORTED_MODULE_2__["default"])(val.ModifiedAt)}
-				</div>
-				<div class="d-block d-lg-none col-5 table-mobile-title">
-					Modified By
-				</div>
-				<div class="col-lg-3 col-7 table-mobile-content">
-					${val.ModifiedBy}
-				</div>
-				<div class="col-lg-2 col-12">
-					<div class="row">
-						<div class="offset-lg-1">
-							<a id="btnUpdate" class="btn btn-success btn-sm" href="#" role="button" onclick="Update(e)">Update</a>
-						</div>
-						<div>
-							<a id="btnDelete" class="btn btn-danger btn-sm" href="#" role="button" onclick="Delete(e)">Delete</a>
-						</div>
-					</div>  
-				</div>
-			</div>
-		`;
-        jquery__WEBPACK_IMPORTED_MODULE_0___default()('#projectTable').append(tableRow);
+    this.getData = () => {
+      return new Promise(resolve => {
+        console.log('getData');
+        resolve(_models_data__WEBPACK_IMPORTED_MODULE_0__["default"]);
       });
     };
   }
 
 }
+
+/* harmony default export */ __webpack_exports__["default"] = (ProjectModule);
 
 /***/ }),
 
@@ -11177,7 +11164,8 @@ const ready = fn => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return formatDate; });
+const status = 'A few seconds ago';
+
 function diffMinuteBetweenDates(date2, date1) {
   let diff = (date2.getTime() - date1.getTime()) / 1000;
   diff /= 60;
@@ -11186,7 +11174,7 @@ function diffMinuteBetweenDates(date2, date1) {
 
 function formatDate(date) {
   if (diffMinuteBetweenDates(new Date(), date) < 1) {
-    return 'A few seconds ago';
+    return status;
   }
 
   let month = `${date.getMonth() + 1}`;
@@ -11196,6 +11184,8 @@ function formatDate(date) {
   if (day.length < 2) day = `0${day}`;
   return [year, month, day].join('-');
 }
+
+/* harmony default export */ __webpack_exports__["default"] = (formatDate);
 
 /***/ }),
 

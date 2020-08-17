@@ -1,12 +1,14 @@
+const status = 'A few seconds ago';
+
 function diffMinuteBetweenDates(date2: Date, date1: Date) {
   let diff = (date2.getTime() - date1.getTime()) / 1000;
   diff /= 60;
   return Math.abs(Math.round(diff));
 }
 
-export default function formatDate(date: Date) {
+function formatDate(date: Date) {
   if (diffMinuteBetweenDates(new Date(), date) < 1) {
-    return 'A few seconds ago';
+    return status;
   }
   let month = `${date.getMonth() + 1}`;
   let day = `${date.getDate()}`;
@@ -17,3 +19,5 @@ export default function formatDate(date: Date) {
 
   return [year, month, day].join('-');
 }
+
+export default formatDate;

@@ -9979,9 +9979,7 @@ body {
 }
 .homepage section .table {
   position: relative;
-  width: 80%;
   margin-top: 30px;
-  margin-left: 30px;
   word-wrap: break-word;
 }
 @media (min-width: 992px) {
@@ -9990,7 +9988,7 @@ body {
     padding: 10px;
     border-width: 2px;
   }
-  .homepage .table-content {
+  .homepage .table-content > .row {
     border-bottom: 1px #d3d3d3 solid;
     padding: 10px;
   }
@@ -10036,8 +10034,8 @@ body {
     padding: 5px;
     border-left: none;
   }
-  .homepage .table-content .table-btn {
-    border: none;
+  .homepage .table-content .table-modified-btn {
+    margin-bottom: 20px;
   }
   .homepage .corner-icon:before {
     content: "";

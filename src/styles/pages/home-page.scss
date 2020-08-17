@@ -21,10 +21,8 @@
     top: 5%;
     .table {
       position: relative;
-      width: 80%;
       margin: {
         top: 30px;
-        left: 30px;
       }
       word-wrap: break-word;
     }
@@ -37,7 +35,7 @@
       border-width: 2px;
     }
 
-    .table-content {
+    .table-content > .row {
       @include lg-screen-cell-border;
     }
 
@@ -71,8 +69,8 @@
         border-left: none;
       }
 
-      .table-btn {
-        border: none;
+      .table-modified-btn {
+        margin-bottom: 20px;
       }
     }
 
