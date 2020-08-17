@@ -56,17 +56,12 @@ const renderGrid = () => {
     });
 
     $('.btnCreate').click(function() {
-      console.log('create');
+      // console.log('create');
       const fileName = $('input[name="fileNameInput"]').val();
       const fileType = $('input[name="fileTypeInput"]').val();
-      project
-        .createData(fileName, fileType)
-        .then(() => {
-          renderGrid();
-        })
-        .catch(e => {
-          alert(e);
-        });
+      project.createData(fileName, fileType).then(() => {
+        renderGrid();
+      });
     });
 
     $('.btnDelete').click(function() {

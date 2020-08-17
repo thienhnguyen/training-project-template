@@ -11038,13 +11038,11 @@ const renderGrid = () => {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileTypeInput"]').val('');
     });
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnCreate').click(function () {
-      console.log('create');
+      // console.log('create');
       const fileName = jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileNameInput"]').val();
       const fileType = jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileTypeInput"]').val();
       project.createData(fileName, fileType).then(() => {
         renderGrid();
-      }).catch(e => {
-        alert(e);
       });
     });
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnDelete').click(function () {
