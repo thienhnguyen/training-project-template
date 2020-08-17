@@ -3,9 +3,9 @@ import IBase from './ibase';
 class Project implements IBase {
   Id: string;
 
-  Name: string;
+  FileName: string;
 
-  Type: string;
+  FileType: string;
 
   CreatedAt: Date;
 
@@ -15,22 +15,26 @@ class Project implements IBase {
 
   ModifiedBy: string;
 
+  static count = 0;
+
   constructor(
     id: string,
-    name: string,
-    type: string,
+    fileName: string,
+    fileType: string,
     createdAt: Date,
     createdBy: string,
     modifiedAt: Date,
     modifiedBy: string,
   ) {
     this.Id = id;
-    this.Name = name;
-    this.Type = type;
+    this.FileName = fileName;
+    this.FileType = fileType;
     this.CreatedAt = createdAt;
     this.CreatedBy = createdBy;
     this.ModifiedAt = modifiedAt;
     this.ModifiedBy = modifiedBy;
+
+    Project.count += 1;
   }
 }
 

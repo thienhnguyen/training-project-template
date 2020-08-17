@@ -21,31 +21,42 @@
 					<div class="collapse navbar-collapse" id="collapsibleNavbar">
 						<ul class="navbar-nav">
 							<li class="nav-item">
-								<img src="dist/img/icons/plus.svg" alt="">
-								New
-								<img src="dist/img/icons/chevron-down.svg" alt="">
-
+								<a class="btn btn-light btn-sm btnNew" data-toggle="modal" data-target="#projectModal">
+									<img src="dist/img/icons/plus.svg" alt="">
+									New
+									<img src="dist/img/icons/chevron-down.svg" alt="">
+								</a>
 							</li>
 							<li class="nav-item">
-								<img src="dist/img/icons/upload.svg" alt="">
-								Upload
-								<img src="dist/img/icons/chevron-down.svg" alt="">
+								<a class="btn btn-light btn-sm">
+									<img src="dist/img/icons/upload.svg" alt="">
+									Upload
+									<img src="dist/img/icons/chevron-down.svg" alt="">
+								</a>
 							</li>
 							<li class="nav-item">
-								<img src="dist/img/icons/sync.svg" alt="">
-								Sync
+								<a class="btn btn-light btn-sm">
+									<img src="dist/img/icons/sync.svg" alt="">
+									Sync
+								</a>
 							</li>
 							<li class="nav-item">
-								<img src="dist/img/icons/microsoft-excel.svg" alt="">
-								Export to Excel
+								<a class="btn btn-light btn-sm">
+									<img src="dist/img/icons/microsoft-excel.svg" alt="">
+									Export to Excel
+								</a>
 							</li>
 							<li class="nav-item">
-								<img src="dist/img/icons/workflow.svg" alt="">
-								Flow
-								<img src="dist/img/icons/chevron-down.svg" alt="">
+								<a class="btn btn-light btn-sm">
+									<img src="dist/img/icons/workflow.svg" alt="">
+									Flow
+									<img src="dist/img/icons/chevron-down.svg" alt="">
+								</a>
 							</li>
 							<li class="nav-item">
-								<img src="dist/img/icons/kebab-horizontal.svg" alt="">
+								<a class="btn btn-light btn-sm">
+									<img src="dist/img/icons/kebab-horizontal.svg" alt="">
+								</a>
 							</li>
 						</ul>
 					</div>
@@ -81,10 +92,34 @@
 				<div class="table-content" id="projectTable">
 				</div>
 			</div>
+			
+			<!-- Form input and update modal -->
+			<div class="modal fade" id="projectModal">
+				<div class="modal-dialog modal-sm" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<form>
+								<div class="form-group">
+									<input type="text" class="form-control" name="fileNameInput" placeholder="File Name">
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" name="fileTypeInput" placeholder="File Type">
+								</div>
+								<button type="submit" class="btn btn-info float-right btnCreate" data-dismiss="modal">OK</button>
+								<button type="button" class="btn btn-secondary float-right"
+									data-dismiss="modal">Cancel</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 		</section>
 	</div>
 
 	<!-- Scripts -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" defer></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" defer></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" defer></script>
 	<script src="dist/js/home-page.js"></script>
 
 </body>

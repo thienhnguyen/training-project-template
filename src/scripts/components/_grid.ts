@@ -1,6 +1,5 @@
 import $ from 'jquery';
-// import data from '../models/data';
-import formatDate from '../utilities/format';
+import { formatDate } from '../utilities/_helper';
 import ProjectModule from '../services/ProjectModuleService';
 
 const renderGrid = () => {
@@ -22,7 +21,7 @@ const renderGrid = () => {
 						  Name
 					  </div>
 					  <div class="col-lg-3 col-7 table-mobile-content corner-icon">
-						  ${val.Name}.${val.Type}
+						  ${val.FileName}.${val.FileType}
 					  </div>
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Modified
@@ -39,16 +38,32 @@ const renderGrid = () => {
 					  <div class="col-lg-2 col-12 table-modified-btn">
 						  <div class="row">
 							  <div class="offset-lg-1">
-								  <a class="btn btn-success btn-sm btnUpdate" href="#" role="button">Update</a>
+								  <a class="btn btn-success btn-sm btnUpdate" href="#" data-toggle="modal" data-target="#projectModal">Update</a>
 							  </div>
 							  <div>
-								  <a class="btn btn-danger btn-sm btnDelete" href="#" role="button">Delete</a>
+								  <a class="btn btn-danger btn-sm btnDelete" href="#">Delete</a>
 							  </div>
 						  </div>  
 					  </div>
 				  </div>
 			  `;
       $('#projectTable').append(tableRow);
+    });
+
+    $('.btnNew').click(function() {
+      $('input[name="fileNameInput"]').val('');
+      $('input[name="fileTypeInput"]').val('');
+    });
+
+    $('.btnCreate').click(function(e) {
+      e.preventDefault();
+      // console.log('create');
+      const fileName = $('input[name="fileNameInput"]').val();
+      const fileType = $('input[name="fileTypeInput"]').val();
+      project.createData(fileName, fileType).then(() => {
+        alert('Create success');
+        renderGrid();
+      });
     });
 
     $('.btnDelete').click(function() {

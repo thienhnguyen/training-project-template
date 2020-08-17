@@ -11,15 +11,36 @@ class ProjectModule {
     });
   };
 
-  deleteData = (id: string) => {
+  createData = (fileName: any, fileType: any) => {
     return new Promise((resolve, reject) => {
       const projects = JSON.parse(
         localStorage.getItem('data') || '{}',
       );
-      const deleteItem = projects.filter(
+      const newProject = new Project(
+        (projects.length + 1).toString(),
+        fileName,
+        fileType,
+        new Date(),
+        'THN',
+        new Date(),
+        'THN',
+      );
+      projects.push(newProject);
+      localStorage.setItem('data', JSON.stringify(projects));
+      resolve('OK');
+      setTimeout(() => reject(new Error('Failed')), 1000);
+    });
+  };
+
+  deleteData = (id: any) => {
+    return new Promise((resolve, reject) => {
+      const projects = JSON.parse(
+        localStorage.getItem('data') || '{}',
+      );
+      const filterItem = projects.filter(
         (i: Project) => i.Id !== id.toString(),
       );
-      localStorage.setItem('data', JSON.stringify(deleteItem));
+      localStorage.setItem('data', JSON.stringify(filterItem));
       resolve('OK');
       setTimeout(() => reject(new Error('Failed')), 1000);
     });

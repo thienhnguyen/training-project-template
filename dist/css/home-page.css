@@ -9966,16 +9966,21 @@ body {
     padding: 10px;
   }
 }
-button {
+.modal {
+  position: absolute;
+  float: left;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+button, a {
   cursor: pointer;
 }
 
 .homepage header {
   background-color: #f7f7f7;
-}
-.homepage header ul li {
-  margin-right: 20px;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
 }
 .homepage section {
   position: relative;

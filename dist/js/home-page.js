@@ -10981,9 +10981,8 @@ return jQuery;
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _utilities_format__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utilities/format */ "./src/scripts/utilities/format.ts");
+/* harmony import */ var _utilities_helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utilities/_helper */ "./src/scripts/utilities/_helper.ts");
 /* harmony import */ var _services_ProjectModuleService__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/ProjectModuleService */ "./src/scripts/services/ProjectModuleService.ts");
- // import data from '../models/data';
 
 
 
@@ -11006,13 +11005,13 @@ const renderGrid = () => {
 						  Name
 					  </div>
 					  <div class="col-lg-3 col-7 table-mobile-content corner-icon">
-						  ${val.Name}.${val.Type}
+						  ${val.FileName}.${val.FileType}
 					  </div>
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Modified
 					  </div>
 					  <div class="col-lg-2 col-7 table-mobile-content">
-						  ${Object(_utilities_format__WEBPACK_IMPORTED_MODULE_1__["default"])(val.ModifiedAt)}
+						  ${Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_1__["formatDate"])(val.ModifiedAt)}
 					  </div>
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Modified By
@@ -11023,16 +11022,30 @@ const renderGrid = () => {
 					  <div class="col-lg-2 col-12 table-modified-btn">
 						  <div class="row">
 							  <div class="offset-lg-1">
-								  <a class="btn btn-success btn-sm btnUpdate" href="#" role="button">Update</a>
+								  <a class="btn btn-success btn-sm btnUpdate" href="#" data-toggle="modal" data-target="#projectModal">Update</a>
 							  </div>
 							  <div>
-								  <a class="btn btn-danger btn-sm btnDelete" href="#" role="button">Delete</a>
+								  <a class="btn btn-danger btn-sm btnDelete" href="#">Delete</a>
 							  </div>
 						  </div>  
 					  </div>
 				  </div>
 			  `;
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('#projectTable').append(tableRow);
+    });
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnNew').click(function () {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileNameInput"]').val('');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileTypeInput"]').val('');
+    });
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnCreate').click(function (e) {
+      e.preventDefault(); // console.log('create');
+
+      const fileName = jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileNameInput"]').val();
+      const fileType = jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileTypeInput"]').val();
+      project.createData(fileName, fileType).then(() => {
+        alert('Create success');
+        renderGrid();
+      });
     });
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnDelete').click(function () {
       const id = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).closest('.project').data('key'); // console.log(`delete ${id}`);
@@ -11081,18 +11094,20 @@ const data = [new _project__WEBPACK_IMPORTED_MODULE_0__["default"]('1', 'Coaster
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 class Project {
-  constructor(id, name, type, createdAt, createdBy, modifiedAt, modifiedBy) {
+  constructor(id, fileName, fileType, createdAt, createdBy, modifiedAt, modifiedBy) {
     this.Id = id;
-    this.Name = name;
-    this.Type = type;
+    this.FileName = fileName;
+    this.FileType = fileType;
     this.CreatedAt = createdAt;
     this.CreatedBy = createdBy;
     this.ModifiedAt = modifiedAt;
     this.ModifiedBy = modifiedBy;
+    Project.count += 1;
   }
 
 }
 
+Project.count = 0;
 /* harmony default export */ __webpack_exports__["default"] = (Project);
 
 /***/ }),
@@ -11109,11 +11124,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utilities_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utilities/_helper */ "./src/scripts/utilities/_helper.ts");
 /* harmony import */ var _components_grid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/_grid */ "./src/scripts/components/_grid.ts");
 /* harmony import */ var _models_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models/data */ "./src/scripts/models/data.ts");
+/* harmony import */ var _models_project__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../models/project */ "./src/scripts/models/project.ts");
+
 
 
 
 Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(() => {
   localStorage.setItem('data', JSON.stringify(_models_data__WEBPACK_IMPORTED_MODULE_2__["default"]));
+  console.log(_models_project__WEBPACK_IMPORTED_MODULE_3__["default"].count);
   Object(_components_grid__WEBPACK_IMPORTED_MODULE_1__["default"])();
 });
 
@@ -11128,6 +11146,9 @@ Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(() => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _models_project__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/project */ "./src/scripts/models/project.ts");
+
+
 class ProjectModule {
   constructor() {
     this.getData = () => {
@@ -11138,11 +11159,22 @@ class ProjectModule {
       });
     };
 
+    this.createData = (fileName, fileType) => {
+      return new Promise((resolve, reject) => {
+        const projects = JSON.parse(localStorage.getItem('data') || '{}');
+        const newProject = new _models_project__WEBPACK_IMPORTED_MODULE_0__["default"]((projects.length + 1).toString(), fileName, fileType, new Date(), 'THN', new Date(), 'THN');
+        projects.push(newProject);
+        localStorage.setItem('data', JSON.stringify(projects));
+        resolve('OK');
+        setTimeout(() => reject(new Error('Failed')), 1000);
+      });
+    };
+
     this.deleteData = id => {
       return new Promise((resolve, reject) => {
         const projects = JSON.parse(localStorage.getItem('data') || '{}');
-        const deleteItem = projects.filter(i => i.Id !== id.toString());
-        localStorage.setItem('data', JSON.stringify(deleteItem));
+        const filterItem = projects.filter(i => i.Id !== id.toString());
+        localStorage.setItem('data', JSON.stringify(filterItem));
         resolve('OK');
         setTimeout(() => reject(new Error('Failed')), 1000);
       });
@@ -11159,11 +11191,12 @@ class ProjectModule {
 /*!******************************************!*\
   !*** ./src/scripts/utilities/_helper.ts ***!
   \******************************************/
-/*! exports provided: default */
+/*! exports provided: formatDate, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formatDate", function() { return formatDate; });
 const ready = fn => {
   if (document.readyState !== 'loading') {
     fn();
@@ -11172,19 +11205,6 @@ const ready = fn => {
   }
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (ready);
-
-/***/ }),
-
-/***/ "./src/scripts/utilities/format.ts":
-/*!*****************************************!*\
-  !*** ./src/scripts/utilities/format.ts ***!
-  \*****************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
 const status = 'A few seconds ago';
 
 function diffMinuteBetweenDates(date2, date1) {
@@ -11207,8 +11227,7 @@ function formatDate(date) {
   if (day.length < 2) day = `0${day}`;
   return [year, month, day].join('-');
 }
-
-/* harmony default export */ __webpack_exports__["default"] = (formatDate);
+/* harmony default export */ __webpack_exports__["default"] = (ready);
 
 /***/ }),
 
