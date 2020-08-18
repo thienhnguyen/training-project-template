@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import 'jquery-ui-bundle';
 import { formatDate } from '../utilities/_helper';
 import ProjectModule from '../services/ProjectModuleService';
 
@@ -8,7 +9,7 @@ const renderGrid = () => {
     $('#projectTable').empty();
     data.forEach(val => {
       const tableRow = `
-				  <div class="row project" data-key="${val.Id}">
+				  <div class="row project"  draggable="true" data-key="${val.Id}">
 					  <div class="d-block d-lg-none col-10 table-mobile-header-title">
 					  File Type
 					  </div>
@@ -115,6 +116,19 @@ const renderGrid = () => {
         renderGrid();
       });
     });
+    let dragged: any;
+    $('.project').draggable({
+      start(e) {
+        dragged = e.target;
+        console.log(dragged);
+      },
+      drag() {
+        console.log('drag');
+      },
+      stop() {
+        console.log('stop');
+      },
+    });
   });
 };
 
@@ -128,6 +142,38 @@ $('.btnCreate').click(function() {
   new ProjectModule().createData(newProject).then(() => {
     renderGrid();
   });
+});
+
+$('.btnNewFolder').click(function() {
+  const tableRow = `
+  <div class="row folder dropzone">
+    <div class="d-block d-lg-none col-10 table-mobile-header-title">
+    File Type
+    </div>
+    <div class="col-lg-1 col-2 table-mobile-header-icon">
+      <img src="dist/img/icons/file-directory.svg" alt="">
+    </div>
+    <div class="d-block d-lg-none col-5 table-mobile-title">
+      Name
+    </div>
+    <div class="col-lg-3 col-7 table-mobile-content corner-icon">
+      ${'New Folder'}
+    </div>
+    <div class="d-block d-lg-none col-5 table-mobile-title">
+      Modified
+    </div>
+    <div class="col-lg-2 col-7 table-mobile-content">
+      ${formatDate(new Date())}
+    </div>
+    <div class="d-block d-lg-none col-5 table-mobile-title">
+      Modified By
+    </div>
+    <div class="col-lg-2 col-7 table-mobile-content">
+      ${'seed'}
+    </div>
+  </div>
+`;
+  $('#projectTable').prepend(tableRow);
 });
 
 export default renderGrid;

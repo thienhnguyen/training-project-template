@@ -9995,6 +9995,16 @@ button, a {
   margin-top: 30px;
   word-wrap: break-word;
 }
+.homepage section .table .project:hover {
+  cursor: grab;
+  background-color: #d3d3d3;
+}
+.homepage section .table .folder {
+  cursor: pointer;
+}
+.homepage section .table .folder:hover {
+  background-color: #d3d3d3;
+}
 @media (min-width: 992px) {
   .homepage .table-header {
     border-bottom: 1px #d3d3d3 solid;
