@@ -1,8 +1,9 @@
+import { v4 as uuid } from 'uuid';
 import Project from './project';
 
 const data = [
   new Project(
-    '1',
+    uuid(),
     'CoasterAndBargeLoading',
     'xlsx',
     new Date(),
@@ -11,7 +12,7 @@ const data = [
     'seed',
   ),
   new Project(
-    '2',
+    uuid(),
     'RevenueByServices',
     'xlsx',
     new Date(),
@@ -20,7 +21,7 @@ const data = [
     'seed',
   ),
   new Project(
-    '3',
+    uuid(),
     'RevenueByServices2016',
     'xlsx',
     new Date(),
@@ -29,7 +30,7 @@ const data = [
     'seed',
   ),
   new Project(
-    '4',
+    uuid(),
     'RevenueByServices2017',
     'xlsx',
     new Date(),
@@ -38,7 +39,7 @@ const data = [
     'seed',
   ),
   new Project(
-    '5',
+    uuid(),
     'RevenueByServices2018',
     'xlsx',
     new Date(),
@@ -47,7 +48,7 @@ const data = [
     'seed',
   ),
   new Project(
-    '6',
+    uuid(),
     'RevenueByServices2019',
     'xlsx',
     new Date(),
@@ -56,7 +57,7 @@ const data = [
     'seed',
   ),
   new Project(
-    '7',
+    uuid(),
     'RevenueByServices2020',
     'xlsx',
     new Date(),
@@ -65,7 +66,7 @@ const data = [
     'seed',
   ),
   new Project(
-    '8',
+    uuid(),
     'RevenueByServices2021',
     'xlsx',
     new Date(),
@@ -74,7 +75,7 @@ const data = [
     'seed',
   ),
   new Project(
-    '9',
+    uuid(),
     'RevenueByServices2022',
     'xlsx',
     new Date(),

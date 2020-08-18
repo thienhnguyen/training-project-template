@@ -36,7 +36,7 @@ const renderGrid = () => {
 					  <div class="col-lg-2 col-12 table-modified-btn">
 						  <div class="row">
 							  <div class="offset-lg-1">
-								  <a class="btn btn-success btn-sm btnUpdate" href="#" data-toggle="modal" data-target=".projectModal${
+								  <a class="btn btn-success btn-sm" href="#" data-toggle="modal" data-target=".projectModal${
                     val.Id
                   }">Update</a>
 							  </div>
@@ -53,16 +53,20 @@ const renderGrid = () => {
                   <div class="modal-body">
                     <form>
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="File Name" value="${
+                        <input type="text" class="form-control" data-filename="${
                           val.FileName
-                        }">
+                        }" placeholder="File Name" value="${
+        val.FileName
+      }">
                       </div>
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="File Type" value="${
+                        <input type="text" class="form-control" data-filetype="${
                           val.FileType
-                        }">
+                        }" placeholder="File Type" value="${
+        val.FileType
+      }">
                       </div>
-                      <button type="submit" class="btn btn-info float-right btnCreate" data-dismiss="modal" href="#">OK</button>
+                      <button type="submit" class="btn btn-info btnUpdate float-right" data-dismiss="modal" href="#">OK</button>
                       <button type="button" class="btn btn-secondary float-right"
                         data-dismiss="modal">Cancel</button>
                     </form>
@@ -94,7 +98,22 @@ const renderGrid = () => {
       const id = $(this)
         .closest('.project')
         .data('key');
-      console.log(id);
+      const fileName = $(this)
+        .parent()
+        .find('input[data-filename]')
+        .val();
+      const fileType = $(this)
+        .parent()
+        .find('input[data-filetype]')
+        .val();
+      const updateProject = {
+        Id: id,
+        FileName: fileName,
+        FileType: fileType,
+      };
+      project.updateData(updateProject).then(() => {
+        renderGrid();
+      });
     });
   });
 };
@@ -102,7 +121,11 @@ const renderGrid = () => {
 $('.btnCreate').click(function() {
   const fileName = $('input[name="fileNameInput"]').val();
   const fileType = $('input[name="fileTypeInput"]').val();
-  new ProjectModule().createData(fileName, fileType).then(() => {
+  const newProject = {
+    FileName: fileName,
+    FileType: fileType,
+  };
+  new ProjectModule().createData(newProject).then(() => {
     renderGrid();
   });
 });

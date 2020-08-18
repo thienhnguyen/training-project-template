@@ -9954,24 +9954,28 @@ body {
 }
 
 @media (min-width: 992px) {
-  header nav {
+  .homepage header nav {
     position: relative;
     left: -30px;
   }
 }
 @media (max-width: 991.98px) {
-  header .navbar-nav {
+  .homepage header .navbar-nav {
     border-top: 1px solid #d3d3d3;
     margin-top: 10px;
     padding: 10px;
   }
 }
-.modal {
-  position: absolute;
-  float: left;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+
+@media (min-width: 992px) {
+  .homepage .modal-dialog {
+    margin-top: 10%;
+  }
+}
+@media (max-width: 991.98px) {
+  .homepage .modal-dialog {
+    margin-top: 50%;
+  }
 }
 
 button, a {
