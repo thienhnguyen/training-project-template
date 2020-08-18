@@ -15,6 +15,7 @@ module.exports = {
       'error',
       process.platform === 'win32' ? 'windows' : 'unix',
     ],
+    "no-param-reassign": 0,
     '@typescript-eslint/explicit-module-boundary-types': 'off',
   },
 };

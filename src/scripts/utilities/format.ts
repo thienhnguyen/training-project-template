@@ -1,11 +1,3 @@
-const ready = (fn: () => void) => {
-  if (document.readyState !== 'loading') {
-    fn();
-  } else {
-    document.addEventListener('DOMContentLoaded', fn);
-  }
-};
-
 const status = 'A few seconds ago';
 
 function diffMinuteBetweenDates(date2: Date, date1: Date) {
@@ -14,7 +6,7 @@ function diffMinuteBetweenDates(date2: Date, date1: Date) {
   return Math.abs(Math.round(diff));
 }
 
-export function formatDate(date: Date) {
+function formatDate(date: Date) {
   const modifiedDate = new Date(date);
   if (diffMinuteBetweenDates(new Date(), modifiedDate) < 1) {
     return status;
@@ -29,4 +21,4 @@ export function formatDate(date: Date) {
   return [year, month, day].join('-');
 }
 
-export default ready;
+export default formatDate;

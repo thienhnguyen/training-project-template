@@ -1,1 +1,33 @@
 // Define mixins
+@mixin mobile-cell-border {
+  border: 1px $color-grey-darker solid;
+  padding: 5px;
+}
+
+@mixin mobile-cell-font {
+  font: {
+    weight: bold;
+    style: italic;
+  }
+}
+
+@mixin lg-screen-cell-border {
+  border-bottom: 1px $color-grey-darker solid;
+  padding: 10px;
+}
+
+@mixin corner-icon($left, $top) {
+  .corner-icon {
+    &:before {
+      content: '';
+      background-image: url('https://img.icons8.com/ultraviolet/40/000000/link.png');
+      background-size: 10px 10px;
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      position: absolute;
+      left: #{$left}px;
+      top: #{$top}px;
+    }
+  }
+}
