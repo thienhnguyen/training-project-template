@@ -20,7 +20,9 @@
     "@babel/plugin-transform-object-assign": "^7.7.4",
     "@babel/polyfill": "^7.7.0",
     "@babel/preset-env": "^7.7.7",
+    "@types/jquery": "^3.5.1",
     "@types/lodash": "^4.14.149",
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/parser": "^3.7.1",
     "autoprefixer": "^9.7.3",
     "babel-eslint": "^10.1.0",
@@ -46,6 +48,7 @@
     "file-saver": "^2.0.2",
     "filemanager-webpack-plugin": "^2.0.5",
     "glob": "^7.1.6",
+    "guid-typescript": "^1.0.9",
     "lodash": "^4.17.15",
     "lodash-webpack-plugin": "^0.11.5",
     "mini-css-extract-plugin": "^0.9.0",
@@ -79,6 +82,7 @@
     "keen-slider": "^5.0.5",
     "lit-html": "^1.2.1",
     "popper.js": "^1.16.1",
+    "uuid": "^8.3.0",
     "webpack-fix-style-only-entries": "^0.5.0"
   }
 }

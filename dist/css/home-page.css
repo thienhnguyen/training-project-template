@@ -9947,58 +9947,65 @@ h3 {
     border-color: #dee2e6;
   }
 }
-@media (min-width: 992px) {
-  header nav {
-    position: relative;
-    left: -30px;
-  }
-}
-@media (max-width: 991.98px) {
-  header .navbar-nav {
-    border-top: 1px solid #d3d3d3;
-    margin-top: 10px;
-    padding: 10px;
-  }
-}
 html,
 body {
   max-width: 100%;
   overflow-x: hidden;
 }
 
-header {
-  background-color: #f7f7f7;
+@media (min-width: 992px) {
+  .homepage header nav {
+    position: relative;
+    left: -30px;
+  }
 }
-header ul li {
-  margin-right: 20px;
-  margin-bottom: 5px;
-}
-
-section {
-  position: relative;
-  top: 5%;
-}
-section .table {
-  position: relative;
-  width: 80%;
-  margin-top: 30px;
-  margin-left: 30px;
-  word-wrap: break-word;
+@media (max-width: 991.98px) {
+  .homepage header .navbar-nav {
+    border-top: 1px solid #d3d3d3;
+    margin-top: 10px;
+    padding: 10px;
+  }
 }
 
 @media (min-width: 992px) {
-  .table-header {
+  .homepage .modal-dialog {
+    margin-top: 10%;
+  }
+}
+@media (max-width: 991.98px) {
+  .homepage .modal-dialog {
+    margin-top: 50%;
+  }
+}
+
+button, a {
+  cursor: pointer;
+}
+
+.homepage header {
+  background-color: #f7f7f7;
+  margin-bottom: 20px;
+}
+.homepage section {
+  position: relative;
+  top: 5%;
+}
+.homepage section .table {
+  position: relative;
+  margin-top: 30px;
+  word-wrap: break-word;
+}
+@media (min-width: 992px) {
+  .homepage .table-header {
     border-bottom: 1px #d3d3d3 solid;
     padding: 10px;
     border-width: 2px;
   }
-
-  .table-content {
+  .homepage .table-content > .row {
     border-bottom: 1px #d3d3d3 solid;
     padding: 10px;
   }
-
-  .corner-icon:before {
+  .homepage .corner-icon:before {
     content: "";
     background-image: url("https://img.icons8.com/ultraviolet/40/000000/link.png");
     background-size: 10px 10px;
@@ -10011,37 +10018,39 @@ section .table {
   }
 }
 @media (max-width: 991.98px) {
-  .table-content {
+  .homepage .table-content {
     padding: 10px;
     margin: auto;
   }
-  .table-content .table-mobile-header-title {
+  .homepage .table-content .table-mobile-header-title {
     border: 1px #d3d3d3 solid;
     padding: 5px;
     font-weight: bold;
     font-style: italic;
     background-color: #d3d3d3;
   }
-  .table-content .table-mobile-header-icon {
+  .homepage .table-content .table-mobile-header-icon {
     border: 1px #d3d3d3 solid;
     padding: 5px;
     background-color: #d3d3d3;
     text-align: right;
   }
-  .table-content .table-mobile-title {
+  .homepage .table-content .table-mobile-title {
     font-weight: bold;
     font-style: italic;
     border: 1px #d3d3d3 solid;
     padding: 5px;
     border-right: none;
   }
-  .table-content .table-mobile-content {
+  .homepage .table-content .table-mobile-content {
     border: 1px #d3d3d3 solid;
     padding: 5px;
     border-left: none;
   }
-
-  .corner-icon:before {
+  .homepage .table-content .table-modified-btn {
+    margin-bottom: 20px;
+  }
+  .homepage .corner-icon:before {
     content: "";
     background-image: url("https://img.icons8.com/ultraviolet/40/000000/link.png");
     background-size: 10px 10px;

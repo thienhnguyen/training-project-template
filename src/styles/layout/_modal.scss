@@ -1,0 +1,14 @@
+// Modal styles
+.homepage {
+    @include media-breakpoint-up(lg) {
+        .modal-dialog{
+            margin-top: 10%;
+        }
+      }
+    
+      @include media-breakpoint-down(md) {
+        .modal-dialog{
+            margin-top: 50%;
+        }
+      }
+}
