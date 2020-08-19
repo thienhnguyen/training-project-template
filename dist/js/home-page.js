@@ -30544,8 +30544,71 @@ const renderGrid = () => {
   project.getData().then(data => {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#projectTable').empty();
     data.forEach(val => {
-      const tableRow = `
-				  <div class="row project"  draggable="true" data-key="${val.Id}">
+      let tableRow = '';
+
+      if (val.FileType === 'folder') {
+        tableRow = `<div class="row project" data-key="${val.Id}">
+					  <div class="d-block d-lg-none col-10 table-mobile-header-title">
+					  File Type
+					  </div>
+					  <div class="col-lg-1 col-2 table-mobile-header-icon">
+						  <img src="dist/img/icons/file-directory.svg" alt="">
+					  </div>
+					  <div class="d-block d-lg-none col-5 table-mobile-title">
+						  Name
+					  </div>
+            <div class="col-lg-3 col-7 table-mobile-content corner-icon">
+              ${val.FileName}
+					  </div>
+					  <div class="d-block d-lg-none col-5 table-mobile-title">
+						  Modified
+					  </div>
+					  <div class="col-lg-2 col-7 table-mobile-content">
+						  ${Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_2__["formatDate"])(val.ModifiedAt)}
+					  </div>
+					  <div class="d-block d-lg-none col-5 table-mobile-title">
+						  Modified By
+					  </div>
+					  <div class="col-lg-2 col-7 table-mobile-content">
+						  ${val.ModifiedBy}
+					  </div>
+					  <div class="col-lg-2 col-12 table-modified-btn">
+						  <div class="row">
+							  <div class="offset-lg-1">
+								  <a class="btn btn-success btn-sm" href="#" data-toggle="modal" data-target=".projectModal${val.Id}">Update</a>
+							  </div>
+							  <div>
+								  <a class="btn btn-danger btn-sm btnDelete" href="#">Delete</a>
+							  </div>
+						  </div>  
+            </div>
+            
+            <!-- Modal for Update -->
+            <div class="modal fade projectModal${val.Id}">
+              <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <form>
+                      <div class="form-group">
+                        <input type="text" class="form-control" data-filename="${val.FileName}" placeholder="Folder Name" value="${val.FileName}">
+                      </div>
+                      <div class="form-group">
+                        <input type="hidden" class="form-control" data-filetype="${val.FileType}" placeholder="Folder" value="${val.FileType}">
+                      </div>
+                      <button type="submit" class="btn btn-info btnUpdate float-right" data-dismiss="modal" href="#">OK</button>
+                      <button type="button" class="btn btn-secondary float-right"
+                        data-dismiss="modal">Cancel</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+				  </div>
+        `;
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('#projectTable').prepend(tableRow);
+      } else {
+        tableRow = `
+				  <div class="row project" data-key="${val.Id}">
 					  <div class="d-block d-lg-none col-10 table-mobile-header-title">
 					  File Type
 					  </div>
@@ -30555,8 +30618,8 @@ const renderGrid = () => {
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Name
 					  </div>
-					  <div class="col-lg-3 col-7 table-mobile-content corner-icon">
-						  ${val.FileName}.${val.FileType}
+            <div class="col-lg-3 col-7 table-mobile-content corner-icon">
+              ${val.FileName}.${val.FileType}
 					  </div>
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Modified
@@ -30603,11 +30666,16 @@ const renderGrid = () => {
             </div>
 				  </div>
         `;
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()('#projectTable').append(tableRow);
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('#projectTable').append(tableRow);
+      }
     });
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnNew').click(function () {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileNameInput"]').val('');
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileTypeInput"]').val('');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileTypeInput"]').val('').prop('disabled', false);
+    });
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnNewFolder').click(function () {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileNameInput"]').val('');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileTypeInput"]').val('folder').prop('disabled', true);
     });
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnDelete').click(function (e) {
       e.preventDefault();
@@ -30628,23 +30696,19 @@ const renderGrid = () => {
       project.updateData(updateProject).then(() => {
         renderGrid();
       });
-    });
-    let dragged;
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.project').draggable({
-      start(e) {
-        dragged = e.target;
-        console.log(dragged);
-      },
-
-      drag() {
-        console.log('drag');
-      },
-
-      stop() {
-        console.log('stop');
-      }
-
-    });
+    }); // let dragged: any;
+    // $('.project').draggable({
+    //   start(e) {
+    //     dragged = e.target;
+    //     console.log(dragged);
+    //   },
+    //   drag() {
+    //     console.log('drag');
+    //   },
+    //   stop() {
+    //     console.log('stop');
+    //   },
+    // });
   });
 };
 
@@ -30658,37 +30722,6 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnCreate').click(function () {
   new _services_ProjectModuleService__WEBPACK_IMPORTED_MODULE_3__["default"]().createData(newProject).then(() => {
     renderGrid();
   });
-});
-jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnNewFolder').click(function () {
-  const tableRow = `
-  <div class="row folder dropzone">
-    <div class="d-block d-lg-none col-10 table-mobile-header-title">
-    File Type
-    </div>
-    <div class="col-lg-1 col-2 table-mobile-header-icon">
-      <img src="dist/img/icons/file-directory.svg" alt="">
-    </div>
-    <div class="d-block d-lg-none col-5 table-mobile-title">
-      Name
-    </div>
-    <div class="col-lg-3 col-7 table-mobile-content corner-icon">
-      ${'New Folder'}
-    </div>
-    <div class="d-block d-lg-none col-5 table-mobile-title">
-      Modified
-    </div>
-    <div class="col-lg-2 col-7 table-mobile-content">
-      ${Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_2__["formatDate"])(new Date())}
-    </div>
-    <div class="d-block d-lg-none col-5 table-mobile-title">
-      Modified By
-    </div>
-    <div class="col-lg-2 col-7 table-mobile-content">
-      ${'seed'}
-    </div>
-  </div>
-`;
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#projectTable').prepend(tableRow);
 });
 /* harmony default export */ __webpack_exports__["default"] = (renderGrid);
 
@@ -30707,7 +30740,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _project__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./project */ "./src/scripts/models/project.ts");
 
 
-const data = [new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'CoasterAndBargeLoading', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2016', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2017', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2018', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2019', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2020', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2021', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2022', 'xlsx', new Date(), 'seed', new Date(), 'seed')];
+const data = [new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'CAS', 'folder', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'NAS', 'folder', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'CoasterAndBargeLoading', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2016', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2017', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2018', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2019', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2020', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2021', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2022', 'xlsx', new Date(), 'seed', new Date(), 'seed')];
 /* harmony default export */ __webpack_exports__["default"] = (data);
 
 /***/ }),

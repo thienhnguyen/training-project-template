@@ -4,6 +4,24 @@ import Project from './project';
 const data = [
   new Project(
     uuid(),
+    'CAS',
+    'folder',
+    new Date(),
+    'seed',
+    new Date(),
+    'seed',
+  ),
+  new Project(
+    uuid(),
+    'NAS',
+    'folder',
+    new Date(),
+    'seed',
+    new Date(),
+    'seed',
+  ),
+  new Project(
+    uuid(),
     'CoasterAndBargeLoading',
     'xlsx',
     new Date(),
