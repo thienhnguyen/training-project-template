@@ -18,6 +18,18 @@
         top: 30px;
       }
       word-wrap: break-word;
+      .project{
+        &:hover{
+          cursor: grab;
+          background-color: $color-grey-darker;
+        }
+      }
+      .folder{
+        cursor: pointer;
+        &:hover{
+          background-color: $color-grey-darker;
+        }
+      }
     }
   }
 

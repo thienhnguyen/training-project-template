@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import 'jquery-ui-bundle';
 import { formatDate } from '../utilities/_helper';
 import ProjectModule from '../services/ProjectModuleService';
 
@@ -7,7 +8,79 @@ const renderGrid = () => {
   project.getData().then(data => {
     $('#projectTable').empty();
     data.forEach(val => {
-      const tableRow = `
+      let tableRow: string = '';
+      if (val.FileType === 'folder') {
+        tableRow = `<div class="row project" data-key="${val.Id}">
+					  <div class="d-block d-lg-none col-10 table-mobile-header-title">
+					  File Type
+					  </div>
+					  <div class="col-lg-1 col-2 table-mobile-header-icon">
+						  <img src="dist/img/icons/file-directory.svg" alt="">
+					  </div>
+					  <div class="d-block d-lg-none col-5 table-mobile-title">
+						  Name
+					  </div>
+            <div class="col-lg-3 col-7 table-mobile-content corner-icon">
+              ${val.FileName}
+					  </div>
+					  <div class="d-block d-lg-none col-5 table-mobile-title">
+						  Modified
+					  </div>
+					  <div class="col-lg-2 col-7 table-mobile-content">
+						  ${formatDate(val.ModifiedAt)}
+					  </div>
+					  <div class="d-block d-lg-none col-5 table-mobile-title">
+						  Modified By
+					  </div>
+					  <div class="col-lg-2 col-7 table-mobile-content">
+						  ${val.ModifiedBy}
+					  </div>
+					  <div class="col-lg-2 col-12 table-modified-btn">
+						  <div class="row">
+							  <div class="offset-lg-1">
+								  <a class="btn btn-success btn-sm" href="#" data-toggle="modal" data-target=".projectModal${
+                    val.Id
+                  }">Update</a>
+							  </div>
+							  <div>
+								  <a class="btn btn-danger btn-sm btnDelete" href="#">Delete</a>
+							  </div>
+						  </div>  
+            </div>
+            
+            <!-- Modal for Update -->
+            <div class="modal fade projectModal${val.Id}">
+              <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <form>
+                      <div class="form-group">
+                        <input type="text" class="form-control" data-filename="${
+                          val.FileName
+                        }" placeholder="Folder Name" value="${
+          val.FileName
+        }">
+                      </div>
+                      <div class="form-group">
+                        <input type="hidden" class="form-control" data-filetype="${
+                          val.FileType
+                        }" placeholder="Folder" value="${
+          val.FileType
+        }">
+                      </div>
+                      <button type="submit" class="btn btn-info btnUpdate float-right" data-dismiss="modal" href="#">OK</button>
+                      <button type="button" class="btn btn-secondary float-right"
+                        data-dismiss="modal">Cancel</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+				  </div>
+        `;
+        $('#projectTable').prepend(tableRow);
+      } else {
+        tableRow = `
 				  <div class="row project" data-key="${val.Id}">
 					  <div class="d-block d-lg-none col-10 table-mobile-header-title">
 					  File Type
@@ -18,8 +91,8 @@ const renderGrid = () => {
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Name
 					  </div>
-					  <div class="col-lg-3 col-7 table-mobile-content corner-icon">
-						  ${val.FileName}.${val.FileType}
+            <div class="col-lg-3 col-7 table-mobile-content corner-icon">
+              ${val.FileName}.${val.FileType}
 					  </div>
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Modified
@@ -56,15 +129,15 @@ const renderGrid = () => {
                         <input type="text" class="form-control" data-filename="${
                           val.FileName
                         }" placeholder="File Name" value="${
-        val.FileName
-      }">
+          val.FileName
+        }">
                       </div>
                       <div class="form-group">
                         <input type="text" class="form-control" data-filetype="${
                           val.FileType
                         }" placeholder="File Type" value="${
-        val.FileType
-      }">
+          val.FileType
+        }">
                       </div>
                       <button type="submit" class="btn btn-info btnUpdate float-right" data-dismiss="modal" href="#">OK</button>
                       <button type="button" class="btn btn-secondary float-right"
@@ -76,12 +149,22 @@ const renderGrid = () => {
             </div>
 				  </div>
         `;
-      $('#projectTable').append(tableRow);
+        $('#projectTable').append(tableRow);
+      }
     });
 
     $('.btnNew').click(function() {
       $('input[name="fileNameInput"]').val('');
-      $('input[name="fileTypeInput"]').val('');
+      $('input[name="fileTypeInput"]')
+        .val('')
+        .prop('disabled', false);
+    });
+
+    $('.btnNewFolder').click(function() {
+      $('input[name="fileNameInput"]').val('');
+      $('input[name="fileTypeInput"]')
+        .val('folder')
+        .prop('disabled', true);
     });
 
     $('.btnDelete').click(function(e) {
@@ -111,10 +194,24 @@ const renderGrid = () => {
         FileName: fileName,
         FileType: fileType,
       };
+
       project.updateData(updateProject).then(() => {
         renderGrid();
       });
     });
+    // let dragged: any;
+    // $('.project').draggable({
+    //   start(e) {
+    //     dragged = e.target;
+    //     console.log(dragged);
+    //   },
+    //   drag() {
+    //     console.log('drag');
+    //   },
+    //   stop() {
+    //     console.log('stop');
+    //   },
+    // });
   });
 };
 
