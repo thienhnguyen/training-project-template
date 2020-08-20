@@ -9,7 +9,7 @@ const renderGrid = () => {
     $('#projectTable').empty();
     data.forEach(val => {
       let tableRow: string = '';
-      if (val.FileType === 'folder') {
+      if (val.fileType === 'folder') {
         tableRow = `<div class="row project" data-key="${val.Id}">
 					  <div class="d-block d-lg-none col-10 table-mobile-header-title">
 					  File Type
@@ -21,25 +21,25 @@ const renderGrid = () => {
 						  Name
 					  </div>
             <div class="col-lg-3 col-7 table-mobile-content corner-icon">
-              ${val.FileName}
+              ${val.fileName}
 					  </div>
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Modified
 					  </div>
 					  <div class="col-lg-2 col-7 table-mobile-content">
-						  ${formatDate(val.ModifiedAt)}
+						  ${formatDate(val.modifiedAt)}
 					  </div>
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Modified By
 					  </div>
 					  <div class="col-lg-2 col-7 table-mobile-content">
-						  ${val.ModifiedBy}
+						  ${val.modifiedBy}
 					  </div>
 					  <div class="col-lg-2 col-12 table-modified-btn">
 						  <div class="row">
 							  <div class="offset-lg-1">
 								  <a class="btn btn-success btn-sm" href="#" data-toggle="modal" data-target=".projectModal${
-                    val.Id
+                    val.id
                   }">Update</a>
 							  </div>
 							  <div>
@@ -49,23 +49,23 @@ const renderGrid = () => {
             </div>
             
             <!-- Modal for Update -->
-            <div class="modal fade projectModal${val.Id}">
+            <div class="modal fade projectModal${val.id}">
               <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
                   <div class="modal-body">
                     <form>
                       <div class="form-group">
                         <input type="text" class="form-control" data-filename="${
-                          val.FileName
+                          val.fileName
                         }" placeholder="Folder Name" value="${
-          val.FileName
+          val.fileName
         }">
                       </div>
                       <div class="form-group">
                         <input type="hidden" class="form-control" data-filetype="${
-                          val.FileType
+                          val.fileType
                         }" placeholder="Folder" value="${
-          val.FileType
+          val.fileType
         }">
                       </div>
                       <button type="submit" class="btn btn-info btnUpdate float-right" data-dismiss="modal" href="#">OK</button>
@@ -81,7 +81,7 @@ const renderGrid = () => {
         $('#projectTable').prepend(tableRow);
       } else {
         tableRow = `
-				  <div class="row project" data-key="${val.Id}">
+				  <div class="row project" data-key="${val.id}">
 					  <div class="d-block d-lg-none col-10 table-mobile-header-title">
 					  File Type
 					  </div>
@@ -92,25 +92,25 @@ const renderGrid = () => {
 						  Name
 					  </div>
             <div class="col-lg-3 col-7 table-mobile-content corner-icon">
-              ${val.FileName}.${val.FileType}
+              ${val.fileName}.${val.fileType}
 					  </div>
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Modified
 					  </div>
 					  <div class="col-lg-2 col-7 table-mobile-content">
-						  ${formatDate(val.ModifiedAt)}
+						  ${formatDate(val.modifiedAt)}
 					  </div>
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Modified By
 					  </div>
 					  <div class="col-lg-2 col-7 table-mobile-content">
-						  ${val.ModifiedBy}
+						  ${val.modifiedBy}
 					  </div>
 					  <div class="col-lg-2 col-12 table-modified-btn">
 						  <div class="row">
 							  <div class="offset-lg-1">
 								  <a class="btn btn-success btn-sm" href="#" data-toggle="modal" data-target=".projectModal${
-                    val.Id
+                    val.id
                   }">Update</a>
 							  </div>
 							  <div>
@@ -120,23 +120,23 @@ const renderGrid = () => {
             </div>
             
             <!-- Modal for Update -->
-            <div class="modal fade projectModal${val.Id}">
+            <div class="modal fade projectModal${val.id}">
               <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
                   <div class="modal-body">
                     <form>
                       <div class="form-group">
                         <input type="text" class="form-control" data-filename="${
-                          val.FileName
+                          val.fileName
                         }" placeholder="File Name" value="${
-          val.FileName
+          val.fileName
         }">
                       </div>
                       <div class="form-group">
                         <input type="text" class="form-control" data-filetype="${
-                          val.FileType
+                          val.fileType
                         }" placeholder="File Type" value="${
-          val.FileType
+          val.fileType
         }">
                       </div>
                       <button type="submit" class="btn btn-info btnUpdate float-right" data-dismiss="modal" href="#">OK</button>

@@ -1,21 +1,19 @@
-import IBase from './ibase';
+import Base from './base';
 
-class Project implements IBase {
-  Id: string;
+class Project implements Base {
+  id: string;
 
-  FileName: string;
+  fileName: string;
 
-  FileType: string;
+  fileType: string;
 
-  CreatedAt: Date;
+  createdAt: Date;
 
-  CreatedBy: string;
+  createdBy: string;
 
-  ModifiedAt: Date;
+  modifiedAt: Date;
 
-  ModifiedBy: string;
-
-  static count = 0;
+  modifiedBy: string;
 
   constructor(
     id: string,
@@ -26,15 +24,13 @@ class Project implements IBase {
     modifiedAt: Date,
     modifiedBy: string,
   ) {
-    this.Id = id;
-    this.FileName = fileName;
-    this.FileType = fileType;
-    this.CreatedAt = createdAt;
-    this.CreatedBy = createdBy;
-    this.ModifiedAt = modifiedAt;
-    this.ModifiedBy = modifiedBy;
-
-    Project.count += 1;
+    this.id = id;
+    this.fileName = fileName;
+    this.fileType = fileType;
+    this.createdAt = createdAt;
+    this.createdBy = createdBy;
+    this.modifiedAt = modifiedAt;
+    this.modifiedBy = modifiedBy;
   }
 }
 

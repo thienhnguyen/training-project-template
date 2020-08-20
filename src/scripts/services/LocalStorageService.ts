@@ -13,13 +13,13 @@ class LocalStorageModule {
   updateLocalStorage = (project: Project) => {
     const projects = this.getLocalStorage();
     const updateProjectIndex = projects.findIndex(
-      (i: Project) => i.Id === project.Id,
+      (i: Project) => i.id === project.id,
     );
 
-    projects[updateProjectIndex].FileName = project.FileName;
-    projects[updateProjectIndex].FileType = project.FileType;
-    projects[updateProjectIndex].ModifiedAt = project.ModifiedAt;
-    projects[updateProjectIndex].ModifiedBy = project.ModifiedBy;
+    projects[updateProjectIndex].FileName = project.fileName;
+    projects[updateProjectIndex].FileType = project.fileType;
+    projects[updateProjectIndex].ModifiedAt = project.modifiedAt;
+    projects[updateProjectIndex].ModifiedBy = project.modifiedBy;
 
     this.saveLocalStorage(projects);
   };
