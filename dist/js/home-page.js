@@ -30763,12 +30763,10 @@ class Project {
     this.CreatedBy = createdBy;
     this.ModifiedAt = modifiedAt;
     this.ModifiedBy = modifiedBy;
-    Project.count += 1;
   }
 
 }
 
-Project.count = 0;
 /* harmony default export */ __webpack_exports__["default"] = (Project);
 
 /***/ }),
@@ -30850,9 +30848,13 @@ const ls = new _LocalStorageService__WEBPACK_IMPORTED_MODULE_1__["default"]();
 class ProjectModule {
   constructor() {
     this.getData = () => {
-      return new Promise(resolve => {
-        const projects = ls.getLocalStorage();
-        resolve(projects);
+      return new Promise((resolve, reject) => {
+        try {
+          const projects = ls.getLocalStorage();
+          resolve(projects);
+        } catch (e) {
+          reject(new Error(e));
+        }
       });
     };
 
@@ -30863,31 +30865,41 @@ class ProjectModule {
         project.CreatedBy = 'THN';
         project.ModifiedAt = new Date();
         project.ModifiedBy = 'THN';
-        const projects = ls.getLocalStorage();
-        projects.push(project);
-        ls.saveLocalStorage(projects);
-        resolve('Success');
-        setTimeout(() => reject(new Error('Failed')), 1000);
+
+        try {
+          const projects = ls.getLocalStorage();
+          projects.push(project);
+          ls.saveLocalStorage(projects);
+          resolve('Success');
+        } catch (e) {
+          reject(new Error(e));
+        }
       });
     };
 
     this.updateData = project => {
       return new Promise((resolve, reject) => {
-        project.ModifiedAt = new Date();
-        project.ModifiedBy = 'THN';
-        ls.updateLocalStorage(project);
-        resolve('Success');
-        setTimeout(() => reject(new Error('Failed')), 1000);
+        try {
+          project.ModifiedAt = new Date();
+          project.ModifiedBy = 'THN';
+          ls.updateLocalStorage(project);
+          resolve('Success');
+        } catch (e) {
+          reject(new Error(e));
+        }
       });
     };
 
     this.deleteData = id => {
       return new Promise((resolve, reject) => {
-        const projects = ls.getLocalStorage();
-        const filterItem = projects.filter(i => i.Id !== id.toString());
-        ls.saveLocalStorage(filterItem);
-        resolve('Success');
-        setTimeout(() => reject(new Error('Failed')), 1000);
+        try {
+          const projects = ls.getLocalStorage();
+          const filterItem = projects.filter(i => i.Id !== id.toString());
+          ls.saveLocalStorage(filterItem);
+          resolve('Success');
+        } catch (e) {
+          reject(new Error(e));
+        }
       });
     };
   }
