@@ -4,7 +4,7 @@ go
 use imdb
 go
 
---import plat data -> auto create table
+-->import plat data -> auto create table
 
 alter table Casts
 add constraint fk_casts_actor foreign key(pid) references Actor(id)

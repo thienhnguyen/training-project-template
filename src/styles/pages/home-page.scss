@@ -25,10 +25,14 @@
         }
       }
       .folder{
-        cursor: pointer;
+        cursor: pointer !important;
         &:hover{
           background-color: $color-grey-darker;
         }
+      }
+      .nest{
+        transition: display 10s;
+        // display: none;
       }
     }
   }

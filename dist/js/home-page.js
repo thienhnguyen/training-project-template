@@ -30543,11 +30543,17 @@ const renderGrid = () => {
   const project = new _services_ProjectModuleService__WEBPACK_IMPORTED_MODULE_3__["default"]();
   project.getData().then(data => {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#projectTable').empty();
+    const rowObject = [];
     data.forEach(val => {
       let tableRow = '';
 
-      if (val.FileType === 'folder') {
-        tableRow = `<div class="row project" data-key="${val.Id}">
+      if (val.path !== '/') {
+        rowObject.push(val);
+        return;
+      }
+
+      if (val.fileType === 'folder') {
+        tableRow = `<div class="row project folder" data-key="${val.id}" data-path="${val.path}">
 					  <div class="d-block d-lg-none col-10 table-mobile-header-title">
 					  File Type
 					  </div>
@@ -30558,24 +30564,24 @@ const renderGrid = () => {
 						  Name
 					  </div>
             <div class="col-lg-3 col-7 table-mobile-content corner-icon">
-              ${val.FileName}
+              ${val.fileName}
 					  </div>
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Modified
 					  </div>
 					  <div class="col-lg-2 col-7 table-mobile-content">
-						  ${Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_2__["formatDate"])(val.ModifiedAt)}
+						  ${Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_2__["formatDate"])(val.modifiedAt)}
 					  </div>
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Modified By
 					  </div>
 					  <div class="col-lg-2 col-7 table-mobile-content">
-						  ${val.ModifiedBy}
+						  ${val.modifiedBy}
 					  </div>
 					  <div class="col-lg-2 col-12 table-modified-btn">
 						  <div class="row">
 							  <div class="offset-lg-1">
-								  <a class="btn btn-success btn-sm" href="#" data-toggle="modal" data-target=".projectModal${val.Id}">Update</a>
+								  <a class="btn btn-success btn-sm" href="#" data-toggle="modal" data-target=".projectModal${val.id}">Update</a>
 							  </div>
 							  <div>
 								  <a class="btn btn-danger btn-sm btnDelete" href="#">Delete</a>
@@ -30584,16 +30590,16 @@ const renderGrid = () => {
             </div>
             
             <!-- Modal for Update -->
-            <div class="modal fade projectModal${val.Id}">
+            <div class="modal fade projectModal${val.id}">
               <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
                   <div class="modal-body">
                     <form>
                       <div class="form-group">
-                        <input type="text" class="form-control" data-filename="${val.FileName}" placeholder="Folder Name" value="${val.FileName}">
+                        <input type="text" class="form-control" data-filename="${val.fileName}" placeholder="Folder Name" value="${val.fileName}">
                       </div>
                       <div class="form-group">
-                        <input type="hidden" class="form-control" data-filetype="${val.FileType}" placeholder="Folder" value="${val.FileType}">
+                        <input type="hidden" class="form-control" data-filetype="${val.fileType}" placeholder="Folder" value="${val.fileType}">
                       </div>
                       <button type="submit" class="btn btn-info btnUpdate float-right" data-dismiss="modal" href="#">OK</button>
                       <button type="button" class="btn btn-secondary float-right"
@@ -30608,7 +30614,7 @@ const renderGrid = () => {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('#projectTable').prepend(tableRow);
       } else {
         tableRow = `
-				  <div class="row project" data-key="${val.Id}">
+				  <div class="row project" data-key="${val.id}" data-path="${val.path}">
 					  <div class="d-block d-lg-none col-10 table-mobile-header-title">
 					  File Type
 					  </div>
@@ -30619,24 +30625,24 @@ const renderGrid = () => {
 						  Name
 					  </div>
             <div class="col-lg-3 col-7 table-mobile-content corner-icon">
-              ${val.FileName}.${val.FileType}
+              ${val.fileName}.${val.fileType}
 					  </div>
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Modified
 					  </div>
 					  <div class="col-lg-2 col-7 table-mobile-content">
-						  ${Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_2__["formatDate"])(val.ModifiedAt)}
+						  ${Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_2__["formatDate"])(val.modifiedAt)}
 					  </div>
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Modified By
 					  </div>
 					  <div class="col-lg-2 col-7 table-mobile-content">
-						  ${val.ModifiedBy}
+						  ${val.modifiedBy}
 					  </div>
 					  <div class="col-lg-2 col-12 table-modified-btn">
 						  <div class="row">
 							  <div class="offset-lg-1">
-								  <a class="btn btn-success btn-sm" href="#" data-toggle="modal" data-target=".projectModal${val.Id}">Update</a>
+								  <a class="btn btn-success btn-sm" href="#" data-toggle="modal" data-target=".projectModal${val.id}">Update</a>
 							  </div>
 							  <div>
 								  <a class="btn btn-danger btn-sm btnDelete" href="#">Delete</a>
@@ -30645,16 +30651,16 @@ const renderGrid = () => {
             </div>
             
             <!-- Modal for Update -->
-            <div class="modal fade projectModal${val.Id}">
+            <div class="modal fade projectModal${val.id}">
               <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
                   <div class="modal-body">
                     <form>
                       <div class="form-group">
-                        <input type="text" class="form-control" data-filename="${val.FileName}" placeholder="File Name" value="${val.FileName}">
+                        <input type="text" class="form-control" data-filename="${val.fileName}" placeholder="File Name" value="${val.fileName}">
                       </div>
                       <div class="form-group">
-                        <input type="text" class="form-control" data-filetype="${val.FileType}" placeholder="File Type" value="${val.FileType}">
+                        <input type="text" class="form-control" data-filetype="${val.fileType}" placeholder="File Type" value="${val.fileType}">
                       </div>
                       <button type="submit" class="btn btn-info btnUpdate float-right" data-dismiss="modal" href="#">OK</button>
                       <button type="button" class="btn btn-secondary float-right"
@@ -30669,6 +30675,75 @@ const renderGrid = () => {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('#projectTable').append(tableRow);
       }
     });
+    const dataTable = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#projectTable').children();
+    dataTable.each(val => {
+      rowObject.forEach(row => {
+        const key = `/${dataTable[val].dataset.key}`;
+
+        if (key === row.path) {
+          const tableRow = `
+          <div class="row project folder nest" data-key="${row.id}" data-path="${row.path}">
+					  <div class="d-block d-lg-none col-10 table-mobile-header-title">
+					  File Type
+					  </div>
+					  <div class="col-lg-1 col-2 table-mobile-header-icon">
+						  <img src="dist/img/icons/microsoft-excel.svg" alt="">
+					  </div>
+					  <div class="d-block d-lg-none col-5 table-mobile-title">
+						  Name
+					  </div>
+            <div class="col-lg-3 col-7 table-mobile-content corner-icon">
+              ${row.fileName}.${row.fileType}
+					  </div>
+					  <div class="d-block d-lg-none col-5 table-mobile-title">
+						  Modified
+					  </div>
+					  <div class="col-lg-2 col-7 table-mobile-content">
+						  ${Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_2__["formatDate"])(row.modifiedAt)}
+					  </div>
+					  <div class="d-block d-lg-none col-5 table-mobile-title">
+						  Modified By
+					  </div>
+					  <div class="col-lg-2 col-7 table-mobile-content">
+						  ${row.modifiedBy}
+					  </div>
+					  <div class="col-lg-2 col-12 table-modified-btn">
+						  <div class="row">
+							  <div class="offset-lg-1">
+								  <a class="btn btn-success btn-sm" href="#" data-toggle="modal" data-target=".projectModal${row.id}">Update</a>
+							  </div>
+							  <div>
+								  <a class="btn btn-danger btn-sm btnDelete" href="#">Delete</a>
+							  </div>
+						  </div>  
+            </div>
+            
+            <!-- Modal for Update -->
+            <div class="modal fade projectModal${row.id}">
+              <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <form>
+                      <div class="form-group">
+                        <input type="text" class="form-control" data-filename="${row.fileName}" placeholder="File Name" value="${row.fileName}">
+                      </div>
+                      <div class="form-group">
+                        <input type="text" class="form-control" data-filetype="${row.fileType}" placeholder="File Type" value="${row.fileType}">
+                      </div>
+                      <button type="submit" class="btn btn-info btnUpdate float-right" data-dismiss="modal" href="#">OK</button>
+                      <button type="button" class="btn btn-secondary float-right"
+                        data-dismiss="modal">Cancel</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+				  </div>
+        `;
+          dataTable[val].insertAdjacentHTML('afterend', tableRow);
+        }
+      });
+    });
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnNew').click(function () {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileNameInput"]').val('');
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileTypeInput"]').val('').prop('disabled', false);
@@ -30677,24 +30752,39 @@ const renderGrid = () => {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileNameInput"]').val('');
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileTypeInput"]').val('folder').prop('disabled', true);
     });
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnDelete').click(function (e) {
-      e.preventDefault();
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnDelete').click(function (event) {
+      event.preventDefault();
+      event.stopPropagation();
       const id = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).closest('.project').data('key');
       project.deleteData(id).then(() => {
         renderGrid();
       });
     });
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnUpdate').click(function () {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnUpdate').click(function (event) {
+      event.preventDefault();
+      event.stopPropagation();
       const id = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).closest('.project').data('key');
       const fileName = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).parent().find('input[data-filename]').val();
       const fileType = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).parent().find('input[data-filetype]').val();
+      const path = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).closest('.project').data('path');
       const updateProject = {
-        Id: id,
-        FileName: fileName,
-        FileType: fileType
+        id,
+        fileName,
+        fileType,
+        path
       };
       project.updateData(updateProject).then(() => {
         renderGrid();
+      });
+    });
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.folder').click(function () {
+      const folderPath = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('key');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.nest').each(val => {
+        if (jquery__WEBPACK_IMPORTED_MODULE_0___default()('.nest').eq(val).data('path') !== `/${folderPath}` || jquery__WEBPACK_IMPORTED_MODULE_0___default()('.nest').eq(val).css('display') === 'none' && jquery__WEBPACK_IMPORTED_MODULE_0___default()('.nest').eq(val).data('path') === `/${folderPath}`) {
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()('.nest').eq(val).css('display', 'flex');
+        } else {
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()('.nest').eq(val).hide();
+        }
       });
     }); // let dragged: any;
     // $('.project').draggable({
@@ -30716,8 +30806,8 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnCreate').click(function () {
   const fileName = jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileNameInput"]').val();
   const fileType = jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileTypeInput"]').val();
   const newProject = {
-    FileName: fileName,
-    FileType: fileType
+    fileName,
+    fileType
   };
   new _services_ProjectModuleService__WEBPACK_IMPORTED_MODULE_3__["default"]().createData(newProject).then(() => {
     renderGrid();
@@ -30740,7 +30830,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _project__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./project */ "./src/scripts/models/project.ts");
 
 
-const data = [new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'CAS', 'folder', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'NAS', 'folder', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'CoasterAndBargeLoading', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2016', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2017', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2018', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2019', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2020', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2021', 'xlsx', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2022', 'xlsx', new Date(), 'seed', new Date(), 'seed')];
+const uuidTest = Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(); // const uuidTest2 = uuid();
+
+const data = [new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'CAS', 'folder', '/', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](`${uuidTest}`, 'NAS', 'folder', '/', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'CoasterAndBargeLoading', 'xlsx', `/${uuidTest}`, new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices', 'xlsx', `/${uuidTest}`, new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2016', 'xlsx', '/', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2017', 'xlsx', '/', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2018', 'xlsx', '/', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2019', 'xlsx', '/', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2020', 'xlsx', '/', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2021', 'xlsx', '/', new Date(), 'seed', new Date(), 'seed'), new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), 'RevenueByServices2022', 'xlsx', '/', new Date(), 'seed', new Date(), 'seed')];
 /* harmony default export */ __webpack_exports__["default"] = (data);
 
 /***/ }),
@@ -30755,14 +30847,16 @@ const data = [new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 class Project {
-  constructor(id, fileName, fileType, createdAt, createdBy, modifiedAt, modifiedBy) {
-    this.Id = id;
-    this.FileName = fileName;
-    this.FileType = fileType;
-    this.CreatedAt = createdAt;
-    this.CreatedBy = createdBy;
-    this.ModifiedAt = modifiedAt;
-    this.ModifiedBy = modifiedBy;
+  constructor(id, fileName, fileType, path = '/', createdAt, createdBy, modifiedAt, modifiedBy) {
+    this.path = '/';
+    this.id = id;
+    this.fileName = fileName;
+    this.fileType = fileType;
+    this.createdAt = createdAt;
+    this.createdBy = createdBy;
+    this.modifiedAt = modifiedAt;
+    this.modifiedBy = modifiedBy;
+    this.path = path;
   }
 
 }
@@ -30815,11 +30909,12 @@ class LocalStorageModule {
 
     this.updateLocalStorage = project => {
       const projects = this.getLocalStorage();
-      const updateProjectIndex = projects.findIndex(i => i.Id === project.Id);
-      projects[updateProjectIndex].FileName = project.FileName;
-      projects[updateProjectIndex].FileType = project.FileType;
-      projects[updateProjectIndex].ModifiedAt = project.ModifiedAt;
-      projects[updateProjectIndex].ModifiedBy = project.ModifiedBy;
+      const updateProjectIndex = projects.findIndex(i => i.id === project.id);
+      projects[updateProjectIndex].fileName = project.fileName;
+      projects[updateProjectIndex].fileType = project.fileType;
+      projects[updateProjectIndex].path = project.path;
+      projects[updateProjectIndex].modifiedAt = project.modifiedAt;
+      projects[updateProjectIndex].modifiedBy = project.modifiedBy;
       this.saveLocalStorage(projects);
     };
   }
@@ -30860,11 +30955,12 @@ class ProjectModule {
 
     this.createData = project => {
       return new Promise((resolve, reject) => {
-        project.Id = Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])();
-        project.CreatedAt = new Date();
-        project.CreatedBy = 'THN';
-        project.ModifiedAt = new Date();
-        project.ModifiedBy = 'THN';
+        project.id = Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])();
+        project.path = '/';
+        project.createdAt = new Date();
+        project.createdBy = 'THN';
+        project.modifiedAt = new Date();
+        project.modifiedBy = 'THN';
 
         try {
           const projects = ls.getLocalStorage();
@@ -30880,8 +30976,8 @@ class ProjectModule {
     this.updateData = project => {
       return new Promise((resolve, reject) => {
         try {
-          project.ModifiedAt = new Date();
-          project.ModifiedBy = 'THN';
+          project.modifiedAt = new Date();
+          project.modifiedBy = 'THN';
           ls.updateLocalStorage(project);
           resolve('Success');
         } catch (e) {
@@ -30894,7 +30990,7 @@ class ProjectModule {
       return new Promise((resolve, reject) => {
         try {
           const projects = ls.getLocalStorage();
-          const filterItem = projects.filter(i => i.Id !== id.toString());
+          const filterItem = projects.filter(i => i.id !== id.toString());
           ls.saveLocalStorage(filterItem);
           resolve('Success');
         } catch (e) {

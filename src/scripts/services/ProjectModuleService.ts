@@ -18,11 +18,12 @@ class ProjectModule {
 
   createData = (project: any) => {
     return new Promise((resolve, reject) => {
-      project.Id = uuid();
-      project.CreatedAt = new Date();
-      project.CreatedBy = 'THN';
-      project.ModifiedAt = new Date();
-      project.ModifiedBy = 'THN';
+      project.id = uuid();
+      project.path = '/';
+      project.createdAt = new Date();
+      project.createdBy = 'THN';
+      project.modifiedAt = new Date();
+      project.modifiedBy = 'THN';
 
       try {
         const projects = ls.getLocalStorage();
@@ -38,8 +39,8 @@ class ProjectModule {
   updateData = (project: any) => {
     return new Promise((resolve, reject) => {
       try {
-        project.ModifiedAt = new Date();
-        project.ModifiedBy = 'THN';
+        project.modifiedAt = new Date();
+        project.modifiedBy = 'THN';
 
         ls.updateLocalStorage(project);
 
@@ -55,7 +56,7 @@ class ProjectModule {
       try {
         const projects = ls.getLocalStorage();
         const filterItem = projects.filter(
-          (i: Project) => i.Id !== id.toString(),
+          (i: Project) => i.id !== id.toString(),
         );
         ls.saveLocalStorage(filterItem);
         resolve('Success');

@@ -10000,10 +10000,13 @@ button, a {
   background-color: #d3d3d3;
 }
 .homepage section .table .folder {
-  cursor: pointer;
+  cursor: pointer !important;
 }
 .homepage section .table .folder:hover {
   background-color: #d3d3d3;
+}
+.homepage section .table .nest {
+  transition: display 10s;
 }
 @media (min-width: 992px) {
   .homepage .table-header {

@@ -16,10 +16,11 @@ class LocalStorageModule {
       (i: Project) => i.id === project.id,
     );
 
-    projects[updateProjectIndex].FileName = project.fileName;
-    projects[updateProjectIndex].FileType = project.fileType;
-    projects[updateProjectIndex].ModifiedAt = project.modifiedAt;
-    projects[updateProjectIndex].ModifiedBy = project.modifiedBy;
+    projects[updateProjectIndex].fileName = project.fileName;
+    projects[updateProjectIndex].fileType = project.fileType;
+    projects[updateProjectIndex].path = project.path;
+    projects[updateProjectIndex].modifiedAt = project.modifiedAt;
+    projects[updateProjectIndex].modifiedBy = project.modifiedBy;
 
     this.saveLocalStorage(projects);
   };

@@ -15,10 +15,13 @@ class Project implements Base {
 
   modifiedBy: string;
 
+  path: string = '/';
+
   constructor(
     id: string,
     fileName: string,
     fileType: string,
+    path: string = '/',
     createdAt: Date,
     createdBy: string,
     modifiedAt: Date,
@@ -31,6 +34,7 @@ class Project implements Base {
     this.createdBy = createdBy;
     this.modifiedAt = modifiedAt;
     this.modifiedBy = modifiedBy;
+    this.path = path;
   }
 }
 

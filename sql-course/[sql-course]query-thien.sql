@@ -26,6 +26,7 @@ where mo.year = 2010
 group by ac.id, ac.fname, ac.lname, mo.id, mo.name
 having count(distinct ca.role) >= 5
 
+
 --------------------------4--------------------------
 select (ac.fname + ' ' + ac.lname) as 'Female actor name', count(distinct ca.mid) as 'Number of action movies'
 from casts ca
@@ -37,18 +38,3 @@ where ge.genre = 'Action' and ac.gender = 'F'
 group by ac.id, ac.fname, ac.lname
 having count(distinct ca.mid) >= 50
 
---------------------------5--------------------------
-create nonclustered index idx_movie_name
-on movie(name)
-
-create nonclustered index idx_movie_year
-on movie(year)
-
-create nonclustered index idx_actor
-on actor(id, fname, lname)
-
-create nonclustered index idx_actor_gender
-on actor(gender)
-
-create nonclustered index idx_genre
-on genre(genre)
