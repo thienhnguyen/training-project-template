@@ -30546,8 +30546,8 @@ const renderGrid = () => {
     data.forEach(val => {
       let tableRow = '';
 
-      if (val.FileType === 'folder') {
-        tableRow = `<div class="row project" data-key="${val.Id}">
+      if (val.fileType === 'folder') {
+        tableRow = `<div class="row project" data-key="${val.id}">
 					  <div class="d-block d-lg-none col-10 table-mobile-header-title">
 					  File Type
 					  </div>
@@ -30558,24 +30558,24 @@ const renderGrid = () => {
 						  Name
 					  </div>
             <div class="col-lg-3 col-7 table-mobile-content corner-icon">
-              ${val.FileName}
+              ${val.fileName}
 					  </div>
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Modified
 					  </div>
 					  <div class="col-lg-2 col-7 table-mobile-content">
-						  ${Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_2__["formatDate"])(val.ModifiedAt)}
+						  ${Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_2__["formatDate"])(val.modifiedAt)}
 					  </div>
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Modified By
 					  </div>
 					  <div class="col-lg-2 col-7 table-mobile-content">
-						  ${val.ModifiedBy}
+						  ${val.modifiedBy}
 					  </div>
 					  <div class="col-lg-2 col-12 table-modified-btn">
 						  <div class="row">
 							  <div class="offset-lg-1">
-								  <a class="btn btn-success btn-sm" href="#" data-toggle="modal" data-target=".projectModal${val.Id}">Update</a>
+								  <a class="btn btn-success btn-sm" href="#" data-toggle="modal" data-target=".projectModal${val.id}">Update</a>
 							  </div>
 							  <div>
 								  <a class="btn btn-danger btn-sm btnDelete" href="#">Delete</a>
@@ -30584,16 +30584,16 @@ const renderGrid = () => {
             </div>
             
             <!-- Modal for Update -->
-            <div class="modal fade projectModal${val.Id}">
+            <div class="modal fade projectModal${val.id}">
               <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
                   <div class="modal-body">
                     <form>
                       <div class="form-group">
-                        <input type="text" class="form-control" data-filename="${val.FileName}" placeholder="Folder Name" value="${val.FileName}">
+                        <input type="text" class="form-control" data-filename="${val.fileName}" placeholder="Folder Name" value="${val.fileName}">
                       </div>
                       <div class="form-group">
-                        <input type="hidden" class="form-control" data-filetype="${val.FileType}" placeholder="Folder" value="${val.FileType}">
+                        <input type="hidden" class="form-control" data-filetype="${val.fileType}" placeholder="Folder" value="${val.fileType}">
                       </div>
                       <button type="submit" class="btn btn-info btnUpdate float-right" data-dismiss="modal" href="#">OK</button>
                       <button type="button" class="btn btn-secondary float-right"
@@ -30608,7 +30608,7 @@ const renderGrid = () => {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('#projectTable').prepend(tableRow);
       } else {
         tableRow = `
-				  <div class="row project" data-key="${val.Id}">
+				  <div class="row project" data-key="${val.id}">
 					  <div class="d-block d-lg-none col-10 table-mobile-header-title">
 					  File Type
 					  </div>
@@ -30619,24 +30619,24 @@ const renderGrid = () => {
 						  Name
 					  </div>
             <div class="col-lg-3 col-7 table-mobile-content corner-icon">
-              ${val.FileName}.${val.FileType}
+              ${val.fileName}.${val.fileType}
 					  </div>
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Modified
 					  </div>
 					  <div class="col-lg-2 col-7 table-mobile-content">
-						  ${Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_2__["formatDate"])(val.ModifiedAt)}
+						  ${Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_2__["formatDate"])(val.modifiedAt)}
 					  </div>
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Modified By
 					  </div>
 					  <div class="col-lg-2 col-7 table-mobile-content">
-						  ${val.ModifiedBy}
+						  ${val.modifiedBy}
 					  </div>
 					  <div class="col-lg-2 col-12 table-modified-btn">
 						  <div class="row">
 							  <div class="offset-lg-1">
-								  <a class="btn btn-success btn-sm" href="#" data-toggle="modal" data-target=".projectModal${val.Id}">Update</a>
+								  <a class="btn btn-success btn-sm" href="#" data-toggle="modal" data-target=".projectModal${val.id}">Update</a>
 							  </div>
 							  <div>
 								  <a class="btn btn-danger btn-sm btnDelete" href="#">Delete</a>
@@ -30645,16 +30645,16 @@ const renderGrid = () => {
             </div>
             
             <!-- Modal for Update -->
-            <div class="modal fade projectModal${val.Id}">
+            <div class="modal fade projectModal${val.id}">
               <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
                   <div class="modal-body">
                     <form>
                       <div class="form-group">
-                        <input type="text" class="form-control" data-filename="${val.FileName}" placeholder="File Name" value="${val.FileName}">
+                        <input type="text" class="form-control" data-filename="${val.fileName}" placeholder="File Name" value="${val.fileName}">
                       </div>
                       <div class="form-group">
-                        <input type="text" class="form-control" data-filetype="${val.FileType}" placeholder="File Type" value="${val.FileType}">
+                        <input type="text" class="form-control" data-filetype="${val.fileType}" placeholder="File Type" value="${val.fileType}">
                       </div>
                       <button type="submit" class="btn btn-info btnUpdate float-right" data-dismiss="modal" href="#">OK</button>
                       <button type="button" class="btn btn-secondary float-right"
@@ -30689,9 +30689,9 @@ const renderGrid = () => {
       const fileName = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).parent().find('input[data-filename]').val();
       const fileType = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).parent().find('input[data-filetype]').val();
       const updateProject = {
-        Id: id,
-        FileName: fileName,
-        FileType: fileType
+        id,
+        fileName,
+        fileType
       };
       project.updateData(updateProject).then(() => {
         renderGrid();
@@ -30716,8 +30716,8 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnCreate').click(function () {
   const fileName = jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileNameInput"]').val();
   const fileType = jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileTypeInput"]').val();
   const newProject = {
-    FileName: fileName,
-    FileType: fileType
+    fileName,
+    fileType
   };
   new _services_ProjectModuleService__WEBPACK_IMPORTED_MODULE_3__["default"]().createData(newProject).then(() => {
     renderGrid();
@@ -30756,13 +30756,13 @@ const data = [new _project__WEBPACK_IMPORTED_MODULE_1__["default"](Object(uuid__
 __webpack_require__.r(__webpack_exports__);
 class Project {
   constructor(id, fileName, fileType, createdAt, createdBy, modifiedAt, modifiedBy) {
-    this.Id = id;
-    this.FileName = fileName;
-    this.FileType = fileType;
-    this.CreatedAt = createdAt;
-    this.CreatedBy = createdBy;
-    this.ModifiedAt = modifiedAt;
-    this.ModifiedBy = modifiedBy;
+    this.id = id;
+    this.fileName = fileName;
+    this.fileType = fileType;
+    this.createdAt = createdAt;
+    this.createdBy = createdBy;
+    this.modifiedAt = modifiedAt;
+    this.modifiedBy = modifiedBy;
   }
 
 }
@@ -30815,11 +30815,11 @@ class LocalStorageModule {
 
     this.updateLocalStorage = project => {
       const projects = this.getLocalStorage();
-      const updateProjectIndex = projects.findIndex(i => i.Id === project.Id);
-      projects[updateProjectIndex].FileName = project.FileName;
-      projects[updateProjectIndex].FileType = project.FileType;
-      projects[updateProjectIndex].ModifiedAt = project.ModifiedAt;
-      projects[updateProjectIndex].ModifiedBy = project.ModifiedBy;
+      const updateProjectIndex = projects.findIndex(i => i.id === project.id);
+      projects[updateProjectIndex].fileName = project.fileName;
+      projects[updateProjectIndex].fileType = project.fileType;
+      projects[updateProjectIndex].modifiedAt = project.modifiedAt;
+      projects[updateProjectIndex].modifiedBy = project.modifiedBy;
       this.saveLocalStorage(projects);
     };
   }
@@ -30860,11 +30860,11 @@ class ProjectModule {
 
     this.createData = project => {
       return new Promise((resolve, reject) => {
-        project.Id = Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])();
-        project.CreatedAt = new Date();
-        project.CreatedBy = 'THN';
-        project.ModifiedAt = new Date();
-        project.ModifiedBy = 'THN';
+        project.id = Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])();
+        project.createdAt = new Date();
+        project.createdBy = 'THN';
+        project.modifiedAt = new Date();
+        project.modifiedBy = 'THN';
 
         try {
           const projects = ls.getLocalStorage();
@@ -30880,8 +30880,8 @@ class ProjectModule {
     this.updateData = project => {
       return new Promise((resolve, reject) => {
         try {
-          project.ModifiedAt = new Date();
-          project.ModifiedBy = 'THN';
+          project.modifiedAt = new Date();
+          project.modifiedBy = 'THN';
           ls.updateLocalStorage(project);
           resolve('Success');
         } catch (e) {
@@ -30894,7 +30894,7 @@ class ProjectModule {
       return new Promise((resolve, reject) => {
         try {
           const projects = ls.getLocalStorage();
-          const filterItem = projects.filter(i => i.Id !== id.toString());
+          const filterItem = projects.filter(i => i.id !== id.toString());
           ls.saveLocalStorage(filterItem);
           resolve('Success');
         } catch (e) {

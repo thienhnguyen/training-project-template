@@ -10,7 +10,7 @@ const renderGrid = () => {
     data.forEach(val => {
       let tableRow: string = '';
       if (val.fileType === 'folder') {
-        tableRow = `<div class="row project" data-key="${val.Id}">
+        tableRow = `<div class="row project" data-key="${val.id}">
 					  <div class="d-block d-lg-none col-10 table-mobile-header-title">
 					  File Type
 					  </div>
@@ -190,9 +190,9 @@ const renderGrid = () => {
         .find('input[data-filetype]')
         .val();
       const updateProject = {
-        Id: id,
-        FileName: fileName,
-        FileType: fileType,
+        id,
+        fileName,
+        fileType,
       };
 
       project.updateData(updateProject).then(() => {
@@ -219,8 +219,8 @@ $('.btnCreate').click(function() {
   const fileName = $('input[name="fileNameInput"]').val();
   const fileType = $('input[name="fileTypeInput"]').val();
   const newProject = {
-    FileName: fileName,
-    FileType: fileType,
+    fileName,
+    fileType,
   };
   new ProjectModule().createData(newProject).then(() => {
     renderGrid();
