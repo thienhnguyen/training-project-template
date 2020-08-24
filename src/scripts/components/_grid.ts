@@ -15,7 +15,7 @@ const renderGrid = () => {
 					  File Type
 					  </div>
 					  <div class="col-lg-1 col-2 table-mobile-header-icon">
-						  <img src="dist/img/icons/file-directory.svg" alt="">
+						  <img src="/img/icons/file-directory.svg" alt="">
 					  </div>
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Name
@@ -45,9 +45,9 @@ const renderGrid = () => {
 							  <div>
 								  <a class="btn btn-danger btn-sm btnDelete" href="#">Delete</a>
 							  </div>
-						  </div>  
+						  </div>
             </div>
-            
+
             <!-- Modal for Update -->
             <div class="modal fade projectModal${val.id}">
               <div class="modal-dialog modal-sm" role="document">
@@ -86,7 +86,7 @@ const renderGrid = () => {
 					  File Type
 					  </div>
 					  <div class="col-lg-1 col-2 table-mobile-header-icon">
-						  <img src="dist/img/icons/microsoft-excel.svg" alt="">
+						  <img src="/img/icons/microsoft-excel.svg" alt="">
 					  </div>
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Name
@@ -116,9 +116,9 @@ const renderGrid = () => {
 							  <div>
 								  <a class="btn btn-danger btn-sm btnDelete" href="#">Delete</a>
 							  </div>
-						  </div>  
+						  </div>
             </div>
-            
+
             <!-- Modal for Update -->
             <div class="modal fade projectModal${val.id}">
               <div class="modal-dialog modal-sm" role="document">
