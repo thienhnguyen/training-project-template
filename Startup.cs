@@ -18,8 +18,8 @@ namespace backend
 {
     public class Startup
     {
-        private readonly string TenantName = ""; // 'Initial Domain Name' in Azure
-        private readonly string ClientId = ""; // 'Application Id' in Azure
+        private readonly string TenantName = "thntest.onmicrosoft.com"; // 'Initial Domain Name' in Azure
+        private readonly string ClientId = "f7bb073d-437d-4a5a-a8b9-7e354f842e42"; // 'Application Id' in Azure
 
         public Startup(IConfiguration configuration)
         {
@@ -35,30 +35,32 @@ namespace backend
 
             services.AddDbContext<AppDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            //services.AddAuthentication(options =>
-            //{
-            //    options.DefaultAuthenticateScheme =
-            //       CookieAuthenticationDefaults.AuthenticationScheme;
-            //    options.DefaultSignInScheme =
-            //       CookieAuthenticationDefaults.AuthenticationScheme;
-            //    options.DefaultChallengeScheme =
-            //       OpenIdConnectDefaults.AuthenticationScheme;
-            //}).AddOpenIdConnect(options =>
-            //{
-            //    options.Authority = "https://login.microsoftonline.com/" +
-            //                            this.TenantName;
-            //    options.ClientId = this.ClientId;
-            //    options.ResponseType = OpenIdConnectResponseType.IdToken;
-            //    options.CallbackPath = "/security/signin-callback";
-            //    options.SignedOutRedirectUri = "https://localhost:44311/";
-            //}).AddCookie();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme =
+                   CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme =
+                   CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme =
+                   OpenIdConnectDefaults.AuthenticationScheme;
+            }).AddOpenIdConnect(options =>
+            {
+                options.Authority = "https://login.microsoftonline.com/" +
+                                        this.TenantName;
+                options.ClientId = this.ClientId;
+                options.ResponseType = OpenIdConnectResponseType.IdToken;
+                options.CallbackPath = "/projects";
+                options.SignedOutRedirectUri = "https://localhost:44311/";
+            }).AddCookie();
 
-            //services.AddMvc();
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseAuthentication();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

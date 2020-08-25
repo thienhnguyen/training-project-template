@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace backend.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class ProjectController : Controller
     {
         private readonly AppDbContext _context;

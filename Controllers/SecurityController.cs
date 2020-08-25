@@ -11,6 +11,7 @@ namespace backend.Controllers
 {
     public class SecurityController : Controller
     {
+        [Route("/security/signin-callback")]
         public IActionResult Login()
         {
             return Challenge(new AuthenticationProperties { RedirectUri = "/" });
