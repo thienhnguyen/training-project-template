@@ -90,12 +90,11 @@
 /*!****************************************!*\
   !*** ./src/scripts/pages/home-page.js ***!
   \****************************************/
-/*! exports provided: Delete */
+/*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Delete", function() { return Delete; });
 /* harmony import */ var _utilities_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utilities/_helper */ "./src/scripts/utilities/_helper.ts");
  // import renderGrid from '../components/_grid';
 
@@ -115,24 +114,42 @@ function GetAll() {
   return 0;
 }
 
-function Delete(id) {
-  console.log('delete');
+Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(() => {
+  GetAll();
+});
+$('.btnDelete').click(function () {
+  const id = $(this).closest('.project').data('key');
   $.ajax({
     type: 'DELETE',
     url: 'projects/' + id,
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
-    cache: false,
+    success: function () {
+      alert("delete success");
+    },
 
     error(code) {
       console.log(`response: ${code.status}`);
     }
 
   });
-  return 0;
-}
-Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(() => {
-  GetAll();
+});
+$('.linkDownload').click(function () {
+  const id = $(this).closest('.project').data('key');
+  $.ajax({
+    type: 'GET',
+    cache: false,
+    url: 'projects/download/' + id,
+    dataType: 'json',
+    success: function (value) {
+      window.location.href = '/projects/download?file=' + value;
+    },
+
+    error(code) {
+      console.log(`response: ${code.status}`);
+    }
+
+  });
 });
 
 /***/ }),
@@ -141,12 +158,11 @@ Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(() => {
 /*!****************************************!*\
   !*** ./src/scripts/pages/home-page.ts ***!
   \****************************************/
-/*! exports provided: Delete */
+/*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Delete", function() { return Delete; });
 /* harmony import */ var _utilities_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utilities/_helper */ "./src/scripts/utilities/_helper.ts");
  // import renderGrid from '../components/_grid';
 
@@ -166,23 +182,42 @@ function GetAll() {
   return 0;
 }
 
-function Delete(id) {
-  console.log('delete');
+Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(() => {
+  GetAll();
+});
+$('.btnDelete').click(function () {
+  const id = $(this).closest('.project').data('key');
   $.ajax({
     type: 'DELETE',
     url: 'projects/' + id,
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
+    success: function () {
+      alert("delete success");
+    },
 
     error(code) {
       console.log(`response: ${code.status}`);
     }
 
   });
-  return 0;
-}
-Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(() => {
-  GetAll();
+});
+$('.linkDownload').click(function () {
+  const id = $(this).closest('.project').data('key');
+  $.ajax({
+    type: 'GET',
+    cache: false,
+    url: 'projects/download/' + id,
+    dataType: 'json',
+    success: function (value) {
+      window.location.href = '/projects/download?file=' + value;
+    },
+
+    error(code) {
+      console.log(`response: ${code.status}`);
+    }
+
+  });
 });
 
 /***/ }),

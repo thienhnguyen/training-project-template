@@ -15,6 +15,8 @@ namespace backend.Models
 
         public string FileName { get; set; }
 
+        public string FileType { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
         public string CreatedBy { get; set; }

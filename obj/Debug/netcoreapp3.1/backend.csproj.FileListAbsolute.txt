@@ -352,7 +352,6 @@ D:\Training\training-project-template\bin\Debug\netcoreapp3.1\Microsoft.Extensio
 D:\Training\training-project-template\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
 D:\Training\training-project-template\bin\Debug\netcoreapp3.1\System.Collections.Immutable.dll
 D:\Training\training-project-template\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
-D:\Training\training-project-template\obj\Debug\netcoreapp3.1\backend.csprojAssemblyReference.cache
 D:\Training\training-project-template\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
 D:\Training\training-project-template\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Relational.dll
 D:\Training\training-project-template\bin\Debug\netcoreapp3.1\Microsoft.Data.SqlClient.dll
@@ -437,8 +436,15 @@ D:\Training\training-project-template\bin\Debug\netcoreapp3.1\ru\Microsoft.CodeA
 D:\Training\training-project-template\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\Training\training-project-template\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\Training\training-project-template\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Training\training-project-template\obj\Debug\netcoreapp3.1\Razor\Views\Project\Index.cshtml.g.cs
+D:\Training\training-project-template\obj\Debug\netcoreapp3.1\Razor\Views\Project\Privacy.cshtml.g.cs
+D:\Training\training-project-template\bin\Debug\netcoreapp3.1\Microsoft.Owin.dll
+D:\Training\training-project-template\bin\Debug\netcoreapp3.1\Owin.dll
+D:\Training\training-project-template\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
+D:\Training\training-project-template\bin\Debug\netcoreapp3.1\Microsoft.Owin.Security.dll
+D:\Training\training-project-template\bin\Debug\netcoreapp3.1\Microsoft.Owin.Security.Cookies.dll
+D:\Training\training-project-template\bin\Debug\netcoreapp3.1\Microsoft.Owin.Host.SystemWeb.dll
+D:\Training\training-project-template\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocol.Extensions.dll
 D:\Training\training-project-template\obj\Debug\netcoreapp3.1\backend.csproj.CoreCompileInputs.cache
 D:\Training\training-project-template\obj\Debug\netcoreapp3.1\backend.MvcApplicationPartsAssemblyInfo.cs
 D:\Training\training-project-template\obj\Debug\netcoreapp3.1\backend.MvcApplicationPartsAssemblyInfo.cache
-D:\Training\training-project-template\obj\Debug\netcoreapp3.1\Razor\Views\Project\Index.cshtml.g.cs
-D:\Training\training-project-template\obj\Debug\netcoreapp3.1\Razor\Views\Project\Privacy.cshtml.g.cs

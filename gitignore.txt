@@ -1,0 +1,9 @@
+node_modules
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages
+.vs/backend/v16/.suo
+.vs/backend/v16/.suo

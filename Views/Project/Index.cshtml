@@ -104,7 +104,9 @@
                             Name
                         </div>
                         <div class="col-lg-3 col-7 table-mobile-content corner-icon">
-                            @item.FileName
+                            <form method="get" id="downloadForm" asp-controller="Project" asp-action="Download">
+                                <a class="linkDownload" href="#">@item.FileName</a>
+                            </form>
                         </div>
                         <div class="d-block d-lg-none col-5 table-mobile-title">
                             Modified
@@ -121,10 +123,10 @@
                         <div class="col-lg-2 col-12 table-modified-btn">
                             <div class="row">
                                 <div class="offset-lg-1">
-                                    <a class="btn btn-success btn-sm" href="#" data-toggle="modal" data-target=".projectModal-@item.Id">Update</a>
+                                    <a class="btn btn-success btn-sm" data-toggle="modal" data-target=".projectModal-@item.Id">Update</a>
                                 </div>
                                 <div>
-                                    <a class="btn btn-danger btn-sm btnDelete" href="#" onclick="Delete(@item.Id)">Delete</a>
+                                    <a class="btn btn-danger btn-sm btnDelete" onclick="Delete(@item.Id)">Delete</a>
                                 </div>
                             </div>
                         </div>

@@ -10,6 +10,9 @@ using Microsoft.EntityFrameworkCore;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using System.Net.Http.Headers;
+using Microsoft.Net.Http.Headers;
+using ContentDispositionHeaderValue = System.Net.Http.Headers.ContentDispositionHeaderValue;
 
 namespace backend.Controllers
 {
@@ -41,6 +44,7 @@ namespace backend.Controllers
                     var objfiles = new Project()
                     {
                         FileName = files.FileName,
+                        FileType = files.ContentType,
                         CreatedAt = DateTime.Now,
                         CreatedBy = "THN",
                         ModifiedAt = DateTime.Now,
@@ -61,8 +65,25 @@ namespace backend.Controllers
             return RedirectToAction("Index", await _context.Projects.ToListAsync());
         }
 
+        [Route("projects/download/{id}")]
+        [HttpGet]
+        public FileResult Download(int? id)
+        {
+            var project = _context.Projects.ToList().Find(p => p.Id == id);
+            var cd = new System.Net.Mime.ContentDisposition
+            {
+                // for example foo.bak
+                FileName = project.FileName,
 
-        [Route("projects/{id}")]
+                // always prompt the user for downloading, set to true if you want
+                // the browser to try to show the file inline
+                Inline = false,
+            };
+            Response.Headers.Add("Content-Disposition", cd.ToString());
+            return File(project.DataFiles, "application/force-download", project.FileType);
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
