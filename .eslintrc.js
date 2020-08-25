@@ -17,5 +17,6 @@ module.exports = {
     ],
     "no-param-reassign": 0,
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    "@typescript-eslint/no-unused-vars": "warn",
   },
 };

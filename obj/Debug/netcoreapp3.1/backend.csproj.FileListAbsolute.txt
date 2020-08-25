@@ -321,8 +321,6 @@ D:\Training\training-project-template\obj\Debug\netcoreapp3.1\backend.RazorAssem
 D:\Training\training-project-template\obj\Debug\netcoreapp3.1\backend.TagHelpers.input.cache
 D:\Training\training-project-template\obj\Debug\netcoreapp3.1\backend.TagHelpers.output.cache
 D:\Training\training-project-template\obj\Debug\netcoreapp3.1\backend.RazorCoreGenerate.cache
-D:\Training\training-project-template\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
-D:\Training\training-project-template\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
 D:\Training\training-project-template\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 D:\Training\training-project-template\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 D:\Training\training-project-template\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
@@ -442,3 +440,5 @@ D:\Training\training-project-template\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.
 D:\Training\training-project-template\obj\Debug\netcoreapp3.1\backend.csproj.CoreCompileInputs.cache
 D:\Training\training-project-template\obj\Debug\netcoreapp3.1\backend.MvcApplicationPartsAssemblyInfo.cs
 D:\Training\training-project-template\obj\Debug\netcoreapp3.1\backend.MvcApplicationPartsAssemblyInfo.cache
+D:\Training\training-project-template\obj\Debug\netcoreapp3.1\Razor\Views\Project\Index.cshtml.g.cs
+D:\Training\training-project-template\obj\Debug\netcoreapp3.1\Razor\Views\Project\Privacy.cshtml.g.cs

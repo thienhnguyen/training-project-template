@@ -1,9 +1,9 @@
-D:\Training\training-project-template\src\scripts\utilities\_helper.js
+D:\Training\training-project-template\src\scripts\components\_grid.js
 D:\Training\training-project-template\src\scripts\models\base.js
 D:\Training\training-project-template\src\scripts\models\project.js
+D:\Training\training-project-template\src\scripts\models\data.js
+D:\Training\training-project-template\src\scripts\utilities\_helper.js
+D:\Training\training-project-template\src\scripts\pages\home-page.js
 D:\Training\training-project-template\src\scripts\services\LocalStorageService.js
 D:\Training\training-project-template\src\scripts\services\ProjectModuleService.js
-D:\Training\training-project-template\src\scripts\components\_grid.js
-D:\Training\training-project-template\src\scripts\models\data.js
-D:\Training\training-project-template\src\scripts\pages\home-page.js
 D:\Training\training-project-template\src\scripts\utilities\format.js
