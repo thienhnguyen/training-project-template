@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using backend.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,11 +12,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace backend
 {
     public class Startup
     {
+        private readonly string TenantName = ""; // 'Initial Domain Name' in Azure
+        private readonly string ClientId = ""; // 'Application Id' in Azure
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -28,6 +34,26 @@ namespace backend
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             services.AddDbContext<AppDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            //services.AddAuthentication(options =>
+            //{
+            //    options.DefaultAuthenticateScheme =
+            //       CookieAuthenticationDefaults.AuthenticationScheme;
+            //    options.DefaultSignInScheme =
+            //       CookieAuthenticationDefaults.AuthenticationScheme;
+            //    options.DefaultChallengeScheme =
+            //       OpenIdConnectDefaults.AuthenticationScheme;
+            //}).AddOpenIdConnect(options =>
+            //{
+            //    options.Authority = "https://login.microsoftonline.com/" +
+            //                            this.TenantName;
+            //    options.ClientId = this.ClientId;
+            //    options.ResponseType = OpenIdConnectResponseType.IdToken;
+            //    options.CallbackPath = "/security/signin-callback";
+            //    options.SignedOutRedirectUri = "https://localhost:44311/";
+            //}).AddCookie();
+
+            //services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -13,9 +13,11 @@ using Microsoft.AspNetCore.Routing;
 using System.Net.Http.Headers;
 using Microsoft.Net.Http.Headers;
 using ContentDispositionHeaderValue = System.Net.Http.Headers.ContentDispositionHeaderValue;
+using Microsoft.AspNetCore.Authorization;
 
 namespace backend.Controllers
 {
+    //[Authorize]
     public class ProjectController : Controller
     {
         private readonly AppDbContext _context;

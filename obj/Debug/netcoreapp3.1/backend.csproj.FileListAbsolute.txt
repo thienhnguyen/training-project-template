@@ -448,3 +448,4 @@ D:\Training\training-project-template\bin\Debug\netcoreapp3.1\Microsoft.Identity
 D:\Training\training-project-template\obj\Debug\netcoreapp3.1\backend.csproj.CoreCompileInputs.cache
 D:\Training\training-project-template\obj\Debug\netcoreapp3.1\backend.MvcApplicationPartsAssemblyInfo.cs
 D:\Training\training-project-template\obj\Debug\netcoreapp3.1\backend.MvcApplicationPartsAssemblyInfo.cache
+D:\Training\training-project-template\obj\Debug\netcoreapp3.1\backend.csprojAssemblyReference.cache
