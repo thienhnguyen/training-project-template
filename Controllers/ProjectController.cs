@@ -10,9 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using System.Net.Http.Headers;
-using Microsoft.Net.Http.Headers;
-using ContentDispositionHeaderValue = System.Net.Http.Headers.ContentDispositionHeaderValue;
 using Microsoft.AspNetCore.Authorization;
 
 namespace backend.Controllers
@@ -21,6 +18,7 @@ namespace backend.Controllers
     public class ProjectController : Controller
     {
         private readonly AppDbContext _context;
+        private string currentUserName;
 
         public ProjectController(AppDbContext context)
         {
@@ -30,6 +28,8 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            currentUserName = User.Identity.Name;
+            TempData["username"] = currentUserName;
             return View(await _context.Projects.ToListAsync());
         }
 
@@ -48,10 +48,10 @@ namespace backend.Controllers
                         FileName = files.FileName,
                         FileType = files.ContentType,
                         CreatedAt = DateTime.Now,
-                        CreatedBy = "THN",
+                        CreatedBy = User.Identity.Name,
                         ModifiedAt = DateTime.Now,
-                        ModifiedBy = "THN"
-                    };
+                        ModifiedBy = User.Identity.Name
+                };
 
                     using (var target = new MemoryStream())
                     {
@@ -74,19 +74,15 @@ namespace backend.Controllers
             var project = _context.Projects.ToList().Find(p => p.Id == id);
             var cd = new System.Net.Mime.ContentDisposition
             {
-                // for example foo.bak
                 FileName = project.FileName,
-
-                // always prompt the user for downloading, set to true if you want
-                // the browser to try to show the file inline
                 Inline = false,
             };
             Response.Headers.Add("Content-Disposition", cd.ToString());
-            return File(project.DataFiles, "application/force-download", project.FileType);
+            return File(project.DataFiles, project.FileType, project.FileName);
         }
 
-
-        [HttpGet]
+        [Route("projects/{id}")]
+        [HttpPut]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -94,16 +90,21 @@ namespace backend.Controllers
                 return NotFound();
             }
 
-            var project = await _context.Projects.FindAsync(id);
-            if (project == null)
+            var project = await _context.Projects
+                .FirstOrDefaultAsync(m => m.Id == id);
+            project = new Project
             {
-                return NotFound();
-            }
-            return View(project);
+                Id = project.Id,
+                FileName = project.FileName
+            };
+            _context.Projects.Update(project);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
 
         [Route("projects/{id}")]
-        [HttpDelete]
+        [HttpPost]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

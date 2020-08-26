@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using backend.Middleware;
 using backend.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -18,8 +19,8 @@ namespace backend
 {
     public class Startup
     {
-        private readonly string TenantName = "thntest.onmicrosoft.com"; // 'Initial Domain Name' in Azure
-        private readonly string ClientId = "f7bb073d-437d-4a5a-a8b9-7e354f842e42"; // 'Application Id' in Azure
+        private readonly string TenantName = "thntest.onmicrosoft.com";
+        private readonly string ClientId = "f7bb073d-437d-4a5a-a8b9-7e354f842e42";
 
         public Startup(IConfiguration configuration)
         {
@@ -65,12 +66,9 @@ namespace backend
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Project/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+
+            app.UseMiddleware<LoggingMiddleware>();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

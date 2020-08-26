@@ -4,8 +4,8 @@ import ready from '../utilities/_helper';
 function GetAll() {
   console.log('getall');
   $.ajax({
-    type: 'GET',
     url: '',
+    type: 'GET',
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
     error(code) {
@@ -24,12 +24,12 @@ $('.btnDelete').click(function() {
     .closest('.project')
     .data('key');
   $.ajax({
-    type: 'DELETE',
     url: 'projects/' + id,
+    type: 'POST',
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
     success: function(){
-      alert("delete success")
+      GetAll();
     },
     error(code) {
       console.log(`response: ${code.status}`);
@@ -37,18 +37,15 @@ $('.btnDelete').click(function() {
   });
 });
 
-$('.linkDownload').click(function() {
+$('.btnUpdate').click(function(){
   const id = $(this)
     .closest('.project')
     .data('key');
   $.ajax({
-    type: 'GET',
-    cache: false,
-    url: 'projects/download/' + id,
+    type: 'PUT',
+    url: 'projects/' + id,
+    contentType: 'application/json; charset=utf-8',
     dataType: 'json',
-    success: function (value) {
-      window.location.href = '/projects/download?file=' + value;
-    },
     error(code) {
       console.log(`response: ${code.status}`);
     },

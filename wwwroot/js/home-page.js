@@ -86,74 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/scripts/pages/home-page.js":
-/*!****************************************!*\
-  !*** ./src/scripts/pages/home-page.js ***!
-  \****************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _utilities_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utilities/_helper */ "./src/scripts/utilities/_helper.ts");
- // import renderGrid from '../components/_grid';
-
-function GetAll() {
-  console.log('getall');
-  $.ajax({
-    type: 'GET',
-    url: '',
-    contentType: 'application/json; charset=utf-8',
-    dataType: 'json',
-
-    error(code) {
-      console.log(`response: ${code.status}`);
-    }
-
-  });
-  return 0;
-}
-
-Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(() => {
-  GetAll();
-});
-$('.btnDelete').click(function () {
-  const id = $(this).closest('.project').data('key');
-  $.ajax({
-    type: 'DELETE',
-    url: 'projects/' + id,
-    contentType: 'application/json; charset=utf-8',
-    dataType: 'json',
-    success: function () {
-      alert("delete success");
-    },
-
-    error(code) {
-      console.log(`response: ${code.status}`);
-    }
-
-  });
-});
-$('.linkDownload').click(function () {
-  const id = $(this).closest('.project').data('key');
-  $.ajax({
-    type: 'GET',
-    cache: false,
-    url: 'projects/download/' + id,
-    dataType: 'json',
-    success: function (value) {
-      window.location.href = '/projects/download?file=' + value;
-    },
-
-    error(code) {
-      console.log(`response: ${code.status}`);
-    }
-
-  });
-});
-
-/***/ }),
-
 /***/ "./src/scripts/pages/home-page.ts":
 /*!****************************************!*\
   !*** ./src/scripts/pages/home-page.ts ***!
@@ -169,8 +101,8 @@ __webpack_require__.r(__webpack_exports__);
 function GetAll() {
   console.log('getall');
   $.ajax({
-    type: 'GET',
     url: '',
+    type: 'GET',
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
 
@@ -188,12 +120,12 @@ Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(() => {
 $('.btnDelete').click(function () {
   const id = $(this).closest('.project').data('key');
   $.ajax({
-    type: 'DELETE',
     url: 'projects/' + id,
+    type: 'POST',
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
     success: function () {
-      alert("delete success");
+      GetAll();
     },
 
     error(code) {
@@ -202,16 +134,13 @@ $('.btnDelete').click(function () {
 
   });
 });
-$('.linkDownload').click(function () {
+$('.btnUpdate').click(function () {
   const id = $(this).closest('.project').data('key');
   $.ajax({
-    type: 'GET',
-    cache: false,
-    url: 'projects/download/' + id,
+    type: 'PUT',
+    url: 'projects/' + id,
+    contentType: 'application/json; charset=utf-8',
     dataType: 'json',
-    success: function (value) {
-      window.location.href = '/projects/download?file=' + value;
-    },
 
     error(code) {
       console.log(`response: ${code.status}`);
@@ -278,13 +207,12 @@ function formatDate(date) {
 /***/ }),
 
 /***/ 0:
-/*!*****************************************************************************************************************!*\
-  !*** multi ./src/scripts/pages/home-page.js ./src/scripts/pages/home-page.ts ./src/styles/pages/home-page.scss ***!
-  \*****************************************************************************************************************/
+/*!********************************************************************************!*\
+  !*** multi ./src/scripts/pages/home-page.ts ./src/styles/pages/home-page.scss ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ./src/scripts/pages/home-page.js */"./src/scripts/pages/home-page.js");
 __webpack_require__(/*! ./src/scripts/pages/home-page.ts */"./src/scripts/pages/home-page.ts");
 module.exports = __webpack_require__(/*! ./src/styles/pages/home-page.scss */"./src/styles/pages/home-page.scss");
 
