@@ -48,7 +48,7 @@ const commonConfig = {
   output: {
     filename: 'js/[name].js',
     chunkFilename: '[name].bundle.js?ver=[chunkhash]',
-    path: path.join(__dirname, '/dist/'),
+    path: path.join(__dirname, '/wwwroot/'),
   },
 
   resolve: {
@@ -57,15 +57,15 @@ const commonConfig = {
 
   module: {
     rules: [
-      {
-        enforce: 'pre',
-        test: /\.(ts|js)?$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: {
-          fix: true,
-        },
-      },
+      // {
+      //   enforce: 'pre',
+      //   test: /\.(ts|js)?$/,
+      //   exclude: /node_modules/,
+      //   loader: 'eslint-loader',
+      //   options: {
+      //     fix: true,
+      //   },
+      // },
       {
         test: /\.(ts|js)?$/,
         exclude: /node_modules/,
