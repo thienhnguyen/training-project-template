@@ -30653,9 +30653,6 @@ const renderGrid = () => {
                       <div class="form-group">
                         <input type="text" class="form-control" data-filename="${val.fileName}" placeholder="File Name" value="${val.fileName}">
                       </div>
-                      <div class="form-group">
-                        <input type="text" class="form-control" data-filetype="${val.fileType}" placeholder="File Type" value="${val.fileType}">
-                      </div>
                       <button type="submit" class="btn btn-info btnUpdate float-right" data-dismiss="modal" href="#">OK</button>
                       <button type="button" class="btn btn-secondary float-right"
                         data-dismiss="modal">Cancel</button>
@@ -30710,17 +30707,35 @@ const renderGrid = () => {
     //   },
     // });
   });
-};
+}; // $('.btnCreate').click(function() {
+//   const fileName = $('input[name="fileNameInput"]').val();
+//   const fileType = $('input[name="fileTypeInput"]').val();
+//   const newProject = {
+//     fileName,
+//     fileType,
+//   };
+//   new ProjectModule().createData(newProject).then(() => {
+//     renderGrid();
+//   });
+// });
 
-jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnCreate').click(function () {
-  const fileName = jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileNameInput"]').val();
-  const fileType = jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[name="fileTypeInput"]').val();
-  const newProject = {
-    fileName,
-    fileType
-  };
-  new _services_ProjectModuleService__WEBPACK_IMPORTED_MODULE_3__["default"]().createData(newProject).then(() => {
-    renderGrid();
+
+jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnCreate').click(function (e) {
+  e.preventDefault();
+  const myFile = document.getElementById('createForm');
+  const formData = new FormData(myFile);
+  jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
+    url: 'https://localhost:44308/api/projects',
+    type: 'POST',
+    data: formData,
+
+    success(data) {
+      alert(data);
+    },
+
+    cache: false,
+    contentType: false,
+    processData: false
   });
 });
 /* harmony default export */ __webpack_exports__["default"] = (renderGrid);
@@ -30809,6 +30824,12 @@ class LocalStorageModule {
     };
 
     this.getLocalStorage = () => {
+      const url = 'https://localhost:44308/api/projects';
+      fetch(url).then(res => res.json()).then(out => {
+        console.log('Checkout this JSON! ', out);
+      }).catch(err => {
+        throw err;
+      });
       const projects = JSON.parse(localStorage.getItem('data') || '{}');
       return projects;
     };

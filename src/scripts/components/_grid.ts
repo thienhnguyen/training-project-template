@@ -132,13 +132,6 @@ const renderGrid = () => {
           val.fileName
         }">
                       </div>
-                      <div class="form-group">
-                        <input type="text" class="form-control" data-filetype="${
-                          val.fileType
-                        }" placeholder="File Type" value="${
-          val.fileType
-        }">
-                      </div>
                       <button type="submit" class="btn btn-info btnUpdate float-right" data-dismiss="modal" href="#">OK</button>
                       <button type="button" class="btn btn-secondary float-right"
                         data-dismiss="modal">Cancel</button>
@@ -215,15 +208,33 @@ const renderGrid = () => {
   });
 };
 
-$('.btnCreate').click(function() {
-  const fileName = $('input[name="fileNameInput"]').val();
-  const fileType = $('input[name="fileTypeInput"]').val();
-  const newProject = {
-    fileName,
-    fileType,
-  };
-  new ProjectModule().createData(newProject).then(() => {
-    renderGrid();
+// $('.btnCreate').click(function() {
+//   const fileName = $('input[name="fileNameInput"]').val();
+//   const fileType = $('input[name="fileTypeInput"]').val();
+//   const newProject = {
+//     fileName,
+//     fileType,
+//   };
+//   new ProjectModule().createData(newProject).then(() => {
+//     renderGrid();
+//   });
+// });
+
+$('.btnCreate').click(function(e) {
+  e.preventDefault();
+  const myFile = document.getElementById('createForm') as HTMLFormElement;
+  const formData = new FormData(myFile);
+
+  $.ajax({
+    url: 'https://localhost:44308/api/projects',
+    type: 'POST',
+    data: formData,
+    success(data) {
+      alert(data);
+    },
+    cache: false,
+    contentType: false,
+    processData: false,
   });
 });
 

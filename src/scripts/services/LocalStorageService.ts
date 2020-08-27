@@ -6,6 +6,15 @@ class LocalStorageModule {
   };
 
   getLocalStorage = () => {
+    const url = 'https://localhost:44308/api/projects';
+    fetch(url)
+      .then(res => res.json())
+      .then(out => {
+        console.log('Checkout this JSON! ', out);
+      })
+      .catch(err => {
+        throw err;
+      });
     const projects = JSON.parse(localStorage.getItem('data') || '{}');
     return projects;
   };
