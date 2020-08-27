@@ -23,36 +23,8 @@ namespace backend.Controllers
 
         // GET: api/Projects
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Project>>> GetProjects(IFormFile files)
+        public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
         {
-            if (files != null)
-            {
-                if (files.Length > 0)
-                {
-                    var fileName = Path.GetFileName(files.FileName);
-                    var fileExtension = Path.GetExtension(fileName);
-
-                    var objfiles = new Project()
-                    {
-                        FileName = files.FileName,
-                        FileType = files.ContentType,
-                        CreatedAt = DateTime.Now,
-                        CreatedBy = User.Identity.Name,
-                        ModifiedAt = DateTime.Now,
-                        ModifiedBy = User.Identity.Name
-                    };
-
-                    using (var target = new MemoryStream())
-                    {
-                        files.CopyTo(target);
-                        objfiles.DataFiles = target.ToArray();
-                    }
-
-                    _context.Projects.Add(objfiles);
-                    _context.SaveChanges();
-
-                }
-            }
             return await _context.Projects.ToListAsync();
         }
 
@@ -106,12 +78,38 @@ namespace backend.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Project>> PostProject(Project project)
+        public async Task<ActionResult<Project>> PostProject(IFormFile files)
         {
-            _context.Projects.Add(project);
-            await _context.SaveChangesAsync();
+            if (files != null)
+            {
+                if (files.Length > 0)
+                {
+                    var fileName = Path.GetFileName(files.FileName);
+                    var fileExtension = Path.GetExtension(fileName);
 
-            return CreatedAtAction("GetProject", new { id = project.Id }, project);
+                    var objfiles = new Project()
+                    {
+                        FileName = files.FileName,
+                        FileType = files.ContentType,
+                        CreatedAt = DateTime.Now,
+                        CreatedBy = User.Identity.Name,
+                        ModifiedAt = DateTime.Now,
+                        ModifiedBy = User.Identity.Name
+                    };
+
+                    using (var target = new MemoryStream())
+                    {
+                        files.CopyTo(target);
+                        objfiles.DataFiles = target.ToArray();
+                    }
+
+                    _context.Projects.Add(objfiles);
+
+                    await _context.SaveChangesAsync();
+                    return objfiles;
+                }
+            }
+            return new Project();
         }
 
         // DELETE: api/Projects/5

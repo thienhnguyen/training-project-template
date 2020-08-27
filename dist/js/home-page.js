@@ -30718,24 +30718,63 @@ const renderGrid = () => {
 //     renderGrid();
 //   });
 // });
+// $('.btnCreate').click(function(e) {
+//   e.preventDefault();
+//   // const myFile = document.getElementById('createForm') as HTMLFormElement;
+//   // const formData = new FormData(myFile);
+//   // $.ajax({
+//   //   url: 'https://localhost:44308/api/projects',
+//   //   type: 'POST',
+//   //   data: formData,
+//   //   success(data) {
+//   //     alert(data);
+//   //   },
+//   //   cache: false,
+//   //   contentType: false,
+//   //   processData: false,
+//   // });
+// });
 
+
+const inputFile = document.getElementById('fileItem');
+var array;
+
+inputFile.onchange = function (event) {
+  var fileList = inputFile.files;
+
+  if (fileList != null && fileList[0] != null) {
+    var file = fileList[0];
+    var name = file.name;
+    var modified = file.lastModified;
+    var reader = new FileReader();
+
+    reader.onload = function () {
+      var arrayBuffer = reader.result;
+      array = new Uint8Array(arrayBuffer);
+      var binaryString = String.fromCharCode.apply(null, Array.from(array));
+      console.log(binaryString);
+    };
+
+    reader.readAsArrayBuffer(file);
+  }
+};
 
 jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnCreate').click(function (e) {
   e.preventDefault();
-  const myFile = document.getElementById('createForm');
-  const formData = new FormData(myFile);
+  var files = inputFile.files;
+  var formData = new FormData();
+  formData.append('file', files[0]);
   jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
     url: 'https://localhost:44308/api/projects',
     type: 'POST',
     data: formData,
+    contentType: false,
+    processData: false,
 
     success(data) {
-      alert(data);
-    },
+      console.log(data);
+    }
 
-    cache: false,
-    contentType: false,
-    processData: false
   });
 });
 /* harmony default export */ __webpack_exports__["default"] = (renderGrid);

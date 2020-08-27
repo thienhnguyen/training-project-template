@@ -220,21 +220,67 @@ const renderGrid = () => {
 //   });
 // });
 
+// $('.btnCreate').click(function(e) {
+//   e.preventDefault();
+//   // const myFile = document.getElementById('createForm') as HTMLFormElement;
+//   // const formData = new FormData(myFile);
+
+//   // $.ajax({
+//   //   url: 'https://localhost:44308/api/projects',
+//   //   type: 'POST',
+//   //   data: formData,
+//   //   success(data) {
+//   //     alert(data);
+//   //   },
+//   //   cache: false,
+//   //   contentType: false,
+//   //   processData: false,
+//   // });
+
+  
+// });
+
+const inputFile = <HTMLInputElement>(
+  document.getElementById('fileItem')
+);
+var array: Uint8Array;
+inputFile.onchange = function(event) {
+  var fileList = inputFile.files;
+  if (fileList != null && fileList[0] != null) {
+    var file: File = fileList[0];
+    var name = file.name;
+    var modified = file.lastModified;
+
+    var reader = new FileReader();
+    reader.onload = function() {
+      var arrayBuffer = <ArrayBuffer>reader.result;
+      array = new Uint8Array(arrayBuffer);
+
+      var binaryString = String.fromCharCode.apply(
+        null,
+        Array.from(array),
+      );
+      console.log(binaryString);
+    };
+    reader.readAsArrayBuffer(file);
+  }
+};
+
 $('.btnCreate').click(function(e) {
   e.preventDefault();
-  const myFile = document.getElementById('createForm') as HTMLFormElement;
-  const formData = new FormData(myFile);
-
+    var files = inputFile.files;
+var formData = new FormData();
+formData.append('file', files[0]);
   $.ajax({
     url: 'https://localhost:44308/api/projects',
     type: 'POST',
     data: formData,
-    success(data) {
-      alert(data);
-    },
-    cache: false,
     contentType: false,
     processData: false,
+    success(data) {
+      console.log(data);
+      
+    },
   });
 });
 
