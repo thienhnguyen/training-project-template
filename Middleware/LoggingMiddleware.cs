@@ -1,5 +1,6 @@
 ﻿using backend.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
@@ -33,7 +34,7 @@ namespace backend.Middleware
                     Date = DateTime.Now,
                     CorrelationId = correlationId,
                     Message = ex.Message,
-                    UserId = correlationId
+                    UserId = context.User.Identity.Name
                 };
                 dbContext.Loggings.Add(log);
                 dbContext.SaveChanges();

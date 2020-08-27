@@ -26,12 +26,14 @@ namespace backend.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? pageNumber)
         {
             currentUserName = User.Identity.Name;
-            return View(await _context.Projects.ToListAsync());
+            int pageSize = 3;
+            return View(await PaginatedList<Project>.CreateAsync(_context.Projects.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
+        [DisableRequestSizeLimit]
         [HttpPost]
         public async Task<IActionResult> Create(IFormFile files)
         {
@@ -39,9 +41,6 @@ namespace backend.Controllers
             {
                 if (files.Length > 0)
                 {
-                    var fileName = Path.GetFileName(files.FileName);
-                    var fileExtension = Path.GetExtension(fileName);
-
                     var objfiles = new Project()
                     {
                         FileName = files.FileName,
@@ -63,7 +62,7 @@ namespace backend.Controllers
 
                 }
             }
-            return RedirectToAction("Index", await _context.Projects.ToListAsync());
+            return RedirectToAction("Index", await _context.Projects.AsNoTracking().ToListAsync());
         }
 
         [Route("projects/download/{id}")]

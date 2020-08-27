@@ -1,4 +1,5 @@
-﻿@model IEnumerable<backend.Models.Project>
+﻿@*@model IEnumerable<backend.Models.Project>*@
+@model PaginatedList<backend.Models.Project>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -155,6 +156,21 @@
 
                 }
             </div>
+            @{
+                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+            }
+
+            <a asp-action="Index"
+               asp-route-pageNumber="@(Model.PageIndex - 1)"
+               class="btn btn-default @prevDisabled">
+                Previous
+            </a>
+            <a asp-action="Index"
+               asp-route-pageNumber="@(Model.PageIndex + 1)"
+               class="btn btn-default @nextDisabled">
+                Next
+            </a>
         </div>
     </section>
     <!-- Modal for Create -->
@@ -170,7 +186,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-12">
-                                <input class="btn btn-success" type="submit" value="Upload"/>
+                                <input class="btn btn-success" type="submit" value="Upload" />
                             </div>
                         </div>
                     </form>
