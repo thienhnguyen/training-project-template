@@ -29,7 +29,6 @@ namespace backend.Controllers
         public async Task<IActionResult> Index()
         {
             currentUserName = User.Identity.Name;
-            TempData["username"] = currentUserName;
             return View(await _context.Projects.ToListAsync());
         }
 
@@ -51,7 +50,7 @@ namespace backend.Controllers
                         CreatedBy = User.Identity.Name,
                         ModifiedAt = DateTime.Now,
                         ModifiedBy = User.Identity.Name
-                };
+                    };
 
                     using (var target = new MemoryStream())
                     {
