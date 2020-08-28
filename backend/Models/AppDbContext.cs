@@ -14,6 +14,7 @@ namespace backend.Models
         }
 
         public DbSet<Project> Projects { get; set; }
+        public DbSet<Logging> Loggings { get; set; }
 
     }
 }
