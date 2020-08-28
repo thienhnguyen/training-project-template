@@ -1,29 +1,39 @@
-import { v4 as uuid } from 'uuid';
 import Project from '../models/project';
 import LocalStorageModule from './LocalStorageService';
-import WebApiServiceModule from './WebApiService'
 
 const ls = new LocalStorageModule();
-const service = new WebApiServiceModule();
+const url = 'https://localhost:44308/api/projects';
 
 class ProjectModule {
   getData = () => {
     return new Promise<Project[]>((resolve, reject) => {
       try {
-        const projects = service.getData();
-        resolve(projects);
+        $.ajax({
+          url: url,
+          type: 'GET',
+          success: function(data) {
+            resolve(data);
+          },
+        });
       } catch (e) {
         reject(new Error(e));
       }
     });
   };
 
-  createData = (formData: FormData) => {
+  upload = (formData: FormData) => {
     return new Promise((resolve, reject) => {
-
       try {
-        const projects = service.Upload(formData);
-        resolve('Success');
+        $.ajax({
+          url: url,
+          type: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function(result) {
+            resolve('Success');
+          },
+        });
       } catch (e) {
         reject(new Error(e));
       }

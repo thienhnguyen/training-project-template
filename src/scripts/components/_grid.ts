@@ -93,7 +93,7 @@ const renderGrid = () => {
 						  Name
 					  </div>
             <div class="col-lg-3 col-7 table-mobile-content corner-icon">
-              ${val.fileName}.${val.fileType}
+              ${val.fileName}
 					  </div>
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Modified
@@ -193,41 +193,29 @@ const renderGrid = () => {
         renderGrid();
       });
     });
-    // let dragged: any;
-    // $('.project').draggable({
-    //   start(e) {
-    //     dragged = e.target;
-    //     console.log(dragged);
-    //   },
-    //   drag() {
-    //     console.log('drag');
-    //   },
-    //   stop() {
-    //     console.log('stop');
-    //   },
-    // });
   });
 };
 
 var fileUpload: FormData;
 
-const inputFile = <HTMLInputElement>document.getElementById("fileItem");
-inputFile.onchange = function (event) {
-    var fileList = inputFile.files;
-    if (fileList != null) {
-      var formData = new FormData();
-      formData.append('files', fileList[0]);
-      fileUpload = formData;
-    }
-}
+const inputFile = <HTMLInputElement>(
+  document.getElementById('fileItem')
+);
+inputFile.onchange = function(event) {
+  let fileList = inputFile.files;
+  if (fileList != null) {
+    let formData = new FormData();
+    formData.append('files', fileList[0]);
+    fileUpload = formData;
+  }
+};
 
-$('.btnUpload').click(function(){
+$('.btnUpload').click(function() {
   if (fileUpload != null) {
-    project.createData(fileUpload);
-}
-else {
-    console.log("No file inputed");
-}
-})
+    project.upload(fileUpload);
+  } else {
+    console.log('No file inputed');
+  }
+});
 
 export default renderGrid;

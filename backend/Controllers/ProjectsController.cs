@@ -25,6 +25,7 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
         {
+            var a = _context.Projects.ToList();
             return await _context.Projects.ToListAsync();
         }
 
