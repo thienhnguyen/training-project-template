@@ -37,7 +37,7 @@ namespace backend.Controllers
 
         [HttpPost]
         [DisableRequestSizeLimit]
-        public async Task<IActionResult> Create(IFormFile files)
+        public async Task<IActionResult> Create([FromForm] IFormFile files)
         {
             //throw new Exception("test");
             if (files != null)
@@ -70,7 +70,7 @@ namespace backend.Controllers
 
         [Route("projects/download/{id}")]
         [HttpGet]
-        public FileResult Download(int? id)
+        public FileResult Download(int id)
         {
             var project = _context.Projects.ToList().Find(p => p.Id == id);
             return File(project.DataFiles, project.FileType, project.FileName);
