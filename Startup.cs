@@ -56,6 +56,13 @@ namespace backend
             }).AddCookie();
 
             services.AddMvc();
+
+            services.Configure<FormOptions>(x =>
+            {
+                x.ValueLengthLimit = 2048;
+                x.MultipartBodyLengthLimit = 209715200;
+                x.MultipartHeadersLengthLimit = 209715200;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
