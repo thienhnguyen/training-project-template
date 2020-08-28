@@ -65,10 +65,6 @@ namespace backend
 
             app.UseAuthentication();
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

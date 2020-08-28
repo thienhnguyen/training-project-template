@@ -120,11 +120,12 @@ Object(_utilities_helper__WEBPACK_IMPORTED_MODULE_0__["default"])(() => {
 $('.btnDelete').click(function () {
   const id = $(this).closest('.project').data('key');
   $.ajax({
-    url: 'projects/' + id,
+    url: `projects/${id}`,
     type: 'POST',
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
-    success: function () {
+
+    success() {
       GetAll();
     },
 
@@ -138,7 +139,7 @@ $('.btnUpdate').click(function () {
   const id = $(this).closest('.project').data('key');
   $.ajax({
     type: 'PUT',
-    url: 'projects/' + id,
+    url: `projects/${id}`,
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
 
