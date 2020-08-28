@@ -137,9 +137,15 @@ $('.btnDelete').click(function () {
 });
 $('.btnUpdate').click(function () {
   const id = $(this).closest('.project').data('key');
+  const name = $(this).closest('div').find("input[type='text']").val();
+  const obj = {
+    id,
+    name
+  };
   $.ajax({
     type: 'PUT',
-    url: `projects/${id}`,
+    url: 'projects/',
+    data: obj,
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
 

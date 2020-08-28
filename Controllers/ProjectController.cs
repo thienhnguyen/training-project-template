@@ -76,21 +76,27 @@ namespace backend.Controllers
             return File(project.DataFiles, project.FileType, project.FileName);
         }
 
-        [Route("projects/{id}")]
+        [Route("projects")]
         [HttpPut]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Project obj)
         {
-            if (id == null)
+            if (obj == null)
             {
                 return NotFound();
             }
 
             var project = await _context.Projects
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == obj.Id);
             project = new Project
             {
                 Id = project.Id,
-                FileName = project.FileName
+                FileName = project.FileName,
+                CreatedAt = project.CreatedAt,
+                CreatedBy = project.CreatedBy,
+                ModifiedAt = DateTime.Now,
+                ModifiedBy = User.Identity.Name,
+                DataFiles = project.DataFiles,
+                FileType = project.FileType
             };
             _context.Projects.Update(project);
             await _context.SaveChangesAsync();

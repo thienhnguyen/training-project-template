@@ -18,7 +18,7 @@
                 <div class="collapse navbar-collapse" id="collapsibleNavbar">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="btn btn-light btn-sm btnNew" data-toggle="modal" data-target="#projectModal">
+                            <a class="btn btn-light btn-sm btnNew">
                                 <img src="~/img/icons/plus.svg" alt="">
                                 New
                                 <img src="~/img/icons/chevron-down.svg" alt="">
@@ -31,7 +31,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="btn btn-light btn-sm">
+                            <a class="btn btn-light btn-sm" data-toggle="modal" data-target="#projectModal">
                                 <img src="~/img/icons/upload.svg" alt="">
                                 Upload
                                 <img src="~/img/icons/chevron-down.svg" alt="">
@@ -75,7 +75,7 @@
                 <div class="col-lg-1 d-none d-lg-block">
                     <img src="~/img/icons/file.svg" alt="">
                 </div>
-                <div class="col-lg-3 d-none d-lg-block">
+                <div class="col-lg-4 d-none d-lg-block">
                     Name
                     <img src="~/img/icons/chevron-down.svg" alt="">
                 </div>
@@ -83,7 +83,7 @@
                     Modified
                     <img src="~/img/icons/chevron-down.svg" alt="">
                 </div>
-                <div class="col-lg-2 d-none d-lg-block">
+                <div class="col-lg-3 d-none d-lg-block">
                     Modified By
                     <img src="~/img/icons/chevron-down.svg" alt="">
                 </div>
@@ -105,7 +105,7 @@
                         <div class="d-block d-lg-none col-5 table-mobile-title">
                             Name
                         </div>
-                        <div class="col-lg-3 col-7 table-mobile-content corner-icon">
+                        <div class="col-lg-4 col-7 table-mobile-content corner-icon">
                             <form method="get" id="downloadForm" asp-controller="Project" asp-action="Download">
                                 <a class="linkDownload" href="/projects/download/@item.Id">@item.FileName</a>
                             </form>
@@ -119,7 +119,7 @@
                         <div class="d-block d-lg-none col-5 table-mobile-title">
                             Modified By
                         </div>
-                        <div class="col-lg-2 col-7 table-mobile-content">
+                        <div class="col-lg-3 col-7 table-mobile-content">
                             @item.ModifiedBy
                         </div>
                         <div class="col-lg-2 col-12 table-modified-btn">
