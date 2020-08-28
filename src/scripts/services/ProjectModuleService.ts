@@ -1,14 +1,16 @@
 import { v4 as uuid } from 'uuid';
 import Project from '../models/project';
 import LocalStorageModule from './LocalStorageService';
+import WebApiServiceModule from './WebApiService'
 
 const ls = new LocalStorageModule();
+const service = new WebApiServiceModule();
 
 class ProjectModule {
   getData = () => {
     return new Promise<Project[]>((resolve, reject) => {
       try {
-        const projects = ls.getLocalStorage();
+        const projects = service.getData();
         resolve(projects);
       } catch (e) {
         reject(new Error(e));
@@ -16,18 +18,11 @@ class ProjectModule {
     });
   };
 
-  createData = (project: any) => {
+  createData = (formData: FormData) => {
     return new Promise((resolve, reject) => {
-      project.id = uuid();
-      project.createdAt = new Date();
-      project.createdBy = 'THN';
-      project.modifiedAt = new Date();
-      project.modifiedBy = 'THN';
 
       try {
-        const projects = ls.getLocalStorage();
-        projects.push(project);
-        ls.saveLocalStorage(projects);
+        const projects = service.Upload(formData);
         resolve('Success');
       } catch (e) {
         reject(new Error(e));

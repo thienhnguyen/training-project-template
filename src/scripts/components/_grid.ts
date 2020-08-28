@@ -3,8 +3,9 @@ import 'jquery-ui-bundle';
 import { formatDate } from '../utilities/_helper';
 import ProjectModule from '../services/ProjectModuleService';
 
+const project = new ProjectModule();
+
 const renderGrid = () => {
-  const project = new ProjectModule();
   project.getData().then(data => {
     $('#projectTable').empty();
     data.forEach(val => {
@@ -208,80 +209,25 @@ const renderGrid = () => {
   });
 };
 
-// $('.btnCreate').click(function() {
-//   const fileName = $('input[name="fileNameInput"]').val();
-//   const fileType = $('input[name="fileTypeInput"]').val();
-//   const newProject = {
-//     fileName,
-//     fileType,
-//   };
-//   new ProjectModule().createData(newProject).then(() => {
-//     renderGrid();
-//   });
-// });
+var fileUpload: FormData;
 
-// $('.btnCreate').click(function(e) {
-//   e.preventDefault();
-//   // const myFile = document.getElementById('createForm') as HTMLFormElement;
-//   // const formData = new FormData(myFile);
+const inputFile = <HTMLInputElement>document.getElementById("fileItem");
+inputFile.onchange = function (event) {
+    var fileList = inputFile.files;
+    if (fileList != null) {
+      var formData = new FormData();
+      formData.append('files', fileList[0]);
+      fileUpload = formData;
+    }
+}
 
-//   // $.ajax({
-//   //   url: 'https://localhost:44308/api/projects',
-//   //   type: 'POST',
-//   //   data: formData,
-//   //   success(data) {
-//   //     alert(data);
-//   //   },
-//   //   cache: false,
-//   //   contentType: false,
-//   //   processData: false,
-//   // });
-
-  
-// });
-
-const inputFile = <HTMLInputElement>(
-  document.getElementById('fileItem')
-);
-var array: Uint8Array;
-inputFile.onchange = function(event) {
-  var fileList = inputFile.files;
-  if (fileList != null && fileList[0] != null) {
-    var file: File = fileList[0];
-    var name = file.name;
-    var modified = file.lastModified;
-
-    var reader = new FileReader();
-    reader.onload = function() {
-      var arrayBuffer = <ArrayBuffer>reader.result;
-      array = new Uint8Array(arrayBuffer);
-
-      var binaryString = String.fromCharCode.apply(
-        null,
-        Array.from(array),
-      );
-      console.log(binaryString);
-    };
-    reader.readAsArrayBuffer(file);
-  }
-};
-
-$('.btnCreate').click(function(e) {
-  e.preventDefault();
-    var files = inputFile.files;
-var formData = new FormData();
-formData.append('file', files[0]);
-  $.ajax({
-    url: 'https://localhost:44308/api/projects',
-    type: 'POST',
-    data: formData,
-    contentType: false,
-    processData: false,
-    success(data) {
-      console.log(data);
-      
-    },
-  });
-});
+$('.btnUpload').click(function(){
+  if (fileUpload != null) {
+    project.createData(fileUpload);
+}
+else {
+    console.log("No file inputed");
+}
+})
 
 export default renderGrid;

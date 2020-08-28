@@ -30538,9 +30538,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+const project = new _services_ProjectModuleService__WEBPACK_IMPORTED_MODULE_3__["default"]();
 
 const renderGrid = () => {
-  const project = new _services_ProjectModuleService__WEBPACK_IMPORTED_MODULE_3__["default"]();
   project.getData().then(data => {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#projectTable').empty();
     data.forEach(val => {
@@ -30707,75 +30707,27 @@ const renderGrid = () => {
     //   },
     // });
   });
-}; // $('.btnCreate').click(function() {
-//   const fileName = $('input[name="fileNameInput"]').val();
-//   const fileType = $('input[name="fileTypeInput"]').val();
-//   const newProject = {
-//     fileName,
-//     fileType,
-//   };
-//   new ProjectModule().createData(newProject).then(() => {
-//     renderGrid();
-//   });
-// });
-// $('.btnCreate').click(function(e) {
-//   e.preventDefault();
-//   // const myFile = document.getElementById('createForm') as HTMLFormElement;
-//   // const formData = new FormData(myFile);
-//   // $.ajax({
-//   //   url: 'https://localhost:44308/api/projects',
-//   //   type: 'POST',
-//   //   data: formData,
-//   //   success(data) {
-//   //     alert(data);
-//   //   },
-//   //   cache: false,
-//   //   contentType: false,
-//   //   processData: false,
-//   // });
-// });
+};
 
-
-const inputFile = document.getElementById('fileItem');
-var array;
+var fileUpload;
+const inputFile = document.getElementById("fileItem");
 
 inputFile.onchange = function (event) {
   var fileList = inputFile.files;
 
-  if (fileList != null && fileList[0] != null) {
-    var file = fileList[0];
-    var name = file.name;
-    var modified = file.lastModified;
-    var reader = new FileReader();
-
-    reader.onload = function () {
-      var arrayBuffer = reader.result;
-      array = new Uint8Array(arrayBuffer);
-      var binaryString = String.fromCharCode.apply(null, Array.from(array));
-      console.log(binaryString);
-    };
-
-    reader.readAsArrayBuffer(file);
+  if (fileList != null) {
+    var formData = new FormData();
+    formData.append('files', fileList[0]);
+    fileUpload = formData;
   }
 };
 
-jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnCreate').click(function (e) {
-  e.preventDefault();
-  var files = inputFile.files;
-  var formData = new FormData();
-  formData.append('file', files[0]);
-  jquery__WEBPACK_IMPORTED_MODULE_0___default.a.ajax({
-    url: 'https://localhost:44308/api/projects',
-    type: 'POST',
-    data: formData,
-    contentType: false,
-    processData: false,
-
-    success(data) {
-      console.log(data);
-    }
-
-  });
+jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btnUpload').click(function () {
+  if (fileUpload != null) {
+    project.createData(fileUpload);
+  } else {
+    console.log("No file inputed");
+  }
 });
 /* harmony default export */ __webpack_exports__["default"] = (renderGrid);
 
@@ -30899,18 +30851,19 @@ class LocalStorageModule {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/dist/esm-browser/index.js");
-/* harmony import */ var _LocalStorageService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LocalStorageService */ "./src/scripts/services/LocalStorageService.ts");
+/* harmony import */ var _LocalStorageService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LocalStorageService */ "./src/scripts/services/LocalStorageService.ts");
+/* harmony import */ var _WebApiService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./WebApiService */ "./src/scripts/services/WebApiService.ts");
 
 
-const ls = new _LocalStorageService__WEBPACK_IMPORTED_MODULE_1__["default"]();
+const ls = new _LocalStorageService__WEBPACK_IMPORTED_MODULE_0__["default"]();
+const service = new _WebApiService__WEBPACK_IMPORTED_MODULE_1__["default"]();
 
 class ProjectModule {
   constructor() {
     this.getData = () => {
       return new Promise((resolve, reject) => {
         try {
-          const projects = ls.getLocalStorage();
+          const projects = service.getData();
           resolve(projects);
         } catch (e) {
           reject(new Error(e));
@@ -30918,18 +30871,10 @@ class ProjectModule {
       });
     };
 
-    this.createData = project => {
+    this.createData = formData => {
       return new Promise((resolve, reject) => {
-        project.id = Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])();
-        project.createdAt = new Date();
-        project.createdBy = 'THN';
-        project.modifiedAt = new Date();
-        project.modifiedBy = 'THN';
-
         try {
-          const projects = ls.getLocalStorage();
-          projects.push(project);
-          ls.saveLocalStorage(projects);
+          const projects = service.Upload(formData);
           resolve('Success');
         } catch (e) {
           reject(new Error(e));
@@ -30967,6 +30912,50 @@ class ProjectModule {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (ProjectModule);
+
+/***/ }),
+
+/***/ "./src/scripts/services/WebApiService.ts":
+/*!***********************************************!*\
+  !*** ./src/scripts/services/WebApiService.ts ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const url = 'https://localhost:44308/api/projects';
+
+class WebApiServiceModule {
+  constructor() {
+    this.Upload = formData => {
+      // console.log("upload");
+      $.ajax({
+        url: url,
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (result) {
+          console.log(result);
+        }
+      });
+    };
+
+    this.getData = () => {
+      $.ajax({
+        url: url,
+        type: 'GET',
+        success: function (result) {
+          return result;
+        }
+      });
+    };
+  }
+
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (WebApiServiceModule);
 
 /***/ }),
 
