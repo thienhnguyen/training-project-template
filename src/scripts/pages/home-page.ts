@@ -24,11 +24,11 @@ $('.btnDelete').click(function() {
     .closest('.project')
     .data('key');
   $.ajax({
-    url: 'projects/' + id,
+    url: `projects/${id}`,
     type: 'POST',
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
-    success: function(){
+    success() {
       GetAll();
     },
     error(code) {
@@ -37,13 +37,13 @@ $('.btnDelete').click(function() {
   });
 });
 
-$('.btnUpdate').click(function(){
+$('.btnUpdate').click(function() {
   const id = $(this)
     .closest('.project')
     .data('key');
   $.ajax({
     type: 'PUT',
-    url: 'projects/' + id,
+    url: `projects/${id}`,
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
     error(code) {

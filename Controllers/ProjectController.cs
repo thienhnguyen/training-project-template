@@ -28,15 +28,17 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(int? pageNumber)
         {
+            //throw new Exception("test");
+
             currentUserName = User.Identity.Name;
-            int pageSize = 3;
+            int pageSize = 5;
             return View(await PaginatedList<Project>.CreateAsync(_context.Projects.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
-        [DisableRequestSizeLimit]
         [HttpPost]
         public async Task<IActionResult> Create(IFormFile files)
         {
+            //throw new Exception("test");
             if (files != null)
             {
                 if (files.Length > 0)
