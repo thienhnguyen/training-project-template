@@ -36,6 +36,7 @@ namespace backend.Controllers
         }
 
         [HttpPost]
+        [DisableRequestSizeLimit]
         public async Task<IActionResult> Create(IFormFile files)
         {
             //throw new Exception("test");
@@ -72,12 +73,6 @@ namespace backend.Controllers
         public FileResult Download(int? id)
         {
             var project = _context.Projects.ToList().Find(p => p.Id == id);
-            var cd = new System.Net.Mime.ContentDisposition
-            {
-                FileName = project.FileName,
-                Inline = false,
-            };
-            Response.Headers.Add("Content-Disposition", cd.ToString());
             return File(project.DataFiles, project.FileType, project.FileName);
         }
 
