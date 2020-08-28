@@ -25,7 +25,6 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
         {
-            var a = _context.Projects.ToList();
             return await _context.Projects.ToListAsync();
         }
 
@@ -43,9 +42,6 @@ namespace backend.Controllers
             return project;
         }
 
-        // PUT: api/Projects/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProject(int id, Project project)
         {
@@ -75,11 +71,8 @@ namespace backend.Controllers
             return NoContent();
         }
 
-        // POST: api/Projects
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Project>> PostProject(IFormFile files)
+        public async Task<ActionResult<Project>> Upload(IFormFile files)
         {
             if (files != null)
             {
@@ -111,6 +104,13 @@ namespace backend.Controllers
                 }
             }
             return new Project();
+        }
+
+        [HttpGet("{id}"), Route("download/{id}")]
+        public FileResult Download(int id)
+        {
+            var project = _context.Projects.ToList().Find(p => p.Id == id);
+            return File(project.DataFiles, project.FileType, project.FileName);
         }
 
         // DELETE: api/Projects/5

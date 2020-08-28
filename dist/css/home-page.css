@@ -9996,7 +9996,6 @@ button, a {
   word-wrap: break-word;
 }
 .homepage section .table .project:hover {
-  cursor: grab;
   background-color: #d3d3d3;
 }
 .homepage section .table .folder {

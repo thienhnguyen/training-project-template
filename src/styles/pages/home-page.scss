@@ -20,7 +20,6 @@
       word-wrap: break-word;
       .project{
         &:hover{
-          cursor: grab;
           background-color: $color-grey-darker;
         }
       }

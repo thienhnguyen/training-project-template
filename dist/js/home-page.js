@@ -30539,6 +30539,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const project = new _services_ProjectModuleService__WEBPACK_IMPORTED_MODULE_3__["default"]();
+const url = 'https://localhost:44308/api/projects/download/';
 
 const renderGrid = () => {
   project.getData().then(data => {
@@ -30619,7 +30620,7 @@ const renderGrid = () => {
 						  Name
 					  </div>
             <div class="col-lg-3 col-7 table-mobile-content corner-icon">
-              ${val.fileName}
+              <a href="${url + val.id}">${val.fileName}</a>
 					  </div>
 					  <div class="d-block d-lg-none col-5 table-mobile-title">
 						  Modified
