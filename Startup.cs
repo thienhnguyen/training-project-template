@@ -52,7 +52,7 @@ namespace backend
                 options.ClientId = this.ClientId;
                 options.ResponseType = OpenIdConnectResponseType.IdToken;
                 options.CallbackPath = "/projects";
-                options.SignedOutRedirectUri = "https://localhost:44311/";
+                //options.SignedOutRedirectUri = "https://localhost:44311/";
             }).AddCookie();
 
             services.AddMvc();
