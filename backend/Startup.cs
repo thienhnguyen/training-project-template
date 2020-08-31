@@ -50,7 +50,7 @@ namespace backend
                                         this.TenantName;
                 options.ClientId = this.ClientId;
                 options.ResponseType = OpenIdConnectResponseType.IdToken;
-                options.CallbackPath = "/projects";
+                options.CallbackPath = "http://localhost:5500//index.html";
                 //options.SignedOutRedirectUri = "https://localhost:44311/";
             }).AddCookie();
 
