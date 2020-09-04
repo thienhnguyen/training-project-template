@@ -18,8 +18,8 @@ namespace backend
 {
     public class Startup
     {
-        private readonly string TenantName = "thntest.onmicrosoft.com";
-        private readonly string ClientId = "f7bb073d-437d-4a5a-a8b9-7e354f842e42";
+        private readonly string TenantName = "thienhnguyen.onmicrosoft.com";
+        private readonly string ClientId = "ae5288c5-db55-46c5-bd87-ed6f631d7e0c";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
